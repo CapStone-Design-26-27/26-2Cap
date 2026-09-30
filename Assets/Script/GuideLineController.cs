@@ -33,10 +33,10 @@ public class GuideLineController : MonoBehaviour
         targetBall = null;
         if (guideLineVisual != null) guideLineVisual.SetActive(false);
     }
-    
+
+    // ì¡°ì¤€ ì¤‘ì¸ ê³µì„ ë”°ë¼ë‹¤ë‹ˆë©° ë–¨ì–´ì§ˆ ìœ„ì¹˜ë¥¼ ë³´ì—¬ì¤€ë‹¤.
     private void LateUpdate()
     {
-        // °øÀ» µû¶ó´Ù´ÏµÇ, YÃàÀ¸·Î yOffset¸¸Å­ ³»·Á¼­ ¼±ÀÇ À­ºÎºĞÀÌ °ø Áß¾Ó¿¡ ¿Àµµ·Ï ¸ÂÃã
         if (targetBall != null)
         {
             Vector3 newPos = targetBall.position;

@@ -1,6 +1,4 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,39 +8,31 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI angleText;
     [SerializeField] private Image nextBall;
 
-    [SerializeField] private GameObject btnGoLeft;
-    [SerializeField] private GameObject btnGoRight;
-    [SerializeField] private GameObject btnGoMain;
-
+    // ë°”êµ¬ë‹ˆ ì§‘ì¤‘ ì¤‘ì—ë§Œ ë³´ì´ëŠ” ì „ì²´ ë³´ê¸° ë²„íŠ¼
+    [SerializeField] private GameObject btnOverview;
 
     private void OnEnable()
     {
         GameManager.OnScoreChanged += UpdateScoreUI;
         SpawnManager.OnNextBallChanged += UpdateNextBallUI;
+        CameraFocusController.OnFocusChanged += UpdateCameraUI;
     }
 
     private void OnDisable()
     {
         GameManager.OnScoreChanged -= UpdateScoreUI;
         SpawnManager.OnNextBallChanged -= UpdateNextBallUI;
+        CameraFocusController.OnFocusChanged -= UpdateCameraUI;
     }
 
     private void Start()
     {
-        // ½ÃÀÛ ½Ã ÇöÀç Á¡¼ö Ç¥½Ã
         UpdateScoreUI(GameManager.Inst.score);
-
-        // ½ÃÀÛ ½Ã ´ÙÀ½ °ø Ç¥½Ã
-        if (SpawnManager.Inst.nextBallQueue.Count > 0)
-        {
-            UpdateNextBallUI(SpawnManager.Inst.getNextBall());
-        }
-
-        // Ä«¸Þ¶ó ¹öÆ° »óÅÂ ÃÊ±âÈ­
-        UpdateCameraUI();
+        UpdateNextBallUI(SpawnManager.Inst.getNextBall());
+        UpdateCameraUI(GameManager.Inst.FocusedBasket);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (GameManager.Inst.gameOver)
             return;
@@ -63,11 +53,9 @@ public class UIManager : MonoBehaviour
         if (nextBall == null)
             return;
 
-        if (nextLevel >= 0 &&
-            nextLevel < GameManager.Inst.ballList.Count)
+        if (nextLevel >= 0 && nextLevel < GameManager.Inst.ballList.Count)
         {
-            Sprite nextSprite =
-                GameManager.Inst.ballList[nextLevel]
+            Sprite nextSprite = GameManager.Inst.ballList[nextLevel]
                 .GetComponent<SpriteRenderer>()
                 .sprite;
 
@@ -76,68 +64,37 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    // ì§‘ì¤‘ ì¤‘ì¸ ë°”êµ¬ë‹ˆì˜ ê¸°ìš¸ê¸°. ê²Œìž„ì˜¤ë²„ ê°ë„ì— ê°€ê¹Œìš¸ìˆ˜ë¡ ì£¼í™©, ë¹¨ê°•ìœ¼ë¡œ í‘œì‹œ
     private void PrintAngle()
     {
-        Transform target = SpawnManager.Inst.GetCurrentTargetBag();
+        if (angleText == null)
+            return;
 
-        if (target != null && angleText != null)
-        {
-            float currentAngle = target.eulerAngles.z;
+        Basket basket = GameManager.Inst.FocusedBasket;
 
-            if (currentAngle > 180f)
-                currentAngle -= 360f;
-
-            float tiltMagnitude = Mathf.Abs(currentAngle);
-
-            angleText.text = $"{currentAngle:F0}%";
-
-            if (tiltMagnitude > 20f)
-            {
-                angleText.color = Color.red;
-            }
-            else if (tiltMagnitude > 10f)
-            {
-                angleText.color = new Color(1f, 0.5f, 0f);
-            }
-            else
-            {
-                angleText.color = Color.black;
-            }
-        }
-        else if (angleText != null)
+        if (basket == null)
         {
             angleText.text = "-";
             angleText.color = Color.black;
+            return;
         }
+
+        float angle = basket.CurrentAngle;
+        float ratio = Mathf.Abs(angle) / basket.GameOverAngle;
+
+        angleText.text = $"{angle:F0}Â°";
+
+        if (ratio >= 2f / 3f)
+            angleText.color = Color.red;
+        else if (ratio >= 1f / 3f)
+            angleText.color = new Color(1f, 0.5f, 0f);
+        else
+            angleText.color = Color.black;
     }
 
-    public void UpdateCameraUI()
+    private void UpdateCameraUI(Basket focused)
     {
-        switch (GameManager.Inst.currentCamPos)
-        {
-            case GameManager.CameraPosition.Left:
-
-                btnGoLeft.SetActive(false);
-                btnGoRight.SetActive(true);
-                btnGoMain.SetActive(true);
-
-                break;
-
-            case GameManager.CameraPosition.Right:
-
-                btnGoLeft.SetActive(true);
-                btnGoRight.SetActive(false);
-                btnGoMain.SetActive(true);
-
-                break;
-
-            case GameManager.CameraPosition.Mid:
-
-                btnGoLeft.SetActive(true);
-                btnGoRight.SetActive(true);
-                btnGoMain.SetActive(false);
-
-                break;
-        }
+        if (btnOverview != null)
+            btnOverview.SetActive(focused != null);
     }
 }

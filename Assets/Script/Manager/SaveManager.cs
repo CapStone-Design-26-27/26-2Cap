@@ -8,19 +8,20 @@ public class SaveManager : Singleton<SaveManager>
     private class BallSaveData
     {
         public int level;
-        public float posX;
+        public float posX;   // ìµœìƒìœ„ ê³ ë¦¬ê°€ ê³ ì •ì´ë¼ ì›”ë“œ ì¢Œí‘œë¡œ ì €ì¥í•´ë„ ìœ„ì¹˜ê°€ ì¼ì¹˜í•œë‹¤.
         public float posY;
         public float rotZ;
-        public bool isDropped;
     }
 
     [System.Serializable]
     private class GameSaveData
     {
         public int score;
-        public float boardRotZ;
+        public int stage;
         public List<int> nextBalls;
-        public List<BallSaveData> ballsInBag;
+        public List<int> retryBalls;     // ì¬íˆ¬ì²™ ëŒ€ê¸° ì¤‘ì¸ ê³µ
+        public List<float> nodeAngles;   // ScaleSystem.AllNodes ìˆœì„œì˜ ì €ìš¸ëŒ€, ë°”êµ¬ë‹ˆ ê°ë„
+        public List<BallSaveData> balls;
     }
 
     private string SavePath => Path.Combine(Application.persistentDataPath, "savefile.json");
@@ -29,97 +30,110 @@ public class SaveManager : Singleton<SaveManager>
     {
         if (GameManager.Inst.gameOver) return;
 
-        GameSaveData data = new GameSaveData();
-        data.score = GameManager.Inst.score;
-        data.nextBalls = new List<int>(SpawnManager.Inst.nextBallQueue);
-        data.ballsInBag = new List<BallSaveData>();
-
-        GameObject bottleObj = GameObject.Find("Bottle");
-        if (bottleObj == null)
+        if (ScaleSystem.Inst == null)
         {
-            Debug.LogError("¾À¿¡ 'Bottle'ÀÌ¶ó´Â ÀÌ¸§ÀÇ ¿ÀºêÁ§Æ®°¡ ¾ø½À´Ï´Ù! ÀÌ¸§À» È®ÀÎÇØÁÖ¼¼¿ä.");
+            Debug.LogError("ì”¬ì— ScaleSystemì´ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
-        Transform boardRoot = bottleObj.transform;
 
-        data.boardRotZ = boardRoot.eulerAngles.z;
+        StageManager stageManager = StageManager.Inst;
+        bool cleared = stageManager != null && stageManager.IsCleared;
 
-        BallBehaviour[] allBalls = FindObjectsOfType<BallBehaviour>();
+        // í´ë¦¬ì–´í•œ ìƒíƒœë¡œ ì¢…ë£Œí•˜ë©´ ë‹¤ìŒ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ë§Œ ì €ì¥í•´, ë‹¤ì‹œ ì¼°ì„ ë•Œ ìƒˆ ìŠ¤í…Œì´ì§€ë¡œ ì‹œì‘í•œë‹¤.
+        GameSaveData data = new GameSaveData
+        {
+            score = GameManager.Inst.score,
+            stage = stageManager == null ? 1 : stageManager.Stage + (cleared ? 1 : 0),
+            nextBalls = new List<int>(SpawnManager.Inst.nextBallQueue),
+            retryBalls = cleared ? new List<int>() : SpawnManager.Inst.GetRetryLevels(),
+            nodeAngles = cleared ? null : ScaleSystem.Inst.GetAngles(),
+            balls = new List<BallSaveData>()
+        };
+
+        BallBehaviour[] allBalls = cleared ? new BallBehaviour[0] : FindObjectsOfType<BallBehaviour>();
+
         foreach (BallBehaviour ball in allBalls)
         {
             if (ball.isMerged) continue;
 
             Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
-            if (rb == null || rb.isKinematic) continue;
+            if (rb == null || rb.isKinematic) continue; // ì¡°ì¤€ ì¤‘ì¸ ê³µ ì œì™¸
 
-            Vector3 localPos = boardRoot.InverseTransformPoint(ball.transform.position);
-            float localRotZ = ball.transform.eulerAngles.z - boardRoot.eulerAngles.z;
-
-            BallSaveData ballData = new BallSaveData
+            data.balls.Add(new BallSaveData
             {
                 level = ball.level,
-                posX = localPos.x,
-                posY = localPos.y,
-                rotZ = localRotZ,
-                isDropped = true
-            };
-            data.ballsInBag.Add(ballData);
+                posX = ball.transform.position.x,
+                posY = ball.transform.position.y,
+                rotZ = ball.transform.eulerAngles.z
+            });
         }
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(SavePath, json);
-        Debug.Log("°ÔÀÓ ÀúÀå ¿Ï·á: " + SavePath);
+        Debug.Log("ê²Œì„ ì €ì¥ ì™„ë£Œ: " + SavePath);
     }
 
+    // ì €ì¥ëœ ê³µì„ ë°°ì¹˜í–ˆìœ¼ë©´ true. íŒŒì¼ì´ ì—†ê±°ë‚˜ ê³µì´ í•˜ë‚˜ë„ ì—†ìœ¼ë©´ falseë¥¼ ëŒë ¤
+    // í˜¸ì¶œí•œ ìª½ì´ ìƒˆ ìŠ¤í…Œì´ì§€ë¥¼ ë§Œë“¤ê²Œ í•œë‹¤. ì ìˆ˜ì™€ ìŠ¤í…Œì´ì§€ ë²ˆí˜¸ëŠ” ê³µì´ ì—†ì–´ë„ ë³µì›í•œë‹¤.
     public bool LoadGame()
     {
         if (!File.Exists(SavePath))
         {
-            Debug.Log("ÀúÀåµÈ ÆÄÀÏÀÌ ¾ø½À´Ï´Ù. »õ·Î ½ÃÀÛÇÕ´Ï´Ù.");
+            Debug.Log("ì €ì¥ëœ íŒŒì¼ì´ ì—†ìŠµë‹ˆë‹¤. ìƒˆë¡œ ì‹œì‘í•©ë‹ˆë‹¤.");
             return false;
         }
 
-        string json = File.ReadAllText(SavePath);
-        GameSaveData data = JsonUtility.FromJson<GameSaveData>(json);
+        GameSaveData data = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(SavePath));
+        if (data == null)
+        {
+            Debug.LogWarning("ì €ì¥ íŒŒì¼ì„ ì½ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. ìƒˆë¡œ ì‹œì‘í•©ë‹ˆë‹¤.");
+            return false;
+        }
+
+        if (ScaleSystem.Inst == null)
+        {
+            Debug.LogError("ì”¬ì— ScaleSystemì´ ì—†ìŠµë‹ˆë‹¤.");
+            return false;
+        }
 
         GameManager.Inst.SetScoreFromLoad(data.score);
-        SpawnManager.Inst.nextBallQueue = new Queue<int>(data.nextBalls);
+        SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls);
 
-        GameObject bottleObj = GameObject.Find("Bottle");
-        if (bottleObj == null)
-        {
-            Debug.LogError("¾À¿¡ 'Bottle'ÀÌ¶ó´Â ÀÌ¸§ÀÇ ¿ÀºêÁ§Æ®°¡ ¾ø½À´Ï´Ù! ÀÌ¸§À» È®ÀÎÇØÁÖ¼¼¿ä.");
+        bool hasBalls = data.balls != null && data.balls.Count > 0;
+        if (StageManager.Inst != null)
+            StageManager.Inst.RestoreStage(data.stage);
+
+        if (!hasBalls)
             return false;
-        }
-        Transform boardRoot = bottleObj.transform;
 
-        // ¹°¸®¸¦ ¸ØÃß°í °¢µµ¸¦ ¸ÂÃä´Ï´Ù.
-        boardRoot.rotation = Quaternion.Euler(0, 0, data.boardRotZ);
+        // ê³µë³´ë‹¤ ì €ìš¸ ìì„¸ë¥¼ ë¨¼ì € ë³µì›í•´ì•¼ ê³µì´ ë°”êµ¬ë‹ˆ ì•ˆì˜ ì œìë¦¬ì— ë†“ì¸ë‹¤.
+        if (!ScaleSystem.Inst.ApplyAngles(data.nodeAngles))
+            Debug.LogWarning("ì €ìš¸ êµ¬ì¡°ê°€ ì €ì¥ ë‹¹ì‹œì™€ ë‹¬ë¼ ê¸°ìš¸ê¸°ëŠ” ì´ˆê¸° ìƒíƒœë¡œ ì‹œì‘í•©ë‹ˆë‹¤.");
 
-        Rigidbody2D boardRb = boardRoot.GetComponent<Rigidbody2D>();
-        if (boardRb != null)
+        if (data.balls != null)
         {
-            boardRb.velocity = Vector2.zero;
-            boardRb.angularVelocity = 0f;
-        }
-
-        foreach (BallSaveData ballData in data.ballsInBag)
-        {
-            Vector3 worldPos = boardRoot.TransformPoint(new Vector3(ballData.posX, ballData.posY, 0f));
-            Quaternion worldRot = Quaternion.Euler(0, 0, boardRoot.eulerAngles.z + ballData.rotZ);
-
-            GameObject newBall = Instantiate(GameManager.Inst.ballList[ballData.level], worldPos, worldRot);
-            SpawnManager.Inst.SetupBallProperties(newBall, ballData.level, ballData.isDropped);
-
-            Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
-            if (rb != null)
+            foreach (BallSaveData ballData in data.balls)
             {
-                rb.velocity = Vector2.zero;
-                rb.angularVelocity = 0f;
+                if (ballData.level < 0 || ballData.level >= GameManager.Inst.ballList.Count) continue;
+
+                GameObject newBall = Instantiate(
+                    GameManager.Inst.ballList[ballData.level],
+                    new Vector3(ballData.posX, ballData.posY, 0f),
+                    Quaternion.Euler(0f, 0f, ballData.rotZ));
+
+                SpawnManager.Inst.SetupBallProperties(newBall, ballData.level, false);
+
+                Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    rb.velocity = Vector2.zero;
+                    rb.angularVelocity = 0f;
+                }
             }
         }
 
-        Debug.Log("°ÔÀÓ ºÒ·¯¿À±â ¼º°ø!");
+        Physics2D.SyncTransforms();
+        Debug.Log("ê²Œì„ ë¶ˆëŸ¬ì˜¤ê¸° ì„±ê³µ!");
         return true;
     }
 
@@ -128,7 +142,7 @@ public class SaveManager : Singleton<SaveManager>
         if (File.Exists(SavePath))
         {
             File.Delete(SavePath);
-            Debug.Log("°ÔÀÓ ¿À¹ö - ÀúÀå ÆÄÀÏ »èÁ¦ ¿Ï·á");
+            Debug.Log("ê²Œì„ ì˜¤ë²„ - ì €ì¥ íŒŒì¼ ì‚­ì œ ì™„ë£Œ");
         }
     }
 }

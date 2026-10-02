@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class BallBehaviour : MonoBehaviour
 {
@@ -6,13 +6,14 @@ public class BallBehaviour : MonoBehaviour
     public bool isMerged = false;
     public bool isDroppedByPlayer = false;
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isMerged) return;
+
         if (collision.gameObject.CompareTag("DeadZone"))
         {
-            SpawnManager.Inst.OnBallHitGroundAndRetry(level, this.gameObject);
+            // 방금 던진 공인지 함께 넘겨, 쌓여 있다 쏟아진 공과 구분한다.
+            SpawnManager.Inst.OnBallHitGroundAndRetry(level, this.gameObject, isDroppedByPlayer);
             return;
         }
 
@@ -20,7 +21,6 @@ public class BallBehaviour : MonoBehaviour
         {
             isDroppedByPlayer = false;
             SpawnManager.Inst.OnBallLanded();
-
         }
 
         // 공끼리 부딪혔는지 확인 (Merge 로직)
@@ -47,6 +47,4 @@ public class BallBehaviour : MonoBehaviour
             }
         }
     }
-
-
 }

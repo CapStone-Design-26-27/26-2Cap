@@ -205,6 +205,16 @@ public class SpawnManager : Singleton<SpawnManager>
         bb.isDroppedByPlayer = isDroppedByPlayer;
 
         ball.name = string.Format("Circle (Level: {0})", level);
+
+        // 공은 자기 바구니 외 다른 바구니의 콜라이더와 충돌하지 않는다.
+        Basket owner = GameManager.Inst.FocusedBasket;
+        foreach (Basket b in ScaleSystem.Inst.Baskets)
+            if (b.Sensor != null && b.Sensor.GetComponent<Collider2D>().OverlapPoint(ball.transform.position)) { owner = b; break; }
+        if (col != null && owner != null)
+            foreach (Basket b in ScaleSystem.Inst.Baskets)
+                if (b != owner)
+                    foreach (Collider2D c in b.GetComponentsInChildren<Collider2D>(true))
+                        Physics2D.IgnoreCollision(col, c, true);
     }
 
     // 조준 중인 공을 없애고 조준을 끝낸다.

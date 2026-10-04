@@ -14,6 +14,10 @@ public class SpawnManager : Singleton<SpawnManager>
     // 바닥에 떨어진 공들의 레벨. 다음 공보다 먼저, 떨어진 순서대로 다시 던지게 한다.
     private readonly Queue<int> retryQueue = new Queue<int>();
 
+    // 공(콜라이더)별 소속 바구니. 소속이 다른 공끼리는 충돌과 합성을 하지 않는다.
+    private readonly Dictionary<Collider2D, Basket> ballOwners = new Dictionary<Collider2D, Basket>();
+    private readonly List<Collider2D> deadBuffer = new List<Collider2D>();
+
     [SerializeField] private AudioClip mergeClip;
 
     [Header("스폰 레벨 설정")]
@@ -205,6 +209,47 @@ public class SpawnManager : Singleton<SpawnManager>
         bb.isDroppedByPlayer = isDroppedByPlayer;
 
         ball.name = string.Format("Circle (Level: {0})", level);
+
+        // 던진 공은 집중 바구니 소속, 합쳐진 공은 센서 영역 안의 바구니 소속
+        Basket owner = GameManager.Inst.FocusedBasket;
+        Vector2 pos = ball.transform.position;
+
+        if (!isDroppedByPlayer && !InSensor(owner, pos))
+        {
+            foreach (Basket b in ScaleSystem.Inst.Baskets)
+            {
+                if (InSensor(b, pos)) { owner = b; break; }
+            }
+        }
+
+        if (col == null || owner == null)
+            return;
+
+        // 소속이 아닌 바구니의 콜라이더와는 충돌 무시
+        foreach (Basket b in ScaleSystem.Inst.Baskets)
+        {
+            if (b == owner) continue;
+            foreach (Collider2D c in b.GetComponentsInChildren<Collider2D>(true))
+                Physics2D.IgnoreCollision(col, c, true);
+        }
+
+        // 소속이 다른 공과는 충돌(과 합성)을 무시. 파괴된 공은 목록에서 정리한다.
+        deadBuffer.Clear();
+        foreach (KeyValuePair<Collider2D, Basket> pair in ballOwners)
+        {
+            if (pair.Key == null) { deadBuffer.Add(pair.Key); continue; }
+            if (pair.Value != owner)
+                Physics2D.IgnoreCollision(col, pair.Key, true);
+        }
+        foreach (Collider2D dead in deadBuffer)
+            ballOwners.Remove(dead);
+
+        ballOwners[col] = owner;
+    }
+
+    private bool InSensor(Basket b, Vector2 pos)
+    {
+        return b != null && b.Sensor != null && b.Sensor.GetComponent<Collider2D>().OverlapPoint(pos);
     }
 
     // 조준 중인 공을 없애고 조준을 끝낸다.

@@ -29,8 +29,21 @@ public class CameraFocusController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float zoomSpeed = 3f;
 
+    [Header("비활성 연출 (집중 중이 아닌 바구니, 저울대, 그 안의 공)")]
+    [Range(0f, 1f)]
+    [SerializeField] private float dimAlpha = 0.25f;
+    [Range(0f, 1f)]
+    [SerializeField] private float dimBrightness = 0.4f;
+    [SerializeField] private float dimFadeSpeed = 6f;
+
     private Camera cam;
     private readonly List<Renderer> sceneRenderers = new List<Renderer>();
+
+    private readonly List<SpriteRenderer> dimSprites = new List<SpriteRenderer>();
+    private readonly List<Color> dimOriginals = new List<Color>();
+    private readonly List<float> dimT = new List<float>();
+    private readonly Dictionary<SpriteRenderer, Color> ballOriginals = new Dictionary<SpriteRenderer, Color>();
+    private readonly HashSet<SpriteRenderer> dimmedBalls = new HashSet<SpriteRenderer>();
 
     private void Awake()
     {
@@ -42,7 +55,16 @@ public class CameraFocusController : MonoBehaviour
         SpawnManager.Inst.currentCamera = cam;
 
         foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
+        {
             sceneRenderers.AddRange(node.GetComponentsInChildren<Renderer>());
+
+            foreach (SpriteRenderer sr in node.GetComponentsInChildren<SpriteRenderer>(true))
+            {
+                dimSprites.Add(sr);
+                dimOriginals.Add(sr.color);
+                dimT.Add(1f);
+            }
+        }
 
         GetTarget(out Vector2 center, out float size);
         transform.position = new Vector3(center.x, center.y, transform.position.z);
@@ -73,6 +95,8 @@ public class CameraFocusController : MonoBehaviour
         Vector3 targetPos = new Vector3(center.x, center.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPos, moveT);
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, size, zoomT);
+
+        UpdateDim();
     }
 
     public void Focus(Basket basket)
@@ -130,6 +154,58 @@ public class CameraFocusController : MonoBehaviour
         center = b.center;
         float fitHeight = Mathf.Max(b.extents.y, b.extents.x / cam.aspect);
         size = Mathf.Max(fitHeight + overviewPadding, minOverviewSize);
+    }
+
+    // 전체 보기이거나 집중 중인 바구니(의 하위 스프라이트)는 선명하게, 그 외에는 서서히 어둡게 한다.
+    private void UpdateDim()
+    {
+        Basket focused = GameManager.Inst.FocusedBasket;
+        float step = 1f - Mathf.Exp(-dimFadeSpeed * Time.deltaTime);
+
+        for (int i = 0; i < dimSprites.Count; i++)
+        {
+            if (dimSprites[i] == null) continue;
+
+            bool active = focused == null || dimSprites[i].GetComponentInParent<Basket>() == focused;
+            dimT[i] = Mathf.Lerp(dimT[i], active ? 1f : 0f, step);
+
+            Color o = dimOriginals[i];
+            float b = Mathf.Lerp(dimBrightness, 1f, dimT[i]);
+            dimSprites[i].color = new Color(o.r * b, o.g * b, o.b * b, o.a * Mathf.Lerp(dimAlpha, 1f, dimT[i]));
+        }
+
+        // 집중 중이 아닌 바구니 안에 이미 들어 있는 공만 같이 어둡게 한다.
+        // 공의 소속은 위치가 아니라 센서가 실제로 센 공으로 판단한다. (던지는 공은 제외됨)
+        dimmedBalls.Clear();
+
+        if (focused != null)
+        {
+            foreach (Basket basket in ScaleSystem.Inst.Baskets)
+            {
+                if (basket == focused || basket.Sensor == null) continue;
+
+                foreach (Rigidbody2D rb in basket.Sensor.Balls)
+                {
+                    SpriteRenderer sr = rb.GetComponent<SpriteRenderer>();
+                    if (sr != null) dimmedBalls.Add(sr);
+                }
+            }
+        }
+
+        foreach (BallBehaviour ball in FindObjectsOfType<BallBehaviour>())
+        {
+            SpriteRenderer sr = ball.GetComponent<SpriteRenderer>();
+            if (sr == null) continue;
+
+            if (!ballOriginals.ContainsKey(sr))
+                ballOriginals[sr] = sr.color;
+
+            bool dimmed = dimmedBalls.Contains(sr);
+            Color o = ballOriginals[sr];
+            float b = dimmed ? dimBrightness : 1f;
+            Color target = new Color(o.r * b, o.g * b, o.b * b, o.a * (dimmed ? dimAlpha : 1f));
+            sr.color = Color.Lerp(sr.color, target, step);
+        }
     }
 
     private static bool IsPointerOverUI()

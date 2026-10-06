@@ -1251,6 +1251,9 @@ MonoBehaviour:
   tiltThreshold2: 30
   moveSpeed: 5
   zoomSpeed: 3
+  dimAlpha: 0.25
+  dimBrightness: 0.4
+  dimFadeSpeed: 6
 --- !u!81 &629324532
 AudioListener:
   m_ObjectHideFlags: 0

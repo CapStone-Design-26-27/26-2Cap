@@ -36,6 +36,9 @@ public class CameraFocusController : MonoBehaviour
     [SerializeField] private float dimBrightness = 0.4f;
     [SerializeField] private float dimFadeSpeed = 6f;
 
+    // 튜토리얼 코드: true면 바구니를 눌러도 집중 보기로 바뀌지 않는다.
+    [HideInInspector] public bool inputLocked = false;
+
     private Camera cam;
     private readonly List<Renderer> sceneRenderers = new List<Renderer>();
 
@@ -78,6 +81,7 @@ public class CameraFocusController : MonoBehaviour
         if (GameManager.Inst.gameOver) return;
 
         if (GameManager.Inst.FocusedBasket == null &&
+            !inputLocked &&
             Input.GetMouseButtonDown(0) &&
             !IsPointerOverUI())
         {

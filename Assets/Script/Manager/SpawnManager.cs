@@ -9,6 +9,9 @@ public class SpawnManager : Singleton<SpawnManager>
     public static event Action OnAimEnd;
     public static event Action<int> OnNextBallChanged;
 
+    // 공이 합쳐져 새 공이 생겼을 때 새 공과 레벨을 알린다.
+    public static event Action<GameObject, int> OnBallMerged;
+
     public Queue<int> nextBallQueue = new Queue<int>();
 
     // 바닥에 떨어진 공들의 레벨. 다음 공보다 먼저, 떨어진 순서대로 다시 던지게 한다.
@@ -180,6 +183,7 @@ public class SpawnManager : Singleton<SpawnManager>
             Quaternion.identity);
 
         SetupBallProperties(newCircle, level, false);
+        OnBallMerged?.Invoke(newCircle, level);
 
         if (mergeClip != null && lastMergeFrame != Time.frameCount)
         {

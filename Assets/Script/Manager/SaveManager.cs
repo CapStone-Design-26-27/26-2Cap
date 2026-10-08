@@ -30,6 +30,9 @@ public class SaveManager : Singleton<SaveManager>
     {
         if (GameManager.Inst.gameOver) return;
 
+        // 튜토리얼 코드: 튜토리얼 중에는 저장하지 않는다.
+        if (TutorialManager.Inst != null) return;
+
         if (ScaleSystem.Inst == null)
         {
             Debug.LogError("씬에 ScaleSystem이 없습니다.");

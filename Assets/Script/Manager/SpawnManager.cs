@@ -35,6 +35,9 @@ public class SpawnManager : Singleton<SpawnManager>
     public Camera currentCamera;
     public bool canSpawn = true;
 
+    // 튜토리얼 코드: true면 공을 조준하거나 던질 수 없다.
+    [HideInInspector] public bool inputLocked = false;
+
     private int lastMergeFrame = -1;
     private GameObject previewBall;
     private int currentLevel;
@@ -54,7 +57,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void Update()
     {
-        if (GameManager.Inst.gameOver || !canSpawn)
+        if (GameManager.Inst.gameOver || !canSpawn || inputLocked)
             return;
 
         // 초기 공이 자리 잡는 중이거나 스테이지를 클리어한 뒤에는 던질 수 없다.

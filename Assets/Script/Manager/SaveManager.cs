@@ -45,7 +45,6 @@ public class SaveManager : Singleton<SaveManager>
         // 클리어한 상태로 종료하면 다음 스테이지 번호만 저장해, 다시 켰을 때 새 스테이지로 시작한다.
         GameSaveData data = new GameSaveData
         {
-            score = GameManager.Inst.score,
             stage = stageManager == null ? 1 : stageManager.Stage + (cleared ? 1 : 0),
             nextBalls = new List<int>(SpawnManager.Inst.nextBallQueue),
             retryBalls = cleared ? new List<int>() : SpawnManager.Inst.GetRetryLevels(),
@@ -98,8 +97,6 @@ public class SaveManager : Singleton<SaveManager>
             Debug.LogError("씬에 ScaleSystem이 없습니다.");
             return false;
         }
-
-        GameManager.Inst.SetScoreFromLoad(data.score);
         SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls);
 
         bool hasBalls = data.balls != null && data.balls.Count > 0;

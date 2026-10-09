@@ -39,7 +39,6 @@ public class BallBehaviour : MonoBehaviour
                     int nextLevel = this.level + 1;
 
                     SpawnManager.Inst.SpawnMergedBall(nextLevel, mergePos);
-                    GameManager.Inst.AddScore((nextLevel * 10));
 
                     Destroy(this.gameObject);
                     Destroy(otherBall.gameObject);

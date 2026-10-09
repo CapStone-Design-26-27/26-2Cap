@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI angleText;
     [SerializeField] private Image nextBall;
 
@@ -13,21 +12,18 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnScoreChanged += UpdateScoreUI;
         SpawnManager.OnNextBallChanged += UpdateNextBallUI;
         CameraFocusController.OnFocusChanged += UpdateCameraUI;
     }
 
     private void OnDisable()
     {
-        GameManager.OnScoreChanged -= UpdateScoreUI;
         SpawnManager.OnNextBallChanged -= UpdateNextBallUI;
         CameraFocusController.OnFocusChanged -= UpdateCameraUI;
     }
 
     private void Start()
     {
-        UpdateScoreUI(GameManager.Inst.score);
         UpdateNextBallUI(SpawnManager.Inst.getNextBall());
         UpdateCameraUI(GameManager.Inst.FocusedBasket);
     }
@@ -39,15 +35,6 @@ public class UIManager : MonoBehaviour
 
         PrintAngle();
     }
-
-    private void UpdateScoreUI(int currentScore)
-    {
-        if (scoreText != null)
-        {
-            scoreText.text = $"Score : {currentScore:D4}";
-        }
-    }
-
     private void UpdateNextBallUI(int nextLevel)
     {
         if (nextBall == null)

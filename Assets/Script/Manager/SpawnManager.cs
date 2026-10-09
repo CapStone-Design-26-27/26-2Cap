@@ -22,7 +22,9 @@ public class SpawnManager : Singleton<SpawnManager>
 
     [Header("스폰 레벨 설정")]
     [SerializeField] private int minSpawnLevel = 0;
-    [SerializeField] private int baseMaxSpawnLevel = 3;
+    [SerializeField] private int stage1To30MaxLevel = 4;
+    [SerializeField] private int stage31To60MaxLevel = 5;
+    [SerializeField] private int stage61PlusMaxLevel = 6;
 
     [Header("스폰 위치")]
     [SerializeField] private float spawnXOffset = 0.5f;
@@ -39,7 +41,32 @@ public class SpawnManager : Singleton<SpawnManager>
     private GameObject previewBall;
     private int currentLevel;
 
-    private int CurrentMaxSpawnLevel => baseMaxSpawnLevel + GameManager.Inst.currentRound;
+    private int CurrentMaxSpawnLevel
+    {
+        get
+        {
+            int stage = StageManager.Inst != null
+                ? StageManager.Inst.Stage
+                : 1;
+
+            int maxLevel;
+
+            if (stage <= 30)
+                maxLevel = stage1To30MaxLevel;
+            else if (stage <= 60)
+                maxLevel = stage31To60MaxLevel;
+            else
+                maxLevel = stage61PlusMaxLevel;
+
+            int availableMaxLevel = GameManager.Inst.ballList.Count - 1;
+
+            return Mathf.Clamp(
+                maxLevel,
+                minSpawnLevel,
+                Mathf.Max(minSpawnLevel, availableMaxLevel)
+            );
+        }
+    }
 
     private void Start()
     {

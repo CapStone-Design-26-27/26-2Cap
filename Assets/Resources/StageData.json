@@ -1,0 +1,4284 @@
+{
+  "stages": [
+    {
+      "stage": 1,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 5,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 6,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 7,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 8,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 9,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 10,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 11,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 12,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 13,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 14,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 15,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 16,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 17,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 18,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 19,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 20,
+      "minImbalance": 3,
+      "maxImbalance": 12,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        }
+      ]
+    },
+    {
+      "stage": 21,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 22,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 23,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 24,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 25,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 26,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 27,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 28,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 29,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 30,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 2.0,
+      "holdTime": 2.5,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 31,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 32,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 33,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 34,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 35,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 36,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 37,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 38,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 39,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 40,
+      "minImbalance": 5,
+      "maxImbalance": 16,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 41,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 42,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 43,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 44,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 45,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 46,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 47,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 48,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 49,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 50,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 4
+        }
+      ]
+    },
+    {
+      "stage": 51,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 52,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 53,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 54,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 55,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 56,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 57,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 58,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 59,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 60,
+      "minImbalance": 8,
+      "maxImbalance": 22,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 61,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 62,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 63,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 64,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 65,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 66,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 67,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 68,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 69,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 70,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.5,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 71,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 72,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 73,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 74,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 75,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 76,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 77,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 78,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 79,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 80,
+      "minImbalance": 10,
+      "maxImbalance": 30,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 81,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 82,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 83,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 84,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 85,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 86,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 87,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 88,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 89,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 90,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 91,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 92,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 93,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 94,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 95,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 96,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 97,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 98,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 4,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 99,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 5,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    },
+    {
+      "stage": 100,
+      "minImbalance": 12,
+      "maxImbalance": 40,
+      "levelTolerance": 1.0,
+      "holdTime": 3.0,
+      "settleTime": 2.5,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": -1,
+          "slotIndex": 0
+        },
+        {
+          "ballId": 2,
+          "level": 9,
+          "basketIndex": -1,
+          "slotIndex": 1
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": -1,
+          "slotIndex": 2
+        },
+        {
+          "ballId": 4,
+          "level": 6,
+          "basketIndex": -1,
+          "slotIndex": 3
+        },
+        {
+          "ballId": 5,
+          "level": 8,
+          "basketIndex": -1,
+          "slotIndex": 4
+        },
+        {
+          "ballId": 6,
+          "level": 7,
+          "basketIndex": -1,
+          "slotIndex": 5
+        }
+      ]
+    }
+  ]
+}

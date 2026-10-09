@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public static event Action<int> OnScoreChanged;
-    public int score { get; private set; } = 0;
-    public int currentRound { get; private set; }
     public bool gameOver { get; private set; } = false;
 
     public bool gamePaused { get; set; } = false;
@@ -81,24 +78,4 @@ public class GameManager : Singleton<GameManager>
         gameOver = false;
     }
 
-    private int RoundCheck(int currentScore)
-    {
-        int round = currentScore / 500;
-        if (round > 3) return 3;
-        return round;
-    }
-
-    public void AddScore(int addedScore)
-    {
-        score += addedScore;
-        currentRound = RoundCheck(score);
-        OnScoreChanged?.Invoke(score);
-    }
-
-    public void SetScoreFromLoad(int savedScore)
-    {
-        score = savedScore;
-        currentRound = RoundCheck(score);
-        OnScoreChanged?.Invoke(score);
-    }
 }

@@ -312,8 +312,10 @@ MonoBehaviour:
   rope: {fileID: 6560963234808448825}
   cup: {fileID: 9168593310370444101}
   ropeLength: 4
+  ropeWidth: 0
   autoCenterOfMass: 1
   comDepth: 0.7
+  extraDrop: 0
 --- !u!1 &4008663824270693141
 GameObject:
   m_ObjectHideFlags: 0

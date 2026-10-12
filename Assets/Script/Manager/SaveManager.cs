@@ -76,7 +76,7 @@ public class SaveManager : Singleton<SaveManager>
         }
 
         data.mapId = stageManager != null ? stageManager.GetStageMapId(data.stage) : 1;
-        data.stageDataVersion = 3;
+        data.stageDataVersion = 4;
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(SavePath, json);
         Debug.Log("게임 저장 완료: " + SavePath);
@@ -162,7 +162,7 @@ public class SaveManager : Singleton<SaveManager>
             return;
         }
         // 새 라운드 구성이 적용되면 이전 배치를 그대로 복원하지 않는다.
-        if (data.stageDataVersion != 3)
+        if (data.stageDataVersion != 4)
         {
             StageManager.Inst.BeginStage();
             return;

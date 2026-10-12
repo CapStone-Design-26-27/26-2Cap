@@ -120,36 +120,7 @@ public class StageManager : MonoBehaviour
             return;
         }
 
-        ApplyWeightProfile();
-
         Debug.Log($"StageManager: JSON 스테이지 {stageDatabase.stages.Count}개 로드 완료");
-    }
-
-    // 씬에 저장된 예전 Kg List보다 StageData의 밸런스 기준을 우선한다.
-    private void ApplyWeightProfile()
-    {
-        if (GameManager.Inst == null || stageDatabase.weightProfile == null ||
-            stageDatabase.weightProfile.Count == 0)
-            return;
-
-        List<float> kgList = GameManager.Inst.kgList;
-        bool changed = kgList.Count != stageDatabase.weightProfile.Count;
-        if (!changed)
-        {
-            for (int i = 0; i < kgList.Count; i++)
-            {
-                if (!Mathf.Approximately(kgList[i], stageDatabase.weightProfile[i]))
-                {
-                    changed = true;
-                    break;
-                }
-            }
-        }
-
-        if (!changed) return;
-        kgList.Clear();
-        kgList.AddRange(stageDatabase.weightProfile);
-        Debug.Log("StageManager: StageData의 weightProfile을 GameManager Kg List에 적용했습니다.");
     }
 
     private void Update()
@@ -382,18 +353,6 @@ public class StageManager : MonoBehaviour
             return false;
         }
 
-        if (stageDatabase.weightProfile != null && stageDatabase.weightProfile.Count > 0)
-        {
-            if (GameManager.Inst.kgList.Count < stageDatabase.weightProfile.Count) return false;
-            for (int i = 0; i < stageDatabase.weightProfile.Count; i++)
-            {
-                if (!Mathf.Approximately(GameManager.Inst.kgList[i], stageDatabase.weightProfile[i]))
-                {
-                    Debug.LogError("StageData의 weightProfile과 GameManager의 Kg List가 다릅니다.");
-                    return false;
-                }
-            }
-        }
         return true;
     }
 
@@ -613,7 +572,6 @@ public class StageManager : MonoBehaviour
 public class StageDatabase
 {
     public int schemaVersion;
-    public List<float> weightProfile;
     public List<StageMapDefinition> maps;
     public List<StageDefinition> stages = new List<StageDefinition>();
 }

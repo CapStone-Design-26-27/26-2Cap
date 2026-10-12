@@ -416,7 +416,11 @@ public class StageManager : MonoBehaviour
                 rb.angularVelocity = 0f;
             }
 
-            SpawnManager.Inst.SetupBallProperties(ball, ballData.level, false);
+            // 바구니 기준 좌표의 공은 그 바구니에 속한다. 월드 좌표의 공은 위치로 정한다.
+            Basket owner = ballData.positionSpace == BallPositionSpace.BasketSensor
+                ? ScaleSystem.Inst.Baskets[ballData.basketIndex]
+                : null;
+            SpawnManager.Inst.SetupBallProperties(ball, ballData.level, false, owner);
             ball.name = $"Stage{stageData.stage}_Ball{ballData.ballId}_Level{ballData.level}";
             RegisterBallData(ball.GetComponent<BallBehaviour>(), ballData);
             spawnedCount++;

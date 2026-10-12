@@ -205,14 +205,14 @@ public class SpawnManager : Singleton<SpawnManager>
         previewBall = null;
     }
 
-    public void SpawnMergedBall(int level, Vector2 pos)
+    public void SpawnMergedBall(int level, Vector2 pos, Basket owner = null)
     {
         GameObject newCircle = Instantiate(
             GameManager.Inst.ballList[level],
             pos,
             Quaternion.identity);
 
-        SetupBallProperties(newCircle, level, false);
+        SetupBallProperties(newCircle, level, false, owner);
         OnBallMerged?.Invoke(newCircle, level);
 
         if (mergeClip != null && lastMergeFrame != Time.frameCount)
@@ -222,7 +222,9 @@ public class SpawnManager : Singleton<SpawnManager>
         }
     }
 
-    public void SetupBallProperties(GameObject ball, int level, bool isDroppedByPlayer)
+    // 공의 소속 바구니를 정한다. owner가 주어지면 그 바구니,
+    // 없으면 던진 공은 집중 바구니, 그 외의 공은 위치로 정한다.
+    public void SetupBallProperties(GameObject ball, int level, bool isDroppedByPlayer, Basket owner = null)
     {
         Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
         if (rb != null)
@@ -244,17 +246,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
         ball.name = string.Format("Circle (Level: {0})", level);
 
-        // 던진 공은 집중 바구니 소속, 합쳐진 공은 센서 영역 안의 바구니 소속
-        Basket owner = GameManager.Inst.FocusedBasket;
-        Vector2 pos = ball.transform.position;
+        if (owner == null)
+            owner = isDroppedByPlayer ? GameManager.Inst.FocusedBasket : GuessOwner(ball.transform.position);
 
-        if (!isDroppedByPlayer && !InSensor(owner, pos))
-        {
-            foreach (Basket b in ScaleSystem.Inst.Baskets)
-            {
-                if (InSensor(b, pos)) { owner = b; break; }
-            }
-        }
+        bb.owner = owner;
 
         if (col == null || owner == null)
             return;
@@ -279,6 +274,30 @@ public class SpawnManager : Singleton<SpawnManager>
             ballOwners.Remove(dead);
 
         ballOwners[col] = owner;
+    }
+
+    // 위치를 센서 영역에 포함하는 바구니, 없으면 가장 가까운 바구니를 돌려준다.
+    private Basket GuessOwner(Vector2 pos)
+    {
+        Basket below = null;
+        float belowTop = float.MinValue;
+        Basket nearest = null;
+        float best = float.MaxValue;
+
+        foreach (Basket b in ScaleSystem.Inst.Baskets)
+        {
+            if (b == null) continue;
+            if (InSensor(b, pos)) return b;
+
+            float d = ((Vector2)b.transform.position - pos).sqrMagnitude;
+            if (d < best) { best = d; nearest = b; }
+
+            if (b.Sensor == null) continue;
+            Bounds area = b.Sensor.GetComponent<Collider2D>().bounds;
+            if (pos.x < area.min.x || pos.x > area.max.x || pos.y < area.max.y) continue;
+            if (area.max.y > belowTop) { belowTop = area.max.y; below = b; }
+        }
+        return below != null ? below : nearest;
     }
 
     private bool InSensor(Basket b, Vector2 pos)

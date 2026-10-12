@@ -367,7 +367,7 @@ public class TutorialManager : MonoBehaviour
             Vector2 pos = new Vector2(center + preset.side * reach, y + radius);
 
             GameObject ball = Instantiate(prefab, pos, Quaternion.identity);
-            SpawnManager.Inst.SetupBallProperties(ball, level, false);
+            SpawnManager.Inst.SetupBallProperties(ball, level, false, basket);
 
             y += radius * 2f + 0.5f;
         }

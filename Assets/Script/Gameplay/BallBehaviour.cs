@@ -6,6 +6,9 @@ public class BallBehaviour : MonoBehaviour
     public bool isMerged = false;
     public bool isDroppedByPlayer = false;
 
+    // 이 공이 속한 바구니. SpawnManager.SetupBallProperties에서 정해진다.
+    [HideInInspector] public Basket owner;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isMerged) return;
@@ -38,7 +41,8 @@ public class BallBehaviour : MonoBehaviour
                     Vector2 mergePos = (transform.position + otherBall.transform.position) / 2f;
                     int nextLevel = this.level + 1;
 
-                    SpawnManager.Inst.SpawnMergedBall(nextLevel, mergePos);
+                    // 합쳐진 공은 부모 공의 바구니를 그대로 물려받는다. (위치로 추측하면 다른 바구니로 갈 수 있음)
+                    SpawnManager.Inst.SpawnMergedBall(nextLevel, mergePos, this.owner);
                     GameManager.Inst.AddScore((nextLevel * 10));
 
                     Destroy(this.gameObject);

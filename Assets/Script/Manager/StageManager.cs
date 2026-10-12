@@ -269,7 +269,7 @@ public class StageManager : MonoBehaviour
         {
             Vector2 pos = new Vector2(center + UnityEngine.Random.Range(-halfRange, halfRange), y);
             GameObject ball = Instantiate(GameManager.Inst.ballList[level], pos, Quaternion.identity);
-            SpawnManager.Inst.SetupBallProperties(ball, level, false);
+            SpawnManager.Inst.SetupBallProperties(ball, level, false, basket);
 
             Collider2D col = ball.GetComponent<Collider2D>();
             y += (col != null ? col.bounds.size.y : 2f) + 0.5f;

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4443977585446320604}
   - component: {fileID: 3617223692199128117}
   - component: {fileID: -5574330231840391335}
-  - component: {fileID: -3305934096695152578}
+  - component: {fileID: 6184713528321526119}
   m_Layer: 0
-  m_Name: 0 5
+  m_Name: 0 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 21.836416, y: -22.324402, z: 0}
-  m_LocalScale: {x: 2.75, y: 2.75, z: 1}
+  m_LocalScale: {x: 3.25, y: 3.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1373499886, guid: 114b8d519e0ced24b96023d3ff5c0ada, type: 3}
+  m_Sprite: {fileID: 319380464, guid: 114b8d519e0ced24b96023d3ff5c0ada, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,7 +121,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.695
---- !u!50 &-3305934096695152578
+--- !u!50 &6184713528321526119
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -136,7 +136,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 10
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2

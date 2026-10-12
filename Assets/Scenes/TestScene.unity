@@ -317,7 +317,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.8535657, y: 1}
+  m_Size: {x: 85.25356, y: 1}
   m_EdgeRadius: 0
 --- !u!4 &183300628
 Transform:
@@ -328,7 +328,7 @@ Transform:
   m_GameObject: {fileID: 183300626}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.957228, y: -76.17702, z: 0}
+  m_LocalPosition: {x: -18.957228, y: -111.17702, z: 0}
   m_LocalScale: {x: 25, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -347,8 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 0}
-  margin: 5
-  extraWidth: 20
+  margin: 40
+  extraWidth: 1000
 --- !u!1 &365114144
 GameObject:
   m_ObjectHideFlags: 0

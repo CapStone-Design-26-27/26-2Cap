@@ -16,12 +16,12 @@ public class GameManager : Singleton<GameManager>
     public List<GameObject> ballList { get; private set; } = new List<GameObject>();
 
     [field: SerializeField]
-    public List<float> kgList { get; private set; } = new List<float>() { 5f, 10f, 15f, 20f, 25f, 30f, 35f, 45f, 50f, 55f };
+    public List<float> kgList { get; private set; } = new List<float>() { 5f, 10f, 15f, 20f, 25f, 30f, 35f, 40f, 45f, 50f };
 
     protected override void DoAwake()
     {
         // 씬에 직렬화된 예전 값이 남아 있어도 게임에서 사용하는 무게는 이 목록으로 통일한다.
-        kgList = new List<float>() { 5f, 10f, 15f, 20f, 25f, 30f, 35f, 45f, 50f, 55f };
+        kgList = new List<float>() { 5f, 10f, 15f, 20f, 25f, 30f, 35f, 40f, 45f, 50f };
     }
 
     // 튜토리얼 코드: 튜토리얼을 끝내지 않았으면 튜토리얼 씬부터 시작한다.

@@ -279,17 +279,25 @@ public class SpawnManager : Singleton<SpawnManager>
     // 위치를 센서 영역에 포함하는 바구니, 없으면 가장 가까운 바구니를 돌려준다.
     private Basket GuessOwner(Vector2 pos)
     {
+        Basket below = null;
+        float belowTop = float.MinValue;
         Basket nearest = null;
         float best = float.MaxValue;
 
         foreach (Basket b in ScaleSystem.Inst.Baskets)
         {
+            if (b == null) continue;
             if (InSensor(b, pos)) return b;
 
             float d = ((Vector2)b.transform.position - pos).sqrMagnitude;
             if (d < best) { best = d; nearest = b; }
+
+            if (b.Sensor == null) continue;
+            Bounds area = b.Sensor.GetComponent<Collider2D>().bounds;
+            if (pos.x < area.min.x || pos.x > area.max.x || pos.y < area.max.y) continue;
+            if (area.max.y > belowTop) { belowTop = area.max.y; below = b; }
         }
-        return nearest;
+        return below != null ? below : nearest;
     }
 
     private bool InSensor(Basket b, Vector2 pos)

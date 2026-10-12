@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public static event Action<int> OnScoreChanged;
-    public int score { get; private set; } = 0;
-    public int currentRound { get; private set; }
     public bool gameOver { get; private set; } = false;
 
     public bool gamePaused { get; set; } = false;
@@ -19,7 +16,13 @@ public class GameManager : Singleton<GameManager>
     public List<GameObject> ballList { get; private set; } = new List<GameObject>();
 
     [field: SerializeField]
-    public List<float> kgList { get; private set; } = new List<float>() { 0.5f, 1.0f, 2.0f, 3.5f, 5.0f, 7.0f, 9.0f, 12.0f, 13.0f, 14.0f };
+    public List<float> kgList { get; private set; } = new List<float>() { 5f, 10f, 15f, 20f, 25f, 30f, 35f, 40f, 45f, 50f };
+
+    protected override void DoAwake()
+    {
+        // 씬에 직렬화된 예전 값이 남아 있어도 게임에서 사용하는 무게는 이 목록으로 통일한다.
+        kgList = new List<float>() { 5f, 10f, 15f, 20f, 25f, 30f, 35f, 40f, 45f, 50f };
+    }
 
     // 튜토리얼 코드: 튜토리얼을 끝내지 않았으면 튜토리얼 씬부터 시작한다.
     [Header("튜토리얼")]
@@ -81,24 +84,4 @@ public class GameManager : Singleton<GameManager>
         gameOver = false;
     }
 
-    private int RoundCheck(int currentScore)
-    {
-        int round = currentScore / 500;
-        if (round > 3) return 3;
-        return round;
-    }
-
-    public void AddScore(int addedScore)
-    {
-        score += addedScore;
-        currentRound = RoundCheck(score);
-        OnScoreChanged?.Invoke(score);
-    }
-
-    public void SetScoreFromLoad(int savedScore)
-    {
-        score = savedScore;
-        currentRound = RoundCheck(score);
-        OnScoreChanged?.Invoke(score);
-    }
 }

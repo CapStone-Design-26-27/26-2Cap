@@ -41,7 +41,7 @@ public class BallBehaviour : MonoBehaviour
                     Vector2 mergePos = (transform.position + otherBall.transform.position) / 2f;
                     int nextLevel = this.level + 1;
 
-                    // 합쳐진 공은 부모 공의 바구니를 그대로 물려받는다. (위치로 추측하면 다른 바구니로 갈 수 있음)
+                    // 합쳐진 공은 부모 공의 바구니를 그대로 물려받는다. 
                     SpawnManager.Inst.SpawnMergedBall(nextLevel, mergePos, this.owner);
                     GameManager.Inst.AddScore((nextLevel * 10));
 

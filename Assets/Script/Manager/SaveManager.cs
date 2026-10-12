@@ -5,30 +5,38 @@ using System.IO;
 public class SaveManager : Singleton<SaveManager>
 {
     [System.Serializable]
-    private class BallSaveData
+    private class GameSaveData
+    {
+        public int schemaVersion = 2;
+        public int stage;
+        public List<int> nextBalls;
+        public List<int> retryBalls;
+        public List<float> nodeAngles;
+        public List<StageBallData> balls;
+    }
+
+    // 기존 savefile.json의 posX/posY를 새 x/y 형식으로 옮긴다.
+    [System.Serializable]
+    private class LegacyBallData
     {
         public int level;
-        public float posX;   // 최상위 고리가 고정이라 월드 좌표로 저장해도 위치가 일치한다.
+        public float posX;
         public float posY;
         public float rotZ;
     }
 
     [System.Serializable]
-    private class GameSaveData
+    private class LegacySaveData
     {
-        public int score;
-        public int stage;
-        public List<int> nextBalls;
-        public List<int> retryBalls;     // 재투척 대기 중인 공
-        public List<float> nodeAngles;   // ScaleSystem.AllNodes 순서의 저울대, 바구니 각도
-        public List<BallSaveData> balls;
+        public int schemaVersion;
+        public List<LegacyBallData> balls;
     }
 
     private string SavePath => Path.Combine(Application.persistentDataPath, "savefile.json");
 
     public void SaveGame()
     {
-        if (GameManager.Inst.gameOver) return;
+        if (GameManager.Inst == null || GameManager.Inst.gameOver || SpawnManager.Inst == null) return;
 
         // 튜토리얼 코드: 튜토리얼 중에는 저장하지 않는다.
         if (TutorialManager.Inst != null) return;
@@ -45,11 +53,11 @@ public class SaveManager : Singleton<SaveManager>
         // 클리어한 상태로 종료하면 다음 스테이지 번호만 저장해, 다시 켰을 때 새 스테이지로 시작한다.
         GameSaveData data = new GameSaveData
         {
-            stage = stageManager == null ? 1 : stageManager.Stage + (cleared ? 1 : 0),
+            stage = stageManager == null ? 1 : stageManager.Stage + (cleared && stageManager.HasNextStage ? 1 : 0),
             nextBalls = new List<int>(SpawnManager.Inst.nextBallQueue),
             retryBalls = cleared ? new List<int>() : SpawnManager.Inst.GetRetryLevels(),
             nodeAngles = cleared ? null : ScaleSystem.Inst.GetAngles(),
-            balls = new List<BallSaveData>()
+            balls = new List<StageBallData>()
         };
 
         BallBehaviour[] allBalls = cleared ? new BallBehaviour[0] : FindObjectsOfType<BallBehaviour>();
@@ -61,13 +69,7 @@ public class SaveManager : Singleton<SaveManager>
             Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
             if (rb == null || rb.isKinematic) continue; // 조준 중인 공 제외
 
-            data.balls.Add(new BallSaveData
-            {
-                level = ball.level,
-                posX = ball.transform.position.x,
-                posY = ball.transform.position.y,
-                rotZ = ball.transform.eulerAngles.z
-            });
+            data.balls.Add(StageManager.CaptureBallData(ball, data.balls.Count + 1));
         }
 
         string json = JsonUtility.ToJson(data, true);
@@ -76,7 +78,7 @@ public class SaveManager : Singleton<SaveManager>
     }
 
     // 저장된 공을 배치했으면 true. 파일이 없거나 공이 하나도 없으면 false를 돌려
-    // 호출한 쪽이 새 스테이지를 만들게 한다. 점수와 스테이지 번호는 공이 없어도 복원한다.
+    // 호출한 쪽이 새 스테이지를 만들게 한다. 스테이지 번호는 공이 없어도 복원한다.
     public bool LoadGame()
     {
         if (!File.Exists(SavePath))
@@ -85,17 +87,53 @@ public class SaveManager : Singleton<SaveManager>
             return false;
         }
 
-        GameSaveData data = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(SavePath));
+        GameSaveData data;
+        try
+        {
+            string json = File.ReadAllText(SavePath);
+            data = JsonUtility.FromJson<GameSaveData>(json);
+            LegacySaveData legacy = JsonUtility.FromJson<LegacySaveData>(json);
+            if (data != null && legacy != null && legacy.schemaVersion < 2 && legacy.balls != null)
+            {
+                data.balls = new List<StageBallData>();
+                foreach (LegacyBallData ball in legacy.balls)
+                    data.balls.Add(new StageBallData
+                    {
+                        ballId = data.balls.Count + 1, level = ball.level,
+                        x = ball.posX, y = ball.posY, rotZ = ball.rotZ, canMerge = true
+                    });
+            }
+        }
+        catch (System.Exception exception) when (exception is IOException ||
+            exception is System.ArgumentException || exception is System.UnauthorizedAccessException)
+        {
+            Debug.LogWarning("저장 파일을 읽을 수 없습니다: " + exception.Message);
+            return false;
+        }
         if (data == null)
         {
             Debug.LogWarning("저장 파일을 읽을 수 없습니다. 새로 시작합니다.");
             return false;
         }
 
-        if (ScaleSystem.Inst == null)
+        if (ScaleSystem.Inst == null || GameManager.Inst == null || SpawnManager.Inst == null)
         {
-            Debug.LogError("씬에 ScaleSystem이 없습니다.");
+            Debug.LogError("저장 복원에 필요한 매니저가 없습니다.");
             return false;
+        }
+        if (data.balls != null)
+        {
+            foreach (StageBallData ball in data.balls)
+            {
+                if (ball == null || float.IsNaN(ball.x) || float.IsInfinity(ball.x) ||
+                    float.IsNaN(ball.y) || float.IsInfinity(ball.y) ||
+                    ball.level < 0 || ball.level >= GameManager.Inst.ballList.Count ||
+                    ball.positionSpace != BallPositionSpace.World)
+                {
+                    Debug.LogWarning("저장 파일의 공 좌표 또는 레벨이 잘못되었습니다.");
+                    return false;
+                }
+            }
         }
         SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls);
 
@@ -112,16 +150,17 @@ public class SaveManager : Singleton<SaveManager>
 
         if (data.balls != null)
         {
-            foreach (BallSaveData ballData in data.balls)
+            foreach (StageBallData ballData in data.balls)
             {
                 if (ballData.level < 0 || ballData.level >= GameManager.Inst.ballList.Count) continue;
 
                 GameObject newBall = Instantiate(
                     GameManager.Inst.ballList[ballData.level],
-                    new Vector3(ballData.posX, ballData.posY, 0f),
+                    new Vector3(ballData.x, ballData.y, 0f),
                     Quaternion.Euler(0f, 0f, ballData.rotZ));
 
                 SpawnManager.Inst.SetupBallProperties(newBall, ballData.level, false);
+                StageManager.RegisterBallData(newBall.GetComponent<BallBehaviour>(), ballData);
 
                 Rigidbody2D rb = newBall.GetComponent<Rigidbody2D>();
                 if (rb != null)

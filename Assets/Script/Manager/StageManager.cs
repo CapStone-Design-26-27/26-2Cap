@@ -33,12 +33,15 @@ public class StageManager : MonoBehaviour
     private StageDatabase stageDatabase;
     private float settleTimer;
     private float holdTimer;
-    private int stageStartScore;
+    private bool stageReady;
+    private static readonly Dictionary<BallBehaviour, StageBallData> ballDataByInstance =
+        new Dictionary<BallBehaviour, StageBallData>();
 
     public int Stage { get; private set; } = 1;
     public bool IsCleared { get; private set; }
+    public bool HasNextStage => FindStageData(Stage + 1) != null;
     public bool IsSettling => settleTimer > 0f;
-    public bool AcceptsInput => !IsSettling && !IsCleared;
+    public bool AcceptsInput => stageReady && !IsSettling && !IsCleared;
     public float HoldProgress => holdTime > 0f ? Mathf.Clamp01(holdTimer / holdTime) : 1f;
 
     private void Awake()
@@ -65,7 +68,39 @@ public class StageManager : MonoBehaviour
             return;
         }
 
-        stageDatabase = JsonUtility.FromJson<StageDatabase>(jsonFile.text);
+        try
+        {
+            stageDatabase = JsonUtility.FromJson<StageDatabase>(jsonFile.text);
+        }
+        catch (ArgumentException exception)
+        {
+            Debug.LogError("StageManager: 스테이지 JSON을 읽을 수 없습니다: " + exception.Message);
+            stageDatabase = null;
+            return;
+        }
+
+        // JsonUtility는 누락된 float를 0으로 읽을 수 있어 원본 JSON에서 좌표 존재를 확인한다.
+        var records = System.Text.RegularExpressions.Regex.Matches(
+            jsonFile.text, @"\{[^{}]*""ballId""\s*:[^{}]*\}");
+        int recordIndex = 0;
+        if (stageDatabase != null && stageDatabase.stages != null)
+        {
+            foreach (StageDefinition stage in stageDatabase.stages)
+            {
+                if (stage.balls == null) continue;
+                foreach (StageBallData ball in stage.balls)
+                {
+                    string record = recordIndex < records.Count ? records[recordIndex].Value : "";
+                    recordIndex++;
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(record, @"""x""\s*:") ||
+                        !System.Text.RegularExpressions.Regex.IsMatch(record, @"""y""\s*:"))
+                    {
+                        ball.x = float.NaN;
+                        ball.y = float.NaN;
+                    }
+                }
+            }
+        }
 
         if (stageDatabase == null || stageDatabase.stages == null || stageDatabase.stages.Count == 0)
         {
@@ -88,6 +123,7 @@ public class StageManager : MonoBehaviour
         if (GameManager.Inst == null ||
             GameManager.Inst.gameOver ||
             IsCleared ||
+            !stageReady ||
             IsSettling ||
             ScaleSystem.Inst == null ||
             SpawnManager.Inst == null)
@@ -141,9 +177,11 @@ public class StageManager : MonoBehaviour
             return;
         }
         IsCleared = false;
+        stageReady = false;
         holdTimer = 0f;
 
         ClearBalls();
+        ballDataByInstance.Clear();
         SpawnManager.Inst.ResetForStage();
         ScaleSystem.Inst.ResetPose();
 
@@ -155,10 +193,33 @@ public class StageManager : MonoBehaviour
             return;
         }
 
+        if (stageData.balls == null || stageData.balls.Count == 0)
+        {
+            Debug.LogError($"StageManager: Stage {Stage}에 배치할 공이 없습니다.");
+            return;
+        }
+        foreach (StageBallData ball in stageData.balls)
+        {
+            if (ball == null || float.IsNaN(ball.x) || float.IsInfinity(ball.x) ||
+                float.IsNaN(ball.y) || float.IsInfinity(ball.y) ||
+                ball.level < 0 || ball.level >= GameManager.Inst.ballList.Count ||
+                (ball.positionSpace != BallPositionSpace.World &&
+                    ball.positionSpace != BallPositionSpace.BasketSensor) ||
+                (ball.positionSpace == BallPositionSpace.BasketSensor &&
+                    (ball.basketIndex < 0 || ball.basketIndex >= ScaleSystem.Inst.Baskets.Count ||
+                    ScaleSystem.Inst.Baskets[ball.basketIndex].Sensor == null)))
+            {
+                Debug.LogError($"StageManager: Stage {Stage}의 공 level 및 월드 x/y 좌표를 확인하세요. " +
+                    "x/y 좌표와 positionSpace 및 basketIndex를 확인하세요.");
+                return;
+            }
+        }
         ApplyStageSettings(stageData);
         SpawnJsonBalls(stageData);
 
-        settleTimer = stageData.settleTime;
+        Physics2D.SyncTransforms();
+        stageReady = true;
+        settleTimer = Mathf.Max(0f, stageData.settleTime);
         OnStageStarted?.Invoke(Stage);
     }
 
@@ -203,13 +264,24 @@ public class StageManager : MonoBehaviour
             }
 
             Vector3 worldPosition = new Vector3(ballData.x, ballData.y, 0f);
+            if (ballData.positionSpace == BallPositionSpace.BasketSensor)
+                worldPosition = ScaleSystem.Inst.Baskets[ballData.basketIndex].Sensor.transform
+                    .TransformPoint(worldPosition);
             GameObject ball = Instantiate(
                 GameManager.Inst.ballList[ballData.level],
                 worldPosition,
-                Quaternion.identity);
+                Quaternion.Euler(0f, 0f, ballData.rotZ));
+
+            Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
 
             SpawnManager.Inst.SetupBallProperties(ball, ballData.level, false);
             ball.name = $"Stage{stageData.stage}_Ball{ballData.ballId}_Level{ballData.level}";
+            RegisterBallData(ball.GetComponent<BallBehaviour>(), ballData);
             spawnedCount++;
         }
 
@@ -218,11 +290,16 @@ public class StageManager : MonoBehaviour
 
     public void NextStage()
     {
+        if (FindStageData(Stage + 1) == null)
+        {
+            Debug.Log("마지막으로 등록된 스테이지입니다. StageData.json에 다음 스테이지를 추가하세요.");
+            return;
+        }
         Stage++;
         BeginStage();
     }
 
-    // 게임오버 후 같은 스테이지를 처음부터 다시 한다. 점수도 스테이지 시작 시점으로 되돌린다.
+    // 게임오버 후 같은 스테이지를 처음부터 다시 한다.
     public void RetryStage()
     {
         if (GameManager.Inst == null)
@@ -236,10 +313,43 @@ public class StageManager : MonoBehaviour
     public void RestoreStage(int stage)
     {
         Stage = Mathf.Max(1, stage);
+        stageReady = true;
         IsCleared = false;
         holdTimer = 0f;
-        settleTimer = 0f;
+        StageDefinition definition = FindStageData(Stage);
+        if (definition != null) ApplyStageSettings(definition);
+        settleTimer = definition != null ? Mathf.Max(0f, definition.settleTime) : 0f;
+        ballDataByInstance.Clear();
         OnStageStarted?.Invoke(Stage);
+    }
+
+    // 합성 제어 코드는 BallBehaviour에 추가할 때 이 메타데이터를 사용할 수 있다.
+    // 현재 canMerge는 배치/저장용이며 충돌 합성 동작을 바꾸지는 않는다.
+    public static void RegisterBallData(BallBehaviour ball, StageBallData data)
+    {
+        if (ball != null && data != null) ballDataByInstance[ball] = data;
+    }
+
+    public static StageBallData CaptureBallData(BallBehaviour ball, int fallbackId)
+    {
+        StageBallData original;
+        ballDataByInstance.TryGetValue(ball, out original);
+        if (original == null)
+        {
+            int maxId = 0;
+            foreach (StageBallData data in ballDataByInstance.Values)
+                maxId = Mathf.Max(maxId, data.ballId);
+            fallbackId += maxId;
+        }
+        return new StageBallData
+        {
+            ballId = original != null ? original.ballId : fallbackId,
+            level = ball.level,
+            x = ball.transform.position.x,
+            y = ball.transform.position.y,
+            rotZ = ball.transform.eulerAngles.z,
+            canMerge = original == null || original.canMerge
+        };
     }
 
     private static void ClearBalls()
@@ -324,11 +434,21 @@ public class StageDefinition
     public List<StageBallData> balls = new List<StageBallData>();
 }
 
+public enum BallPositionSpace
+{
+    World = 0,
+    BasketSensor = 1
+}
+
 [Serializable]
 public class StageBallData
 {
+    public BallPositionSpace positionSpace = BallPositionSpace.World;
+    public int basketIndex;
     public int ballId;
     public int level;
-    public float x;
-    public float y;
+    public float x = float.NaN;
+    public float y = float.NaN;
+    public float rotZ;
+    public bool canMerge = true;
 }

@@ -222,8 +222,8 @@ public class SpawnManager : Singleton<SpawnManager>
         }
     }
 
-    // owner를 넘기면 그 바구니 소속으로 고정한다. (초기 배치, 합성처럼 바구니를 이미 아는 경우)
-    // 넘기지 않으면: 던진 공은 집중 바구니, 그 외(불러오기 등)는 위치로 추정한다.
+    // 공의 소속 바구니를 정한다. owner가 주어지면 그 바구니,
+    // 없으면 던진 공은 집중 바구니, 그 외의 공은 위치로 정한다.
     public void SetupBallProperties(GameObject ball, int level, bool isDroppedByPlayer, Basket owner = null)
     {
         Rigidbody2D rb = ball.GetComponent<Rigidbody2D>();
@@ -276,7 +276,7 @@ public class SpawnManager : Singleton<SpawnManager>
         ballOwners[col] = owner;
     }
 
-    // 위치로 소속 바구니를 추정한다. 센서 안이면 그 바구니, 아니면 가장 가까운 바구니.
+    // 위치를 센서 영역에 포함하는 바구니, 없으면 가장 가까운 바구니를 돌려준다.
     private Basket GuessOwner(Vector2 pos)
     {
         Basket nearest = null;

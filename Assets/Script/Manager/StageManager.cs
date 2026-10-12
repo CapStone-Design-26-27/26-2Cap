@@ -416,7 +416,11 @@ public class StageManager : MonoBehaviour
                 rb.angularVelocity = 0f;
             }
 
-            SpawnManager.Inst.SetupBallProperties(ball, ballData.level, false);
+            // 바구니 기준 좌표의 공은 그 바구니에 속한다. 월드 좌표의 공은 위치로 정한다.
+            Basket owner = ballData.positionSpace == BallPositionSpace.BasketSensor
+                ? ScaleSystem.Inst.Baskets[ballData.basketIndex]
+                : null;
+            SpawnManager.Inst.SetupBallProperties(ball, ballData.level, false, owner);
             ball.name = $"Stage{stageData.stage}_Ball{ballData.ballId}_Level{ballData.level}";
             RegisterBallData(ball.GetComponent<BallBehaviour>(), ballData);
             spawnedCount++;
@@ -507,128 +511,6 @@ public class StageManager : MonoBehaviour
         {
             ball.gameObject.SetActive(false);
             Destroy(ball.gameObject);
-    }
-
-    // ─── 초기 공 배치 ───
-    // 바구니마다 서로 다른 레벨의 공을 넣어 시작하자마자 합쳐지지 않게 한다.
-    // 각 저울대의 좌우 무게 차이가 minImbalance ~ maxImbalance가 되는 조합을 찾을 때까지 다시 뽑는다.
-
-    private void FillBaskets()
-    {
-        IReadOnlyList<Basket> baskets = ScaleSystem.Inst.Baskets;
-        if (baskets.Count == 0) return;
-
-        int levelCount = GameManager.Inst.ballList.Count;
-        int maxLevel = Mathf.Clamp(baseMaxInitialLevel + Stage - 1, 0, Mathf.Max(0, levelCount - 2));
-
-        Dictionary<Basket, List<int>> best = null;
-        float bestScore = float.MaxValue;
-
-        for (int attempt = 0; attempt < maxGenerateTries; attempt++)
-        {
-            Dictionary<Basket, List<int>> plan = RandomPlan(baskets, maxLevel);
-            float imbalance = MaxImbalance(plan);
-
-            float score = imbalance < minImbalance ? minImbalance - imbalance
-                        : imbalance > maxImbalance ? imbalance - maxImbalance
-                        : 0f;
-
-            if (score < bestScore)
-            {
-                bestScore = score;
-                best = plan;
-            }
-            if (score <= 0f) break;
-        }
-
-        foreach (KeyValuePair<Basket, List<int>> pair in best)
-            SpawnInBasket(pair.Key, pair.Value);
-    }
-
-    private Dictionary<Basket, List<int>> RandomPlan(IReadOnlyList<Basket> baskets, int maxLevel)
-    {
-        Dictionary<Basket, List<int>> plan = new Dictionary<Basket, List<int>>();
-        List<int> levels = new List<int>();
-
-        foreach (Basket basket in baskets)
-        {
-            levels.Clear();
-            for (int lv = 0; lv <= maxLevel; lv++) levels.Add(lv);
-
-            int count = UnityEngine.Random.Range(minBallsPerBasket, maxBallsPerBasket + 1);
-            count = Mathf.Min(count, levels.Count);
-
-            List<int> picked = new List<int>();
-            for (int i = 0; i < count; i++)
-            {
-                int idx = UnityEngine.Random.Range(0, levels.Count);
-                picked.Add(levels[idx]);
-                levels.RemoveAt(idx);
-            }
-            plan[basket] = picked;
-        }
-        return plan;
-    }
-
-    // 모든 저울대 중 가장 큰 "양 끝 기준으로 환산한 무게 차이"
-    private float MaxImbalance(Dictionary<Basket, List<int>> plan)
-    {
-        float max = 0f;
-        foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
-        {
-            if (!(node is ScaleBeam beam)) continue;
-
-            float moment = 0f;
-            float halfLength = 0f;
-            foreach (ScaleBeam.Attachment a in beam.Attachments)
-            {
-                if (a.node == null) continue;
-                moment += a.offset.x * AddedWeight(a.node, plan, 0);
-                halfLength = Mathf.Max(halfLength, Mathf.Abs(a.offset.x));
-            }
-            if (halfLength > 0f) max = Mathf.Max(max, Mathf.Abs(moment) / halfLength);
-        }
-        return max;
-    }
-
-    private float AddedWeight(HangingNode node, Dictionary<Basket, List<int>> plan, int depth)
-    {
-        if (node == null || depth > 16) return 0f;
-
-        if (node is Basket basket)
-        {
-            float sum = 0f;
-            if (plan.TryGetValue(basket, out List<int> levels))
-                foreach (int lv in levels) sum += GameManager.Inst.kgList[lv];
-            return sum;
-        }
-
-        float total = 0f;
-        if (node is ScaleBeam beam)
-            foreach (ScaleBeam.Attachment a in beam.Attachments)
-                total += AddedWeight(a.node, plan, depth + 1);
-        return total;
-    }
-
-    // 스폰 범위 가운데 쪽에서 공을 위로 겹치지 않게 쌓아 떨어뜨린다.
-    private void SpawnInBasket(Basket basket, List<int> levels)
-    {
-        if (basket.SpawnLeftPoint == null || basket.SpawnRightPoint == null) return;
-
-        float leftX = basket.SpawnLeftPoint.position.x;
-        float rightX = basket.SpawnRightPoint.position.x;
-        float center = (leftX + rightX) * 0.5f;
-        float halfRange = Mathf.Abs(rightX - leftX) * 0.5f * spawnSpread;
-        float y = Mathf.Max(basket.SpawnLeftPoint.position.y, basket.SpawnRightPoint.position.y);
-
-        foreach (int level in levels)
-        {
-            Vector2 pos = new Vector2(center + UnityEngine.Random.Range(-halfRange, halfRange), y);
-            GameObject ball = Instantiate(GameManager.Inst.ballList[level], pos, Quaternion.identity);
-            SpawnManager.Inst.SetupBallProperties(ball, level, false, basket);
-
-            Collider2D col = ball.GetComponent<Collider2D>();
-            y += (col != null ? col.bounds.size.y : 2f) + 0.5f;
         }
     }
 

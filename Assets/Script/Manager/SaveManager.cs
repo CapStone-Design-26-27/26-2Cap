@@ -7,8 +7,10 @@ public class SaveManager : Singleton<SaveManager>
     [System.Serializable]
     private class GameSaveData
     {
-        public int schemaVersion = 2;
+        public int schemaVersion = 3;
         public int stage;
+        public int mapId;
+        public int stageDataVersion;
         public List<int> nextBalls;
         public List<int> retryBalls;
         public List<float> nodeAngles;
@@ -40,6 +42,7 @@ public class SaveManager : Singleton<SaveManager>
 
         // 튜토리얼 코드: 튜토리얼 중에는 저장하지 않는다.
         if (TutorialManager.Inst != null) return;
+        if (StageManager.Inst != null && !StageManager.Inst.IsStageReady) return;
 
         if (ScaleSystem.Inst == null)
         {
@@ -72,6 +75,8 @@ public class SaveManager : Singleton<SaveManager>
             data.balls.Add(StageManager.CaptureBallData(ball, data.balls.Count + 1));
         }
 
+        data.mapId = stageManager != null ? stageManager.GetStageMapId(data.stage) : 1;
+        data.stageDataVersion = 3;
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(SavePath, json);
         Debug.Log("게임 저장 완료: " + SavePath);
@@ -135,14 +140,41 @@ public class SaveManager : Singleton<SaveManager>
                 }
             }
         }
+        if (StageManager.Inst != null)
+        {
+            StageManager.Inst.RestoreStage(data.stage, restored => CompleteLoad(data, restored));
+            return true;
+        }
+        return false;
+    }
+
+    private void CompleteLoad(GameSaveData data, bool restored)
+    {
+        if (!restored)
+        {
+            StageManager.Inst.BeginStage();
+            return;
+        }
+        if (data.mapId > 0 && data.mapId != StageManager.Inst.CurrentMapId)
+        {
+            Debug.LogWarning("저장된 맵과 현재 스테이지 맵이 다릅니다. 새 배치로 시작합니다.");
+            StageManager.Inst.BeginStage();
+            return;
+        }
+        // 새 라운드 구성이 적용되면 이전 배치를 그대로 복원하지 않는다.
+        if (data.stageDataVersion != 3)
+        {
+            StageManager.Inst.BeginStage();
+            return;
+        }
         SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls);
 
         bool hasBalls = data.balls != null && data.balls.Count > 0;
-        if (StageManager.Inst != null)
-            StageManager.Inst.RestoreStage(data.stage);
-
         if (!hasBalls)
-            return false;
+        {
+            StageManager.Inst.BeginStage();
+            return;
+        }
 
         // 공보다 저울 자세를 먼저 복원해야 공이 바구니 안의 제자리에 놓인다.
         if (!ScaleSystem.Inst.ApplyAngles(data.nodeAngles))
@@ -173,7 +205,6 @@ public class SaveManager : Singleton<SaveManager>
 
         Physics2D.SyncTransforms();
         Debug.Log("게임 불러오기 성공!");
-        return true;
     }
 
     public void DeleteSave()

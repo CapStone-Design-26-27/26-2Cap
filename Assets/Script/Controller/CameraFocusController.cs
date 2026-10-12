@@ -55,11 +55,33 @@ public class CameraFocusController : MonoBehaviour
 
     private void Start()
     {
-        SpawnManager.Inst.currentCamera = cam;
+        if (SpawnManager.Inst != null) SpawnManager.Inst.currentCamera = cam;
+        RefreshMapView();
+    }
 
+    // 스테이지 전환으로 저울 프리팹이 바뀌었을 때 카메라 캐시를 새 맵 기준으로 다시 만든다.
+    public void RefreshMapView()
+    {
+        for (int i = 0; i < dimSprites.Count; i++)
+            if (dimSprites[i] != null) dimSprites[i].color = dimOriginals[i];
+        foreach (KeyValuePair<SpriteRenderer, Color> pair in ballOriginals)
+            if (pair.Key != null) pair.Key.color = pair.Value;
+
+        sceneRenderers.Clear();
+        dimSprites.Clear();
+        dimOriginals.Clear();
+        dimT.Clear();
+        ballOriginals.Clear();
+        dimmedBalls.Clear();
+
+        if (GameManager.Inst == null || ScaleSystem.Inst == null) return;
+        GameManager.Inst.FocusedBasket = null;
+
+        HashSet<Renderer> registered = new HashSet<Renderer>();
         foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
         {
-            sceneRenderers.AddRange(node.GetComponentsInChildren<Renderer>());
+            foreach (Renderer renderer in node.GetComponentsInChildren<Renderer>(true))
+                if (registered.Add(renderer)) sceneRenderers.Add(renderer);
 
             foreach (SpriteRenderer sr in node.GetComponentsInChildren<SpriteRenderer>(true))
             {
@@ -72,13 +94,12 @@ public class CameraFocusController : MonoBehaviour
         GetTarget(out Vector2 center, out float size);
         transform.position = new Vector3(center.x, center.y, transform.position.z);
         cam.orthographicSize = size;
-
-        OnFocusChanged?.Invoke(GameManager.Inst.FocusedBasket);
+        OnFocusChanged?.Invoke(null);
     }
 
     private void Update()
     {
-        if (GameManager.Inst.gameOver) return;
+        if (GameManager.Inst == null || GameManager.Inst.gameOver) return;
 
         if (GameManager.Inst.FocusedBasket == null &&
             !inputLocked &&
@@ -91,6 +112,7 @@ public class CameraFocusController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (GameManager.Inst == null || ScaleSystem.Inst == null) return;
         GetTarget(out Vector2 center, out float size);
 
         float moveT = 1f - Mathf.Exp(-moveSpeed * Time.deltaTime);

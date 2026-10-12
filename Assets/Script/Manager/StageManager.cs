@@ -1,6 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 // JSON 스테이지 데이터를 읽어 공을 배치하고 스테이지 진행을 관리한다.
 public class StageManager : MonoBehaviour
@@ -13,6 +17,10 @@ public class StageManager : MonoBehaviour
     [Header("JSON 스테이지 데이터")]
     [Tooltip("Assets/Resources 폴더 안 JSON 파일 이름. 확장자 .json은 쓰지 않는다.")]
     [SerializeField] private string jsonResourceName = "StageData";
+
+    [Header("스테이지 맵")]
+    [Tooltip("빌드에서 자동 전환할 Map 1~3 프리팹. 비어 있으면 에디터에서 Assets/Aset/Map 경로를 사용한다.")]
+    [SerializeField] private List<GameObject> mapPrefabs = new List<GameObject>();
 
     [Header("클리어 조건")]
     [Tooltip("저울대가 이 각도 이내면 수평으로 본다.")]
@@ -34,11 +42,14 @@ public class StageManager : MonoBehaviour
     private float settleTimer;
     private float holdTimer;
     private bool stageReady;
+    private Coroutine stageRoutine;
     private static readonly Dictionary<BallBehaviour, StageBallData> ballDataByInstance =
         new Dictionary<BallBehaviour, StageBallData>();
 
     public int Stage { get; private set; } = 1;
     public bool IsCleared { get; private set; }
+    public bool IsStageReady => stageReady;
+    public int CurrentMapId => GetStageMapId(Stage);
     public bool HasNextStage => FindStageData(Stage + 1) != null;
     public bool IsSettling => settleTimer > 0f;
     public bool AcceptsInput => stageReady && !IsSettling && !IsCleared;
@@ -171,18 +182,33 @@ public class StageManager : MonoBehaviour
     // 스테이지 시작: 랜덤 배치 대신 JSON에 정의된 공과 월드 좌표를 사용한다.
     public void BeginStage()
     {
-        if (GameManager.Inst == null || ScaleSystem.Inst == null || SpawnManager.Inst == null)
+        StartStageRoutine(BeginStageRoutine());
+    }
+
+    private void StartStageRoutine(IEnumerator routine)
+    {
+        if (stageRoutine != null) StopCoroutine(stageRoutine);
+        stageRoutine = StartCoroutine(routine);
+    }
+
+    private IEnumerator BeginStageRoutine()
+    {
+        if (GameManager.Inst == null || SpawnManager.Inst == null)
         {
-            Debug.LogError("StageManager: GameManager, ScaleSystem, SpawnManager 연결을 확인하세요.");
-            return;
+            Debug.LogError("StageManager: GameManager와 SpawnManager 연결을 확인하세요.");
+            yield break;
         }
         IsCleared = false;
         stageReady = false;
         holdTimer = 0f;
+        settleTimer = 0f;
 
         ClearBalls();
         ballDataByInstance.Clear();
         SpawnManager.Inst.ResetForStage();
+        yield return EnsureStageMap(Stage);
+        if (!IsStageCompatible(Stage)) yield break;
+
         ScaleSystem.Inst.ResetPose();
 
         StageDefinition stageData = FindStageData(Stage);
@@ -190,13 +216,13 @@ public class StageManager : MonoBehaviour
         {
             Debug.LogError($"StageManager: JSON에서 Stage {Stage} 데이터를 찾지 못했습니다. 공을 생성하지 않습니다.");
             settleTimer = 0f;
-            return;
+            yield break;
         }
 
         if (stageData.balls == null || stageData.balls.Count == 0)
         {
             Debug.LogError($"StageManager: Stage {Stage}에 배치할 공이 없습니다.");
-            return;
+            yield break;
         }
         foreach (StageBallData ball in stageData.balls)
         {
@@ -211,7 +237,7 @@ public class StageManager : MonoBehaviour
             {
                 Debug.LogError($"StageManager: Stage {Stage}의 공 level 및 월드 x/y 좌표를 확인하세요. " +
                     "x/y 좌표와 positionSpace 및 basketIndex를 확인하세요.");
-                return;
+                yield break;
             }
         }
         ApplyStageSettings(stageData);
@@ -221,6 +247,57 @@ public class StageManager : MonoBehaviour
         stageReady = true;
         settleTimer = Mathf.Max(0f, stageData.settleTime);
         OnStageStarted?.Invoke(Stage);
+        stageRoutine = null;
+    }
+
+    private IEnumerator EnsureStageMap(int stageNumber)
+    {
+        int mapId = GetStageMapId(stageNumber);
+        if (IsCurrentMap(mapId)) yield break;
+
+        GameObject prefab = GetMapPrefab(mapId);
+        if (prefab == null)
+        {
+            Debug.LogError($"StageManager: Map {mapId} 프리팹을 찾지 못했습니다. Map Prefabs를 연결하세요.");
+            yield break;
+        }
+
+        CameraFocusController cameraFocus = FindObjectOfType<CameraFocusController>();
+        if (cameraFocus != null) cameraFocus.Focus(null);
+        if (ScaleSystem.Inst != null)
+        {
+            ScaleSystem.Inst.gameObject.SetActive(false);
+            Destroy(ScaleSystem.Inst.gameObject);
+            yield return null;
+        }
+
+        Instantiate(prefab);
+        yield return null;
+        if (cameraFocus != null) cameraFocus.RefreshMapView();
+    }
+
+    private bool IsCurrentMap(int mapId)
+    {
+        if (ScaleSystem.Inst == null) return false;
+        int count = ScaleSystem.Inst.Baskets.Count;
+        return (mapId == 1 && count == 2) || (mapId == 2 && count == 3) || (mapId == 3 && count == 4);
+    }
+
+    private GameObject GetMapPrefab(int mapId)
+    {
+        int index = mapId - 1;
+        if (index >= 0 && index < mapPrefabs.Count && mapPrefabs[index] != null)
+            return mapPrefabs[index];
+
+        GameObject resource = Resources.Load<GameObject>($"Map/Scale_{mapId}");
+        if (resource != null) return resource;
+#if UNITY_EDITOR
+        string path = mapId == 1 ? "Assets/Aset/Map/Scale.prefab" :
+            $"Assets/Aset/Map/Scale_{mapId}.prefab";
+        return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+#else
+        return null;
+#endif
     }
 
     private StageDefinition FindStageData(int stageNumber)
@@ -235,6 +312,78 @@ public class StageManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public int GetStageMapId(int stageNumber)
+    {
+        StageDefinition definition = FindStageData(stageNumber);
+        return definition != null && definition.mapId > 0 ? definition.mapId : 1;
+    }
+
+    // 3/4바구니 맵 에셋은 별도 연결이 필요하다. 다른 맵에 잘못 배치하지 않는다.
+    public bool IsStageCompatible(int stageNumber)
+    {
+        StageDefinition definition = FindStageData(stageNumber);
+        if (definition == null || ScaleSystem.Inst == null || GameManager.Inst == null)
+            return false;
+
+        int mapId = GetStageMapId(stageNumber);
+        int basketCount = mapId == 1 ? 2 : mapId == 2 ? 3 : mapId == 3 ? 4 : 0;
+        if (basketCount == 0 || ScaleSystem.Inst.Baskets.Count != basketCount)
+        {
+            Debug.LogError($"Stage {stageNumber}: Map {mapId}의 {basketCount}바구니 맵이 필요합니다. " +
+                "해당 맵을 연결한 뒤 시작하세요.");
+            return false;
+        }
+
+        // 모든 연결은 좌우 길이가 같은 이진 저울을 전제로 한다.
+        ScaleBeam root = ScaleSystem.Inst.Root as ScaleBeam;
+        if (root == null || !HasEqualArms(root)) return false;
+        HangingNode left = root.Attachments[0].node;
+        HangingNode right = root.Attachments[1].node;
+        bool valid = mapId == 1
+            ? left is Basket && right is Basket
+            : mapId == 2
+                ? IsBasketPair(left) && right is Basket
+                : IsBasketPair(left) && IsBasketPair(right);
+        if (!valid)
+        {
+            Debug.LogError($"Stage {stageNumber}: Map {mapId}의 저울 연결 순서를 확인하세요. " +
+                "3바구니 맵은 왼쪽 하위 저울의 바구니 2개, 오른쪽 바구니 1개 순서입니다.");
+            return false;
+        }
+
+        if (stageDatabase.weightProfile != null && stageDatabase.weightProfile.Count > 0)
+        {
+            if (GameManager.Inst.kgList.Count < stageDatabase.weightProfile.Count) return false;
+            for (int i = 0; i < stageDatabase.weightProfile.Count; i++)
+            {
+                if (!Mathf.Approximately(GameManager.Inst.kgList[i], stageDatabase.weightProfile[i]))
+                {
+                    Debug.LogError("StageData의 weightProfile과 GameManager의 Kg List가 다릅니다.");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static bool IsBasketPair(HangingNode node)
+    {
+        ScaleBeam beam = node as ScaleBeam;
+        return beam != null && HasEqualArms(beam) &&
+            beam.Attachments[0].node is Basket && beam.Attachments[1].node is Basket;
+    }
+
+    private static bool HasEqualArms(ScaleBeam beam)
+    {
+        if (beam.Attachments.Count != 2) return false;
+        Vector2 a = beam.Attachments[0].offset;
+        Vector2 b = beam.Attachments[1].offset;
+        bool valid = a.x < 0f && b.x > 0f &&
+            Mathf.Abs(a.x + b.x) < 0.05f && Mathf.Abs(a.y - b.y) < 0.05f;
+        if (!valid) Debug.LogError("스테이지 데이터는 연결 순서가 왼쪽/오른쪽이며 좌우 팔 길이가 같은 저울을 전제로 합니다.");
+        return valid;
     }
 
     private void ApplyStageSettings(StageDefinition stageData)
@@ -309,18 +458,30 @@ public class StageManager : MonoBehaviour
         BeginStage();
     }
 
-    // 저장된 게임을 불러왔을 때 호출. 공은 SaveManager가 배치한다.
-    public void RestoreStage(int stage)
+    // 저장된 게임을 불러오기 전에 해당 스테이지 맵을 준비한다. 공은 SaveManager가 배치한다.
+    public void RestoreStage(int stage, Action<bool> completed)
     {
         Stage = Mathf.Max(1, stage);
-        stageReady = true;
+        StartStageRoutine(RestoreStageRoutine(completed));
+    }
+
+    private IEnumerator RestoreStageRoutine(Action<bool> completed)
+    {
+        stageReady = false;
         IsCleared = false;
         holdTimer = 0f;
+        ClearBalls();
+        ballDataByInstance.Clear();
+        if (SpawnManager.Inst != null) SpawnManager.Inst.ResetForStage();
+
+        yield return EnsureStageMap(Stage);
+        stageReady = IsStageCompatible(Stage);
         StageDefinition definition = FindStageData(Stage);
         if (definition != null) ApplyStageSettings(definition);
         settleTimer = definition != null ? Mathf.Max(0f, definition.settleTime) : 0f;
-        ballDataByInstance.Clear();
-        OnStageStarted?.Invoke(Stage);
+        if (stageReady) OnStageStarted?.Invoke(Stage);
+        stageRoutine = null;
+        completed?.Invoke(stageReady);
     }
 
     // 합성 제어 코드는 BallBehaviour에 추가할 때 이 메타데이터를 사용할 수 있다.
@@ -355,7 +516,10 @@ public class StageManager : MonoBehaviour
     private static void ClearBalls()
     {
         foreach (BallBehaviour ball in FindObjectsOfType<BallBehaviour>())
+        {
+            ball.gameObject.SetActive(false);
             Destroy(ball.gameObject);
+        }
     }
 
     private void OnGUI()
@@ -382,7 +546,8 @@ public class StageManager : MonoBehaviour
             fontSize = Mathf.RoundToInt(28 * s)
         };
 
-        string status = IsSettling ? "READY..." : $"LEVEL {HoldProgress * 100f:F0}%";
+        string status = !stageReady ? "MAP / DATA REQUIRED" :
+            IsSettling ? "READY..." : $"LEVEL {HoldProgress * 100f:F0}%";
         GUI.Label(
             new Rect(Screen.width - 420 * s, 20 * s, 400 * s, 80 * s),
             $"STAGE {Stage}\n{status}",
@@ -418,12 +583,27 @@ public class StageManager : MonoBehaviour
 [Serializable]
 public class StageDatabase
 {
+    public int schemaVersion;
+    public List<float> weightProfile;
+    public List<StageMapDefinition> maps;
     public List<StageDefinition> stages = new List<StageDefinition>();
+}
+
+[Serializable]
+public class StageMapDefinition
+{
+    public int mapId;
+    public string name;
+    public int basketCount;
+    public List<int> targetWeightRatios;
 }
 
 [Serializable]
 public class StageDefinition
 {
+    public int mapId;
+    public int difficulty;
+    public string patternId;
     public int stage;
     public float minImbalance;
     public float maxImbalance;

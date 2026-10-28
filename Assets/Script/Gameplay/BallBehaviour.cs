@@ -35,6 +35,13 @@ public class BallBehaviour : MonoBehaviour
             {
                 if (this.level < GameManager.Inst.ballList.Count - 1)
                 {
+                    // 던진 공이 상대 쪽에서 먼저 합쳐지면 착지 처리가 빠지므로 여기서 처리한다.
+                    if (otherBall.isDroppedByPlayer)
+                    {
+                        otherBall.isDroppedByPlayer = false;
+                        SpawnManager.Inst.OnBallLanded();
+                    }
+
                     this.isMerged = true;
                     otherBall.isMerged = true;
 

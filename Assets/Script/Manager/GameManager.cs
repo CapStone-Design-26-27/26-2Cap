@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -27,7 +26,6 @@ public class GameManager : Singleton<GameManager>
     // 튜토리얼 코드: 튜토리얼을 끝내지 않았으면 튜토리얼 씬부터 시작한다.
     [Header("튜토리얼")]
     [SerializeField] private bool redirectToTutorial = true;
-    [SerializeField] private string tutorialSceneName = "TutoScene";
 
     // 저장된 공이 있으면 이어서 하고, 없으면 새 스테이지를 만든다.
     private void Start()
@@ -36,16 +34,25 @@ public class GameManager : Singleton<GameManager>
         if (TutorialManager.Inst != null)
             return;
 
-        // 튜토리얼 코드: 매니저가 DontDestroyOnLoad라 지운 뒤 튜토리얼 씬으로 넘어간다.
+        // 튜토리얼 코드: 튜토리얼을 끝내지 않았으면 튜토리얼 씬으로 넘어간다.
         if (redirectToTutorial && !TutorialManager.IsCompleted)
         {
-            Destroy(gameObject);
-            SceneManager.LoadScene(tutorialSceneName);
+            SceneFlow.LoadTutorial();
             return;
         }
 
         if (StageManager.Inst == null)
             gameObject.AddComponent<StageManager>();
+
+        // 메인 화면에서 스테이지를 지정했으면 저장된 진행 대신 그 스테이지로 시작한다.
+        if (SceneFlow.PendingStage > 0)
+        {
+            int stage = SceneFlow.PendingStage;
+            SceneFlow.PendingStage = 0;
+            Debug.Log($"[GameManager] 지정한 Stage {stage}로 시작합니다.");
+            StageManager.Inst.StartStage(stage);
+            return;
+        }
 
         if (!SaveManager.Inst.LoadGame())
             StageManager.Inst.BeginStage();

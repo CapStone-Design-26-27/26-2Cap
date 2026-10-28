@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // 튜토리얼 코드. 바구니 선택 → 공 떨어뜨리기 → 두 바구니 평형 순서로 진행한다.
 // 실패하면 게임오버 대신 처음 배치로 되돌린다.
@@ -32,7 +31,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private CameraFocusController cameraFocus;
     [Tooltip("Canvas/Btnpanel/Main (전체 보기 버튼)")]
     [SerializeField] private GameObject overviewButton;
-    [SerializeField] private string mainSceneName = "TestScene";
 
     [Header("공 배치")]
     [SerializeField] private List<BasketPreset> presets = new List<BasketPreset>();
@@ -62,12 +60,15 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private string msgPickTilted = "기울어진 바구니를 눌러보세요";
     [SerializeField] private string msgHold = "그대로 유지하세요...";
     [SerializeField] private string msgFailed = "앗! 다시 해볼까요?";
+    [SerializeField] private string msgStartGame = "게임 시작";
+    [SerializeField] private string msgBackToMain = "메인으로";
 
     private Step step;
     private float timer;
     private float holdTimer;
     private bool waitingLanding;
     private bool aiming;
+    private bool firstClear;
     private bool afterFail;
     private readonly List<Basket> unbalanced = new List<Basket>();
 
@@ -76,6 +77,7 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         Inst = this;
+        firstClear = !IsCompleted;
         if (cameraFocus == null) cameraFocus = FindObjectOfType<CameraFocusController>();
     }
 
@@ -202,7 +204,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         ui.HideAll();
-        ui.ShowComplete(GoToMainScene);
+        ui.ShowComplete(ExitTutorial, firstClear ? msgStartGame : msgBackToMain);
     }
 
     // ─── 평형 맞추기 ───
@@ -315,14 +317,17 @@ public class TutorialManager : MonoBehaviour
         EnterSettle();
     }
 
-    // 완료 패널의 시작 버튼
-    public void GoToMainScene()
+    // 완료 패널의 버튼. 처음 클리어면 본게임으로, 다시 한 경우면 메인 화면으로 간다.
+    public void ExitTutorial()
     {
-        // 매니저가 DontDestroyOnLoad라 지워야 본게임 씬의 매니저가 새로 시작한다.
-        if (GameManager.Inst != null)
-            Destroy(GameManager.Inst.gameObject);
+        if (firstClear) SceneFlow.LoadGame();
+        else SceneFlow.LoadMain();
+    }
 
-        SceneManager.LoadScene(mainSceneName);
+    // 완료하지 않고 메인 화면으로 나간다. (나가기 버튼용)
+    public void QuitToMain()
+    {
+        SceneFlow.LoadMain();
     }
 
     // ─── 공 배치 ───

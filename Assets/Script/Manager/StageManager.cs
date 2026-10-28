@@ -429,6 +429,18 @@ public class StageManager : MonoBehaviour
         Debug.Log($"StageManager: Stage {stageData.stage} - JSON 공 {spawnedCount}/{stageData.balls.Count}개 생성");
     }
 
+    // 지정한 스테이지로 바로 시작한다. 없는 스테이지면 1스테이지로 시작한다.
+    public void StartStage(int stage)
+    {
+        if (FindStageData(stage) == null)
+        {
+            Debug.LogWarning($"StageManager: Stage {stage} 데이터가 없어 Stage 1로 시작합니다.");
+            stage = 1;
+        }
+        Stage = stage;
+        BeginStage();
+    }
+
     public void NextStage()
     {
         if (FindStageData(Stage + 1) == null)

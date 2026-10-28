@@ -842,7 +842,6 @@ MonoBehaviour:
   - 13
   - 14
   redirectToTutorial: 1
-  tutorialSceneName: TutoScene
 --- !u!4 &420031053
 Transform:
   m_ObjectHideFlags: 0
@@ -1859,7 +1858,6 @@ MonoBehaviour:
   ui: {fileID: 1948326063}
   cameraFocus: {fileID: 629324531}
   overviewButton: {fileID: 802114313}
-  mainSceneName: TestScene
   presets:
   - basket: {fileID: 802832381}
     levels: 0100000002000000
@@ -1883,6 +1881,8 @@ MonoBehaviour:
   msgPickTilted: "\uAE30\uC6B8\uC5B4\uC9C4 \uBC14\uAD6C\uB2C8\uB97C \uB20C\uB7EC\uBCF4\uC138\uC694"
   msgHold: "\uADF8\uB300\uB85C \uC720\uC9C0\uD558\uC138\uC694..."
   msgFailed: "\uC557! \uB2E4\uC2DC \uD574\uBCFC\uAE4C\uC694?"
+  msgStartGame: "\uAC8C\uC784 \uC2DC\uC791"
+  msgBackToMain: "\uBA54\uC778\uC73C\uB85C"
 --- !u!4 &1284215519
 Transform:
   m_ObjectHideFlags: 0
@@ -2674,6 +2674,7 @@ MonoBehaviour:
   overviewArrowOffset: {x: 0, y: 150}
   completePanel: {fileID: 870370681}
   startButton: {fileID: 923484025}
+  startButtonText: {fileID: 202112921}
 --- !u!1 &2031155254
 GameObject:
   m_ObjectHideFlags: 0

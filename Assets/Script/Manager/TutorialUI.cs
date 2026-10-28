@@ -47,6 +47,7 @@ public class TutorialUI : MonoBehaviour
     [Header("완료")]
     [SerializeField] private GameObject completePanel;
     [SerializeField] private Button startButton;
+    [SerializeField] private TextMeshProUGUI startButtonText;
 
     private RectTransform canvasRect;
     private readonly List<RectTransform> arrows = new List<RectTransform>();
@@ -116,9 +117,10 @@ public class TutorialUI : MonoBehaviour
         if (overviewArrow != null) overviewArrow.gameObject.SetActive(show);
     }
 
-    public void ShowComplete(UnityAction onStart)
+    public void ShowComplete(UnityAction onStart, string buttonLabel = null)
     {
         if (completePanel != null) completePanel.SetActive(true);
+        if (startButtonText != null && !string.IsNullOrEmpty(buttonLabel)) startButtonText.text = buttonLabel;
         if (startButton == null) return;
 
         startButton.interactable = true;

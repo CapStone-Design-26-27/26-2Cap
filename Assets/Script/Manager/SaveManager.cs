@@ -34,7 +34,23 @@ public class SaveManager : Singleton<SaveManager>
         public List<LegacyBallData> balls;
     }
 
-    private string SavePath => Path.Combine(Application.persistentDataPath, "savefile.json");
+    public static string SaveFilePath => Path.Combine(Application.persistentDataPath, "savefile.json");
+    private string SavePath => SaveFilePath;
+
+    // 저장 파일의 스테이지 번호만 읽는다. 파일이 없거나 읽을 수 없으면 1을 돌려준다.
+    public static int PeekSavedStage()
+    {
+        try
+        {
+            if (!File.Exists(SaveFilePath)) return 1;
+            GameSaveData data = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(SaveFilePath));
+            return data != null && data.stage > 0 ? data.stage : 1;
+        }
+        catch (System.Exception)
+        {
+            return 1;
+        }
+    }
 
     public void SaveGame()
     {

@@ -1,0 +1,4464 @@
+{
+  "schemaVersion": 5,
+  "status": "local-puzzle-experiment",
+  "source": {
+    "path": "Design/PuzzleCampaign/StageData.BeforePuzzle.json",
+    "stageCount": 1000,
+    "distinctPatternCount": 91
+  },
+  "rules": {
+    "showWeightNumbers": false,
+    "spawnMode": "fixed-finite-queue",
+    "mergeMode": "equal-level-mass-conserving",
+    "mergeIsClearRequirement": false,
+    "clearOnlyAfterAllProvidedBallsUsed": true,
+    "lostBallPolicy": "return-same-ball-to-retry-queue-without-generating-new-balls",
+    "exhaustedQueuePolicy": "wait-for-all-balls-to-settle-then-offer-retry-if-not-clear",
+    "rejectedAimPolicy": "return-undropped-preview-to-front-of-origin-queue",
+    "initialLayout": "sensor-local coordinates; symmetric row; floor inferred from source JSON; needs Unity QA",
+    "completionPolicy": "last-stage-shows-campaign-complete"
+  },
+  "maps": [
+    {
+      "mapId": 1,
+      "name": "TwoBasket",
+      "basketCount": 2,
+      "targetWeightRatios": [
+        1,
+        1
+      ]
+    },
+    {
+      "mapId": 2,
+      "name": "ThreeBasket",
+      "basketCount": 3,
+      "targetWeightRatios": [
+        1,
+        1,
+        2
+      ]
+    },
+    {
+      "mapId": 3,
+      "name": "FourBasket",
+      "basketCount": 4,
+      "targetWeightRatios": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "from": 1,
+      "to": 10,
+      "mapId": 1,
+      "title": "같은 무게 알아보기"
+    },
+    {
+      "from": 11,
+      "to": 20,
+      "mapId": 2,
+      "title": "계층 저울 이해하기"
+    },
+    {
+      "from": 21,
+      "to": 30,
+      "mapId": 3,
+      "title": "전체 균형 계획하기"
+    }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "mapId": 1,
+      "title": "조작 확인",
+      "learningGoal": "같은 동물 하나를 반대 바구니에 넣는다.",
+      "difficulty": 0,
+      "patternId": "puzzle-01",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          1,
+          0
+        ],
+        "finalMassUnits": [
+          1,
+          1
+        ],
+        "canonicalFinalLevels": [
+          [
+            0
+          ],
+          [
+            0
+          ]
+        ],
+        "maxPossibleMergedLevel": 0,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 2,
+      "mapId": 1,
+      "title": "다른 크기의 분배",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 1,
+      "patternId": "puzzle-02",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          2,
+          4
+        ],
+        "finalMassUnits": [
+          6,
+          6
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "maxPossibleMergedLevel": 2,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 3,
+      "mapId": 1,
+      "title": "큰 공 자리 예약",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 1,
+      "patternId": "puzzle-03",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        2,
+        1,
+        0
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          1,
+          5
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ],
+        "canonicalFinalLevels": [
+          [
+            3
+          ],
+          [
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 4,
+      "mapId": 1,
+      "title": "두 묶음",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 2,
+      "patternId": "puzzle-04",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        2,
+        1,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          3,
+          5
+        ],
+        "finalMassUnits": [
+          10,
+          10
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 5,
+      "mapId": 1,
+      "title": "작은 공부터 계획",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 2,
+      "patternId": "puzzle-05",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        2,
+        0,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          4,
+          2
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ],
+        "canonicalFinalLevels": [
+          [
+            3
+          ],
+          [
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 6,
+      "mapId": 1,
+      "title": "같은 큰 공, 다른 조합",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 2,
+      "patternId": "puzzle-06",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        2,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          5,
+          3
+        ],
+        "finalMassUnits": [
+          10,
+          10
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 7,
+      "mapId": 1,
+      "title": "작은 공을 남겨두기",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 3,
+      "patternId": "puzzle-07",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        2,
+        1,
+        0,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          6,
+          2
+        ],
+        "finalMassUnits": [
+          10,
+          10
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 8,
+      "mapId": 1,
+      "title": "가벼운 쪽만 보면 실패",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 3,
+      "patternId": "puzzle-08",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        2,
+        1,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          7,
+          3
+        ],
+        "finalMassUnits": [
+          12,
+          12
+        ],
+        "canonicalFinalLevels": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 9,
+      "mapId": 1,
+      "title": "여섯 공의 배분",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 3,
+      "patternId": "puzzle-09",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        2,
+        1,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          4,
+          6
+        ],
+        "finalMassUnits": [
+          12,
+          12
+        ],
+        "canonicalFinalLevels": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 10,
+      "mapId": 1,
+      "title": "첫 번째 계획 시험",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 4,
+      "patternId": "puzzle-10",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        2,
+        1,
+        2,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          5,
+          7
+        ],
+        "finalMassUnits": [
+          14,
+          14
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 11,
+      "mapId": 2,
+      "title": "상위와 하위를 함께",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 4,
+      "patternId": "puzzle-11",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        2,
+        1,
+        0
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          3,
+          5,
+          8
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 12,
+      "mapId": 2,
+      "title": "큰 공의 두 후보",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 4,
+      "patternId": "puzzle-12",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        2,
+        1,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          4,
+          2,
+          8
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 13,
+      "mapId": 2,
+      "title": "마지막 작은 공",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 5,
+      "patternId": "puzzle-13",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2,
+        0,
+        0,
+        2,
+        0
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          5,
+          1,
+          7
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 14,
+      "mapId": 2,
+      "title": "세 곳의 부족분",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 5,
+      "patternId": "puzzle-14",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        2,
+        1,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          3,
+          6,
+          9
+        ],
+        "finalMassUnits": [
+          8,
+          8,
+          16
+        ],
+        "canonicalFinalLevels": [
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "maxPossibleMergedLevel": 4,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 15,
+      "mapId": 2,
+      "title": "연쇄 합성과 배분",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 5,
+      "patternId": "puzzle-15",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        2,
+        0,
+        2,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          5,
+          4,
+          10
+        ],
+        "finalMassUnits": [
+          8,
+          8,
+          16
+        ],
+        "canonicalFinalLevels": [
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "maxPossibleMergedLevel": 4,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 16,
+      "mapId": 2,
+      "title": "같은 동물 다른 역할",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 6,
+      "patternId": "puzzle-16",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.755,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        2,
+        1,
+        0,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          6,
+          2,
+          12
+        ],
+        "finalMassUnits": [
+          8,
+          8,
+          16
+        ],
+        "canonicalFinalLevels": [
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            4
+          ]
+        ],
+        "maxPossibleMergedLevel": 4,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 17,
+      "mapId": 2,
+      "title": "가장 큰 동물의 자리",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 6,
+      "patternId": "puzzle-17",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        3,
+        0,
+        2,
+        1,
+        0
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 3,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          7,
+          5,
+          9
+        ],
+        "finalMassUnits": [
+          10,
+          10,
+          20
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "maxPossibleMergedLevel": 4,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 18,
+      "mapId": 2,
+      "title": "두 개와 한 묶음",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 6,
+      "patternId": "puzzle-18",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.755,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        2,
+        1,
+        0,
+        2,
+        1,
+        0
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          6,
+          7,
+          12
+        ],
+        "finalMassUnits": [
+          10,
+          10,
+          20
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "maxPossibleMergedLevel": 4,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 19,
+      "mapId": 2,
+      "title": "계층 저울의 함정",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 7,
+      "patternId": "puzzle-19",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -4.7812,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -2.5425,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        2,
+        0,
+        3,
+        1,
+        2,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 3,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          8,
+          4,
+          11
+        ],
+        "finalMassUnits": [
+          12,
+          12,
+          24
+        ],
+        "canonicalFinalLevels": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "maxPossibleMergedLevel": 4,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 20,
+      "mapId": 2,
+      "title": "계층 계획 시험",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 7,
+      "patternId": "puzzle-20",
+      "levelTolerance": 3.5,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -5.205,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -2.1188,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 8,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 3.0863,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        3,
+        2,
+        0,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 3,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          7,
+          9,
+          14
+        ],
+        "finalMassUnits": [
+          12,
+          12,
+          24
+        ],
+        "canonicalFinalLevels": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "maxPossibleMergedLevel": 4,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 21,
+      "mapId": 3,
+      "title": "네 곳에 다른 조합",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 7,
+      "patternId": "puzzle-21",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        2,
+        0,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          3,
+          5,
+          4,
+          2
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          6,
+          6
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "maxPossibleMergedLevel": 2,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 22,
+      "mapId": 3,
+      "title": "두 저울 동시에",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 8,
+      "patternId": "puzzle-22",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        2,
+        0,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          2,
+          4,
+          5,
+          3
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          6,
+          6
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "maxPossibleMergedLevel": 2,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 23,
+      "mapId": 3,
+      "title": "완성 순서를 바꾸기",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 8,
+      "patternId": "puzzle-23",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        2,
+        0,
+        2,
+        1,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          4,
+          3,
+          5,
+          2
+        ],
+        "finalMassUnits": [
+          8,
+          8,
+          8,
+          8
+        ],
+        "canonicalFinalLevels": [
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 24,
+      "mapId": 3,
+      "title": "작은 공의 갈림길",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 8,
+      "patternId": "puzzle-24",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.3312,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 2,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        2,
+        1,
+        0,
+        1,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 1,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          6,
+          4,
+          3,
+          5
+        ],
+        "finalMassUnits": [
+          8,
+          8,
+          8,
+          8
+        ],
+        "canonicalFinalLevels": [
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            3
+          ],
+          [
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 25,
+      "mapId": 3,
+      "title": "큰 공을 아껴두기",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 9,
+      "patternId": "puzzle-25",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 8,
+          "level": 1,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2,
+        0,
+        1,
+        2,
+        0,
+        2,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          5,
+          7,
+          6,
+          2
+        ],
+        "finalMassUnits": [
+          10,
+          10,
+          10,
+          10
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 26,
+      "mapId": 3,
+      "title": "여덟 공의 계획",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 9,
+      "patternId": "puzzle-26",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 0,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 8,
+          "level": 2,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        2,
+        1,
+        1,
+        0,
+        2,
+        1,
+        1
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 7,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          7,
+          4,
+          6,
+          5
+        ],
+        "finalMassUnits": [
+          10,
+          10,
+          10,
+          10
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 27,
+      "mapId": 3,
+      "title": "큰 동물의 유일한 자리",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 9,
+      "patternId": "puzzle-27",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 2,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        2,
+        3,
+        1,
+        0,
+        2,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 3,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          8,
+          5,
+          7,
+          4
+        ],
+        "finalMassUnits": [
+          12,
+          12,
+          12,
+          12
+        ],
+        "canonicalFinalLevels": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 28,
+      "mapId": 3,
+      "title": "먼저 완성하면 막힌다",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 10,
+      "patternId": "puzzle-28",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 8,
+          "level": 3,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        2,
+        0,
+        2,
+        1,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 0,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 7,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          7,
+          9,
+          5,
+          8
+        ],
+        "finalMassUnits": [
+          12,
+          12,
+          12,
+          12
+        ],
+        "canonicalFinalLevels": [
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 29,
+      "mapId": 3,
+      "title": "세 크기 네 목적지",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 10,
+      "patternId": "puzzle-29",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 0,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 8,
+          "level": 3,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        0,
+        3,
+        2,
+        1,
+        2,
+        0,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 1,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 0,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 3,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 0,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 7,
+            "level": 2,
+            "basketIndex": 1,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          6,
+          8,
+          7,
+          9
+        ],
+        "finalMassUnits": [
+          14,
+          14,
+          14,
+          14
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    },
+    {
+      "stage": 30,
+      "mapId": 3,
+      "title": "전체 배분 계획 시험",
+      "learningGoal": "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+      "difficulty": 10,
+      "patternId": "puzzle-30",
+      "levelTolerance": 3,
+      "holdTime": 2,
+      "settleTime": 3,
+      "forcedMergeTargetBallId": -1,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -3.45,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0.9075,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.755,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.3313,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -0.8,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": -3.0862,
+          "y": -3.3425,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 7,
+          "level": 1,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": -0.8475,
+          "y": -2.9187,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 8,
+          "level": 2,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 2.2388,
+          "y": -2.495,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        2,
+        1,
+        3,
+        2,
+        0,
+        1,
+        2
+      ],
+      "clearRequirements": {
+        "allProvidedBallsUsed": true,
+        "allBallsInBaskets": true,
+        "allBeamsLevel": true
+      },
+      "referenceSolution": {
+        "steps": [
+          {
+            "queueIndex": 0,
+            "level": 0,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 1,
+            "level": 2,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 2,
+            "level": 1,
+            "basketIndex": 3,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 3,
+            "level": 3,
+            "basketIndex": 1,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 4,
+            "level": 2,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 5,
+            "level": 0,
+            "basketIndex": 0,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 6,
+            "level": 1,
+            "basketIndex": 2,
+            "dropX": 0
+          },
+          {
+            "queueIndex": 7,
+            "level": 2,
+            "basketIndex": 3,
+            "dropX": 0
+          }
+        ],
+        "initialMassUnits": [
+          9,
+          6,
+          8,
+          7
+        ],
+        "finalMassUnits": [
+          14,
+          14,
+          14,
+          14
+        ],
+        "canonicalFinalLevels": [
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ],
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "maxPossibleMergedLevel": 3,
+        "purpose": "검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.",
+        "physicsVerified": false
+      }
+    }
+  ]
+}

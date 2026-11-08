@@ -23,12 +23,6 @@ public class SpawnManager : Singleton<SpawnManager>
 
     [SerializeField] private AudioClip mergeClip;
 
-    [Header("스폰 레벨 설정")]
-    [SerializeField] private int minSpawnLevel = 0;
-    [SerializeField] private int stage1To30MaxLevel = 4;
-    [SerializeField] private int stage31To60MaxLevel = 5;
-    [SerializeField] private int stage61PlusMaxLevel = 6;
-
     [Header("스폰 위치")]
     [SerializeField] private float spawnXOffset = 0.5f;
     [Tooltip("바구니에 쌓인 공 위로 얼마나 띄워서 생성할지")]
@@ -43,32 +37,16 @@ public class SpawnManager : Singleton<SpawnManager>
     private int lastMergeFrame = -1;
     private GameObject previewBall;
     private int currentLevel;
+    private bool previewFromRetry;
+    public bool HasPreview => previewBall != null;
+    public int RemainingBallCount => nextBallQueue.Count + retryQueue.Count;
+    public int RetryBallCount => retryQueue.Count;
 
-    private int CurrentMaxSpawnLevel
+    public List<int> GetRemainingLevels()
     {
-        get
-        {
-            int stage = StageManager.Inst != null
-                ? StageManager.Inst.Stage
-                : 1;
-
-            int maxLevel;
-
-            if (stage <= 30)
-                maxLevel = stage1To30MaxLevel;
-            else if (stage <= 60)
-                maxLevel = stage31To60MaxLevel;
-            else
-                maxLevel = stage61PlusMaxLevel;
-
-            int availableMaxLevel = GameManager.Inst.ballList.Count - 1;
-
-            return Mathf.Clamp(
-                maxLevel,
-                minSpawnLevel,
-                Mathf.Max(minSpawnLevel, availableMaxLevel)
-            );
-        }
+        List<int> result = new List<int>(retryQueue);
+        result.AddRange(nextBallQueue);
+        return result;
     }
 
     private void Start()
@@ -76,20 +54,23 @@ public class SpawnManager : Singleton<SpawnManager>
         if (currentCamera == null)
             currentCamera = Camera.main;
 
-        if (nextBallQueue.Count == 0)
-            EnqueueRandomBall();
-
         NotifyNextBallChanged();
     }
 
     private void Update()
     {
-        if (GameManager.Inst.gameOver || !canSpawn || inputLocked)
+        if (GameManager.Inst.gameOver || GameManager.Inst.gamePaused || !canSpawn || inputLocked)
+        {
+            CancelAim();
             return;
+        }
 
         // 초기 공이 자리 잡는 중이거나 스테이지를 클리어한 뒤에는 던질 수 없다.
         if (StageManager.Inst != null && !StageManager.Inst.AcceptsInput)
+        {
+            CancelAim();
             return;
+        }
 
         // 공은 카메라가 집중 중인 바구니에만 던질 수 있다.
         Basket basket = GameManager.Inst.FocusedBasket;
@@ -166,17 +147,10 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void CreatePreviewBall(Vector2 spawnPos)
     {
-        if (nextBallQueue.Count == 0)
-            EnqueueRandomBall();
-
-        currentLevel = retryQueue.Count > 0
-            ? retryQueue.Dequeue()
-            : nextBallQueue.Dequeue();
-
-        if (nextBallQueue.Count == 0)
-            EnqueueRandomBall();
-
-        NotifyNextBallChanged();
+        if (HasPreview || RemainingBallCount == 0) return;
+        previewFromRetry = retryQueue.Count > 0;
+        // 조준에서는 소비하지 않는다. 취소/저장 시에도 수량과 순서가 유지된다.
+        currentLevel = previewFromRetry ? retryQueue.Peek() : nextBallQueue.Peek();
 
         previewBall = Instantiate(
             GameManager.Inst.ballList[currentLevel],
@@ -196,6 +170,9 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private void DropPreviewBall()
     {
+        if (previewBall == null) return;
+        if (previewFromRetry) retryQueue.Dequeue();
+        else nextBallQueue.Dequeue();
         canSpawn = false;
 
         OnAimEnd?.Invoke();
@@ -203,6 +180,7 @@ public class SpawnManager : Singleton<SpawnManager>
         SetupBallProperties(previewBall, currentLevel, true);
 
         previewBall = null;
+        NotifyNextBallChanged();
     }
 
     public void SpawnMergedBall(int level, Vector2 pos, Basket owner = null)
@@ -316,11 +294,13 @@ public class SpawnManager : Singleton<SpawnManager>
         }
     }
 
-    // 새 스테이지 시작 시 재투척 대기열과 투척 상태를 초기화한다. 다음 공 대기열은 유지한다.
+    // 새 스테이지에서는 이전 스테이지의 지급/재투척 대기열을 모두 비운다.
     public void ResetForStage()
     {
         CancelAim();
+        nextBallQueue.Clear();
         retryQueue.Clear();
+        ballOwners.Clear();
         canSpawn = true;
         NotifyNextBallChanged();
     }
@@ -362,11 +342,6 @@ public class SpawnManager : Singleton<SpawnManager>
         OnNextBallChanged?.Invoke(getNextBall());
     }
 
-    private void EnqueueRandomBall()
-    {
-        nextBallQueue.Enqueue(UnityEngine.Random.Range(minSpawnLevel, CurrentMaxSpawnLevel + 1));
-    }
-
     public List<int> GetRetryLevels()
     {
         return new List<int>(retryQueue);
@@ -378,9 +353,6 @@ public class SpawnManager : Singleton<SpawnManager>
         retryQueue.Clear();
         if (retryBalls != null)
             foreach (int level in retryBalls) retryQueue.Enqueue(level);
-
-        if (nextBallQueue.Count == 0)
-            EnqueueRandomBall();
 
         NotifyNextBallChanged();
     }

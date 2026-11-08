@@ -1,0 +1,1071 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const root = path.resolve(__dirname, '../..');
+const source = JSON.parse(fs.readFileSync(path.join(__dirname, 'StageData.BeforePuzzle.json'), 'utf8'));
+const gameManager = fs.readFileSync(path.join(root, 'Assets/Script/Manager/GameManager.cs'), 'utf8');
+const weightTable = gameManager.match(/return new List<float>\(\)\s*\{([^}]+)\}/s)[1].split(',').map(s=>Number(s.trim().replace(/f$/,'')));
+if (weightTable.length !== 10 || weightTable.some((w,i)=>!Number.isFinite(w) || w<=0 || (i>0 && w!==2*weightTable[i-1])))
+  throw new Error('GameManager의 무게 표는 10종이며 합성 시 질량을 보존해야 합니다.');
+
+// [이름, 학습 목표, 초기 바구니별 level 목록, 고정 공 순서, 풀이의 basketIndex]
+// 무게는 GameManager의 표를 참조하며 JSON에 저장하지 않는다.
+const lessons = [
+  [
+    "조작 확인",
+    "같은 동물 하나를 반대 바구니에 넣는다.",
+    [
+      [
+        0
+      ],
+      []
+    ],
+    [
+      0
+    ],
+    [
+      1
+    ]
+  ],
+  [
+    "다른 크기의 분배",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        1
+      ],
+      [
+        2
+      ]
+    ],
+    [
+      0,
+      1,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      0,
+      0
+    ]
+  ],
+  [
+    "큰 공 자리 예약",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    [
+      1,
+      0,
+      2,
+      1,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  [
+    "두 묶음",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    [
+      0,
+      2,
+      1,
+      0,
+      2
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  [
+    "작은 공부터 계획",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        2
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    [
+      0,
+      1,
+      1,
+      0,
+      0
+    ]
+  ],
+  [
+    "같은 큰 공, 다른 조합",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      1,
+      0,
+      2,
+      0,
+      2
+    ],
+    [
+      1,
+      0,
+      0,
+      1,
+      1
+    ]
+  ],
+  [
+    "작은 공을 남겨두기",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        1,
+        2
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      1,
+      0,
+      2,
+      1,
+      0,
+      1
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      0,
+      1
+    ]
+  ],
+  [
+    "가벼운 쪽만 보면 실패",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      0,
+      1,
+      2,
+      1,
+      0,
+      2
+    ],
+    [
+      1,
+      1,
+      0,
+      1,
+      0,
+      1
+    ]
+  ],
+  [
+    "여섯 공의 배분",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        2
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    [
+      1,
+      0,
+      2,
+      1,
+      0,
+      2
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1
+    ]
+  ],
+  [
+    "첫 번째 계획 시험",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    [
+      0,
+      2,
+      1,
+      2,
+      0,
+      2
+    ],
+    [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+    ]
+  ],
+  [
+    "상위와 하위를 함께",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        3
+      ]
+    ],
+    [
+      0,
+      2,
+      1,
+      0
+    ],
+    [
+      1,
+      2,
+      0,
+      0
+    ]
+  ],
+  [
+    "큰 공의 두 후보",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        2
+      ],
+      [
+        1
+      ],
+      [
+        3
+      ]
+    ],
+    [
+      1,
+      2,
+      1,
+      1
+    ],
+    [
+      1,
+      2,
+      0,
+      1
+    ]
+  ],
+  [
+    "마지막 작은 공",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        2
+      ],
+      [
+        0
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    [
+      2,
+      0,
+      0,
+      2,
+      0
+    ],
+    [
+      1,
+      0,
+      2,
+      2,
+      1
+    ]
+  ],
+  [
+    "세 곳의 부족분",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    [
+      1,
+      0,
+      2,
+      1,
+      0,
+      2
+    ],
+    [
+      2,
+      0,
+      2,
+      1,
+      2,
+      0
+    ]
+  ],
+  [
+    "연쇄 합성과 배분",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        2
+      ],
+      [
+        2
+      ],
+      [
+        1,
+        3
+      ]
+    ],
+    [
+      1,
+      2,
+      0,
+      2,
+      1
+    ],
+    [
+      2,
+      1,
+      0,
+      2,
+      0
+    ]
+  ],
+  [
+    "같은 동물 다른 역할",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        1,
+        2
+      ],
+      [
+        1
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    [
+      1,
+      0,
+      2,
+      1,
+      0,
+      1
+    ],
+    [
+      2,
+      0,
+      1,
+      1,
+      0,
+      2
+    ]
+  ],
+  [
+    "가장 큰 동물의 자리",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    [
+      0,
+      1,
+      3,
+      0,
+      2,
+      1,
+      0
+    ],
+    [
+      1,
+      0,
+      2,
+      2,
+      1,
+      2,
+      0
+    ]
+  ],
+  [
+    "두 개와 한 묶음",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ]
+    ],
+    [
+      0,
+      2,
+      1,
+      0,
+      2,
+      1,
+      0
+    ],
+    [
+      1,
+      2,
+      0,
+      0,
+      2,
+      1,
+      0
+    ]
+  ],
+  [
+    "계층 저울의 함정",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        3
+      ],
+      [
+        2
+      ],
+      [
+        0,
+        1,
+        3
+      ]
+    ],
+    [
+      1,
+      2,
+      0,
+      3,
+      1,
+      2,
+      2
+    ],
+    [
+      1,
+      0,
+      2,
+      2,
+      1,
+      2,
+      1
+    ]
+  ],
+  [
+    "계층 계획 시험",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        2,
+        3
+      ]
+    ],
+    [
+      0,
+      1,
+      3,
+      2,
+      0,
+      1
+    ],
+    [
+      1,
+      2,
+      2,
+      0,
+      0,
+      1
+    ]
+  ],
+  [
+    "네 곳에 다른 조합",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        2
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      0,
+      1,
+      2,
+      0,
+      1
+    ],
+    [
+      1,
+      2,
+      3,
+      0,
+      0
+    ]
+  ],
+  [
+    "두 저울 동시에",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        1
+      ],
+      [
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    [
+      1,
+      0,
+      2,
+      0,
+      1
+    ],
+    [
+      3,
+      2,
+      0,
+      3,
+      1
+    ]
+  ],
+  [
+    "완성 순서를 바꾸기",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        2
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      1,
+      2,
+      0,
+      2,
+      1,
+      0,
+      2
+    ],
+    [
+      3,
+      0,
+      2,
+      1,
+      2,
+      1,
+      3
+    ]
+  ],
+  [
+    "작은 공의 갈림길",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        1,
+        2
+      ],
+      [
+        2
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    [
+      0,
+      1,
+      2,
+      1,
+      0,
+      1,
+      1
+    ],
+    [
+      3,
+      1,
+      2,
+      0,
+      2,
+      3,
+      1
+    ]
+  ],
+  [
+    "큰 공을 아껴두기",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1
+      ]
+    ],
+    [
+      2,
+      0,
+      1,
+      2,
+      0,
+      2,
+      2
+    ],
+    [
+      3,
+      1,
+      1,
+      2,
+      0,
+      0,
+      3
+    ]
+  ],
+  [
+    "여덟 공의 계획",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    [
+      0,
+      2,
+      1,
+      1,
+      0,
+      2,
+      1,
+      1
+    ],
+    [
+      3,
+      1,
+      2,
+      0,
+      0,
+      3,
+      1,
+      2
+    ]
+  ],
+  [
+    "큰 동물의 유일한 자리",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        3
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        2
+      ]
+    ],
+    [
+      0,
+      2,
+      3,
+      1,
+      0,
+      2,
+      2
+    ],
+    [
+      2,
+      0,
+      3,
+      1,
+      1,
+      2,
+      1
+    ]
+  ],
+  [
+    "먼저 완성하면 막힌다",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        3
+      ]
+    ],
+    [
+      0,
+      1,
+      2,
+      0,
+      2,
+      1,
+      0,
+      2
+    ],
+    [
+      2,
+      1,
+      0,
+      0,
+      3,
+      2,
+      1,
+      2
+    ]
+  ],
+  [
+    "세 크기 네 목적지",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        1,
+        2
+      ],
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        3
+      ]
+    ],
+    [
+      1,
+      0,
+      3,
+      2,
+      1,
+      2,
+      0,
+      2
+    ],
+    [
+      1,
+      3,
+      0,
+      2,
+      2,
+      3,
+      2,
+      1
+    ]
+  ],
+  [
+    "전체 배분 계획 시험",
+    "작은 공부터 현재 가벼운 곳에 넣기 전에 남은 전체 공의 목적지를 계획한다.",
+    [
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        3
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    [
+      0,
+      2,
+      1,
+      3,
+      2,
+      0,
+      1,
+      2
+    ],
+    [
+      3,
+      2,
+      3,
+      1,
+      0,
+      0,
+      2,
+      3
+    ]
+  ]
+];
+
+const scales = [0.5,0.75,1,2,2.35,2.75,3.25,3.75,4,4.25];
+const massUnits = level => weightTable[level] / weightTable[0];
+const round = value => Math.round(value * 10000) / 10000;
+const stages = lessons.map(([title,learningGoal,initial,queue,destinations], index) => {
+  const stage = index + 1;
+  const mapId = Math.floor(index / 10) + 1;
+  const initialUnits = initial.map(levels => levels.reduce((n,level) => n + massUnits(level), 0));
+  const finalUnits = [...initialUnits];
+  destinations.forEach((basket,i) => { finalUnits[basket] += massUnits(queue[i]); });
+  const balls = [];
+  initial.forEach((levels,basketIndex) => {
+    const radii = levels.map(level => 1.695 * scales[level]);
+    const width = radii.reduce((n,r) => n + 2*r, 0) + Math.max(0, levels.length-1)*0.12;
+    let edge = -width / 2;
+    levels.forEach((level,i) => {
+      balls.push({ballId:balls.length+1,level,basketIndex,positionSpace:1,
+        x:round(edge+radii[i]),y:round(-4.24+radii[i]+0.05),rotZ:0,canMerge:true});
+      edge += 2*radii[i]+0.12;
+    });
+  });
+  const maxFinalUnits = Math.max(...finalUnits);
+  const maxMergedLevel = Math.floor(Math.log2(maxFinalUnits));
+  return {
+    stage,mapId,title,learningGoal,
+    difficulty:index===0?0:Math.min(10,Math.floor(index/3)+1),patternId:`puzzle-${String(stage).padStart(2,'0')}`,
+    levelTolerance:mapId===1?4:mapId===2?3.5:3,holdTime:mapId===1?1.5:2,settleTime:3,
+    forcedMergeTargetBallId:-1,balls,playerBallQueue:queue,
+    clearRequirements:{allProvidedBallsUsed:true,allBallsInBaskets:true,allBeamsLevel:true},
+    referenceSolution:{
+      steps:queue.map((level,i) => ({queueIndex:i,level,basketIndex:destinations[i],dropX:0})),
+      initialMassUnits:initialUnits,finalMassUnits:finalUnits,
+      canonicalFinalLevels:finalUnits.map(n => {
+        const levels=[]; for(let l=0;n>0;l++,n=Math.floor(n/2)) if(n%2) levels.push(l);
+        return levels;
+      }),
+      maxPossibleMergedLevel:maxMergedLevel,
+      purpose:'검증과 디자이너 참고용. 정답을 강제하거나 플레이 화면에 무게를 표시하지 않는다.',
+      physicsVerified:false,
+    },
+  };
+});
+
+const db = {
+  schemaVersion:5,status:'local-puzzle-experiment',
+  source:{path:'Design/PuzzleCampaign/StageData.BeforePuzzle.json',stageCount:source.stages.length,
+    distinctPatternCount:new Set(source.stages.map(s=>s.patternId)).size},
+  rules:{
+    showWeightNumbers:false,spawnMode:'fixed-finite-queue',mergeMode:'equal-level-mass-conserving',
+    mergeIsClearRequirement:false,clearOnlyAfterAllProvidedBallsUsed:true,
+    lostBallPolicy:'return-same-ball-to-retry-queue-without-generating-new-balls',
+    exhaustedQueuePolicy:'wait-for-all-balls-to-settle-then-offer-retry-if-not-clear',
+    rejectedAimPolicy:'return-undropped-preview-to-front-of-origin-queue',
+    initialLayout:'sensor-local coordinates; symmetric row; floor inferred from source JSON; needs Unity QA',
+    completionPolicy:'last-stage-shows-campaign-complete',
+  },
+  maps:source.maps,
+  chapters:[
+    {from:1,to:10,mapId:1,title:'같은 무게 알아보기'},
+    {from:11,to:20,mapId:2,title:'계층 저울 이해하기'},
+    {from:21,to:30,mapId:3,title:'전체 균형 계획하기'},
+  ],
+  stages,
+};
+fs.writeFileSync(path.join(root,'Assets/Aset/Data/StageData.json'),JSON.stringify(db,null,2)+'\n');
+console.log(`Designed ${stages.length} levels from ${source.stages.length} source stages.`);

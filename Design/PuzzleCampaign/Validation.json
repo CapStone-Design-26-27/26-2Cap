@@ -1,13 +1,25 @@
 {
-  "stageCount": 30,
+  "stageCount": 100,
   "passed": true,
+  "baselineLogicalDuplicates": [
+    [
+      4,
+      6
+    ],
+    [
+      21,
+      22
+    ]
+  ],
   "verified": [
     "Mass conservation",
     "All finite queues have a solution",
     "Target ratios of every beam",
     "Reference solution uses every provided ball",
     "No exact duplicate puzzles",
-    "Canonical merge results"
+    "Canonical merge results",
+    "New stages exclude symmetry and uniform scaling duplicates",
+    "Initial circle bounds and non-overlap"
   ],
   "notVerified": [
     "Unity trajectories and collisions",
@@ -461,6 +473,1073 @@
         14,
         14,
         14
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 31,
+      "title": "큰 공의 목적지 31",
+      "mapId": 1,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        11,
+        11
+      ],
+      "validDropSequences": 5,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 32,
+      "title": "작은 부족분 32",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        6,
+        6,
+        12
+      ],
+      "validDropSequences": 8,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 33,
+      "title": "전체 배분 계획 33",
+      "mapId": 1,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        8,
+        8
+      ],
+      "validDropSequences": 4,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 34,
+      "title": "서로 다른 조합 34",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        7,
+        7,
+        14
+      ],
+      "validDropSequences": 14,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 35,
+      "title": "남은 공의 역할 35",
+      "mapId": 1,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        7,
+        7
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 36,
+      "title": "계층 균형 계획 36",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        8,
+        8,
+        16
+      ],
+      "validDropSequences": 5,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 37,
+      "title": "정밀한 배분 37",
+      "mapId": 1,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        12,
+        12
+      ],
+      "validDropSequences": 8,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 38,
+      "title": "큰 공의 목적지 38",
+      "mapId": 2,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        9,
+        9,
+        18
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 39,
+      "title": "작은 부족분 39",
+      "mapId": 1,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        7,
+        7
+      ],
+      "validDropSequences": 4,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 40,
+      "title": "전체 배분 계획 40",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        10,
+        10,
+        20
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 41,
+      "title": "서로 다른 조합 41",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        11,
+        11,
+        22
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 42,
+      "title": "남은 공의 역할 42",
+      "mapId": 3,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 43,
+      "title": "계층 균형 계획 43",
+      "mapId": 2,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        6,
+        6,
+        12
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 44,
+      "title": "정밀한 배분 44",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 45,
+      "title": "큰 공의 목적지 45",
+      "mapId": 2,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        10,
+        10,
+        20
+      ],
+      "validDropSequences": 2,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 46,
+      "title": "작은 부족분 46",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "validDropSequences": 18,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 47,
+      "title": "전체 배분 계획 47",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        9,
+        9,
+        18
+      ],
+      "validDropSequences": 14,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 48,
+      "title": "서로 다른 조합 48",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 49,
+      "title": "남은 공의 역할 49",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        14,
+        14,
+        28
+      ],
+      "validDropSequences": 8,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 50,
+      "title": "계층 균형 계획 50",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 51,
+      "title": "정밀한 배분 51",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 52,
+      "title": "큰 공의 목적지 52",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 53,
+      "title": "작은 부족분 53",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 54,
+      "title": "전체 배분 계획 54",
+      "mapId": 3,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 55,
+      "title": "서로 다른 조합 55",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 56,
+      "title": "남은 공의 역할 56",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 57,
+      "title": "계층 균형 계획 57",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "validDropSequences": 4,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 58,
+      "title": "정밀한 배분 58",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "validDropSequences": 60,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 59,
+      "title": "큰 공의 목적지 59",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 60,
+      "title": "작은 부족분 60",
+      "mapId": 3,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "validDropSequences": 144,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 61,
+      "title": "전체 배분 계획 61",
+      "mapId": 1,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        17,
+        17
+      ],
+      "validDropSequences": 8,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 62,
+      "title": "서로 다른 조합 62",
+      "mapId": 2,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        7,
+        7,
+        14
+      ],
+      "validDropSequences": 4,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 63,
+      "title": "남은 공의 역할 63",
+      "mapId": 1,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        20,
+        20
+      ],
+      "validDropSequences": 21,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 64,
+      "title": "계층 균형 계획 64",
+      "mapId": 2,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        12,
+        12,
+        24
+      ],
+      "validDropSequences": 40,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 65,
+      "title": "정밀한 배분 65",
+      "mapId": 1,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        14,
+        14
+      ],
+      "validDropSequences": 56,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 66,
+      "title": "큰 공의 목적지 66",
+      "mapId": 2,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        21,
+        21,
+        42
+      ],
+      "validDropSequences": 20,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 67,
+      "title": "작은 부족분 67",
+      "mapId": 1,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        21,
+        21
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 68,
+      "title": "전체 배분 계획 68",
+      "mapId": 2,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        15,
+        15,
+        30
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 69,
+      "title": "서로 다른 조합 69",
+      "mapId": 1,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        22,
+        22
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 70,
+      "title": "남은 공의 역할 70",
+      "mapId": 2,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        10,
+        10,
+        20
+      ],
+      "validDropSequences": 72,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 71,
+      "title": "계층 균형 계획 71",
+      "mapId": 3,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 3,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 72,
+      "title": "정밀한 배분 72",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "validDropSequences": 16,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 73,
+      "title": "큰 공의 목적지 73",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 74,
+      "title": "작은 부족분 74",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 75,
+      "title": "전체 배분 계획 75",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 76,
+      "title": "서로 다른 조합 76",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        10,
+        10,
+        10,
+        10
+      ],
+      "validDropSequences": 80,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 77,
+      "title": "남은 공의 역할 77",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        12,
+        12,
+        12,
+        12
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 78,
+      "title": "계층 균형 계획 78",
+      "mapId": 3,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 79,
+      "title": "정밀한 배분 79",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 80,
+      "title": "큰 공의 목적지 80",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 81,
+      "title": "작은 부족분 81",
+      "mapId": 3,
+      "providedBallCount": 5,
+      "finalMassUnits": [
+        6,
+        6,
+        6,
+        6
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 82,
+      "title": "전체 배분 계획 82",
+      "mapId": 1,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        22,
+        22
+      ],
+      "validDropSequences": 8,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": true,
+      "physicsVerified": false
+    },
+    {
+      "stage": 83,
+      "title": "서로 다른 조합 83",
+      "mapId": 2,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        20,
+        20,
+        40
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 84,
+      "title": "남은 공의 역할 84",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "validDropSequences": 8,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 85,
+      "title": "계층 균형 계획 85",
+      "mapId": 1,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        21,
+        21
+      ],
+      "validDropSequences": 5,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 86,
+      "title": "정밀한 배분 86",
+      "mapId": 2,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        15,
+        15,
+        30
+      ],
+      "validDropSequences": 18,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 87,
+      "title": "큰 공의 목적지 87",
+      "mapId": 3,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        9,
+        9,
+        9,
+        9
+      ],
+      "validDropSequences": 12,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 88,
+      "title": "작은 부족분 88",
+      "mapId": 1,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        22,
+        22
+      ],
+      "validDropSequences": 4,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 89,
+      "title": "전체 배분 계획 89",
+      "mapId": 2,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        22,
+        22,
+        44
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 90,
+      "title": "서로 다른 조합 90",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 91,
+      "title": "남은 공의 역할 91",
+      "mapId": 1,
+      "providedBallCount": 4,
+      "finalMassUnits": [
+        9,
+        9
+      ],
+      "validDropSequences": 3,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": true,
+      "physicsVerified": false
+    },
+    {
+      "stage": 92,
+      "title": "계층 균형 계획 92",
+      "mapId": 2,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        13,
+        13,
+        26
+      ],
+      "validDropSequences": 6,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 93,
+      "title": "정밀한 배분 93",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        11,
+        11,
+        11,
+        11
+      ],
+      "validDropSequences": 24,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 94,
+      "title": "큰 공의 목적지 94",
+      "mapId": 1,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        16,
+        16
+      ],
+      "validDropSequences": 20,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 95,
+      "title": "작은 부족분 95",
+      "mapId": 2,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        9,
+        9,
+        18
+      ],
+      "validDropSequences": 20,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 96,
+      "title": "전체 배분 계획 96",
+      "mapId": 3,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "validDropSequences": 16,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 97,
+      "title": "서로 다른 조합 97",
+      "mapId": 1,
+      "providedBallCount": 6,
+      "finalMassUnits": [
+        18,
+        18
+      ],
+      "validDropSequences": 3,
+      "distinctLevelAllocations": 2,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 98,
+      "title": "남은 공의 역할 98",
+      "mapId": 2,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        9,
+        9,
+        18
+      ],
+      "validDropSequences": 36,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 99,
+      "title": "계층 균형 계획 99",
+      "mapId": 3,
+      "providedBallCount": 8,
+      "finalMassUnits": [
+        13,
+        13,
+        13,
+        13
+      ],
+      "validDropSequences": 16,
+      "distinctLevelAllocations": 1,
+      "greedyLightestBasketClears": false,
+      "physicsVerified": false
+    },
+    {
+      "stage": 100,
+      "title": "정밀한 배분 100",
+      "mapId": 3,
+      "providedBallCount": 7,
+      "finalMassUnits": [
+        17,
+        17,
+        17,
+        17
       ],
       "validDropSequences": 24,
       "distinctLevelAllocations": 1,

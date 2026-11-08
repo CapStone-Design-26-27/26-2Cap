@@ -1,6 +1,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const assert = require('node:assert/strict');
+const {logicalSignature, allocationCount, radius} = require('./expand-campaign.cjs');
 const root = path.resolve(__dirname,'../..');
 const db = JSON.parse(fs.readFileSync(path.join(root,'Assets/Aset/Data/StageData.json'),'utf8'));
 const managerCode = fs.readFileSync(path.join(root,'Assets/Script/Manager/GameManager.cs'),'utf8');
@@ -8,6 +9,8 @@ const weights = managerCode.match(/return new List<float>\(\)\s*\{([^}]+)\}/s)[1
 const results = [];
 const ids = new Set();
 const signatures = new Set();
+const logicalSignatures = new Map();
+const baselineDuplicates = [];
 const weight = level => weights[level];
 assert.equal(weight(0),1);
 assert(!JSON.stringify(db).includes('weightByLevel'),'Weights belong in GameManager');
@@ -29,7 +32,16 @@ for(const s of db.stages) {
     assert(Number.isInteger(ball.basketIndex) && ball.basketIndex>=0 && ball.basketIndex<n);
     assert.equal(ball.positionSpace,1);
     assert(Number.isFinite(ball.x) && Number.isFinite(ball.y));
+    assert.equal(ball.canMerge,true,'Non-merge mechanic must not be enabled before implementation');
+    const r=radius(ball.level);
+    assert(Math.abs(ball.x)+r<=11.7,'Initial ball outside basket width');
+    assert(ball.y-r>=-4.24 && ball.y+r<=32,'Initial ball outside basket height');
     initial[ball.basketIndex]+=weight(ball.level);
+  }
+  for(let i=0;i<s.balls.length;i++) for(let j=i+1;j<s.balls.length;j++) {
+    const a=s.balls[i], b=s.balls[j];
+    if(a.basketIndex===b.basketIndex)
+      assert(Math.hypot(a.x-b.x,a.y-b.y)+0.001>=radius(a.level)+radius(b.level),'Initial balls overlap');
   }
   for(const level of s.playerBallQueue)
     assert(Number.isInteger(level) && level>=0 && level<weights.length);
@@ -53,6 +65,11 @@ for(const s of db.stages) {
   });
   const signature=JSON.stringify([s.mapId,s.balls.map(b=>[b.level,b.basketIndex]),s.playerBallQueue]);
   assert(!signatures.has(signature),'Exact duplicate stage'); signatures.add(signature);
+  const logical=logicalSignature(s);
+  if(logicalSignatures.has(logical)) {
+    assert(s.stage<=30,'New stage duplicates an existing allocation under symmetry/scaling');
+    baselineDuplicates.push([logicalSignatures.get(logical),s.stage]);
+  } else logicalSignatures.set(logical,s.stage);
 
   // 모든 투입 목적지를 열거한다. 같은 종류의 공 순서만 다른 풀이는 배분별로 묶는다.
   let sequenceCount=0;
@@ -93,15 +110,21 @@ for(const s of db.stages) {
   }
   assert.equal(s.clearRequirements.allProvidedBallsUsed,true);
   assert.equal(s.clearRequirements.allBallsInBaskets,true);
+  assert.equal(patterns.size,allocationCount(initial,target,s.playerBallQueue),'Independent allocation counts disagree');
   results.push({stage:s.stage,title:s.title,mapId:s.mapId,providedBallCount:s.playerBallQueue.length,
     finalMassUnits:s.referenceSolution.finalMassUnits,validDropSequences:sequenceCount,
     distinctLevelAllocations:patterns.size,
     greedyLightestBasketClears:greedyMasses.every((mass,i)=>mass===target[i]),physicsVerified:false});
 }
-assert.deepEqual([...ids],Array.from({length:30},(_,i)=>i+1));
+assert.deepEqual([...ids],Array.from({length:100},(_,i)=>i+1));
+assert.equal(db.chapters[0].from,1);
+assert.equal(db.chapters.at(-1).to,100);
+for(let i=1;i<db.chapters.length;i++) assert.equal(db.chapters[i].from,db.chapters[i-1].to+1);
 const report={stageCount:results.length,passed:true,
+  baselineLogicalDuplicates:baselineDuplicates,
   verified:['Mass conservation','All finite queues have a solution','Target ratios of every beam',
-    'Reference solution uses every provided ball','No exact duplicate puzzles','Canonical merge results'],
+    'Reference solution uses every provided ball','No exact duplicate puzzles','Canonical merge results',
+    'New stages exclude symmetry and uniform scaling duplicates','Initial circle bounds and non-overlap'],
   notVerified:['Unity trajectories and collisions','Basket tilt and game-over risk',
     'Time to settle','Angle tolerance may permit unintended solutions','Actual merged ball occupancy'],
   stages:results};

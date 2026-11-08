@@ -1028,7 +1028,7 @@ const stages = lessons.map(([title,learningGoal,initial,queue,destinations], ind
   const maxMergedLevel = Math.floor(Math.log2(maxFinalUnits));
   return {
     stage,mapId,title,learningGoal,
-    difficulty:index===0?0:Math.min(10,Math.floor(index/3)+1),patternId:`puzzle-${String(stage).padStart(2,'0')}`,
+    difficulty:index===0?0:Math.min(3,Math.floor(index/10)+1),patternId:`puzzle-${String(stage).padStart(2,'0')}`,
     levelTolerance:mapId===1?4:mapId===2?3.5:3,holdTime:mapId===1?1.5:2,settleTime:3,
     forcedMergeTargetBallId:-1,balls,playerBallQueue:queue,
     clearRequirements:{allProvidedBallsUsed:true,allBallsInBaskets:true,allBeamsLevel:true},
@@ -1045,6 +1045,8 @@ const stages = lessons.map(([title,learningGoal,initial,queue,destinations], ind
     },
   };
 });
+
+require('./expand-campaign.cjs').expandCampaign(stages, source.maps);
 
 const db = {
   schemaVersion:5,status:'local-puzzle-experiment',
@@ -1064,6 +1066,13 @@ const db = {
     {from:1,to:10,mapId:1,title:'같은 무게 알아보기'},
     {from:11,to:20,mapId:2,title:'계층 저울 이해하기'},
     {from:21,to:30,mapId:3,title:'전체 균형 계획하기'},
+    {from:31,to:40,mapIds:[1,2],title:'전체 지급 공의 목적지'},
+    {from:41,to:50,mapIds:[2,3],title:'여러 바구니의 부족분'},
+    {from:51,to:60,mapIds:[3],title:'서로 다른 배분 조합'},
+    {from:61,to:70,mapIds:[1,2],title:'남은 공까지 계획하기'},
+    {from:71,to:80,mapIds:[3],title:'정밀한 배분'},
+    {from:81,to:90,mapIds:[1,2,3],title:'저울 구조별 응용'},
+    {from:91,to:100,mapIds:[1,2,3],title:'배분 종합 도전'},
   ],
   stages,
 };

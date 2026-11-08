@@ -44,8 +44,8 @@ public class SaveManager : Singleton<SaveManager>
     {
         try
         {
-            if (!File.Exists(SaveFilePath)) return 1;
-            GameSaveData data = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(SaveFilePath));
+            if (!File.Exists(PuzzlePaths.SaveFile)) return 1;
+            GameSaveData data = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(PuzzlePaths.SaveFile));
             return data != null && data.stage > 0 ? data.stage : 1;
         }
         catch (System.Exception)

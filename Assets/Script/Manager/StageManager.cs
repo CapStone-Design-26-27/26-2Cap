@@ -572,11 +572,12 @@ public class StageManager : MonoBehaviour
         completed?.Invoke(stageReady);
     }
 
-    // 합성 제어 코드는 BallBehaviour에 추가할 때 이 메타데이터를 사용할 수 있다.
-    // 현재 canMerge는 배치/저장용이며 충돌 합성 동작을 바꾸지는 않는다.
+    // 초기 배치와 저장 복원 모두 같은 잠금 상태를 적용한다.
     public static void RegisterBallData(BallBehaviour ball, StageBallData data)
     {
-        if (ball != null && data != null) ballDataByInstance[ball] = data;
+        if (ball == null || data == null) return;
+        ballDataByInstance[ball] = data;
+        BallMergeLock.SetMergeAllowed(ball.gameObject, data.canMerge);
     }
 
     public static StageBallData CaptureBallData(BallBehaviour ball, int fallbackId)
@@ -597,7 +598,7 @@ public class StageManager : MonoBehaviour
             x = ball.transform.position.x,
             y = ball.transform.position.y,
             rotZ = ball.transform.eulerAngles.z,
-            canMerge = original == null || original.canMerge
+            canMerge = BallMergeLock.CanMerge(ball.gameObject)
         };
     }
 

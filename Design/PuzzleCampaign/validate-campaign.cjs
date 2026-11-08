@@ -32,7 +32,7 @@ for(const s of db.stages) {
     assert(Number.isInteger(ball.basketIndex) && ball.basketIndex>=0 && ball.basketIndex<n);
     assert.equal(ball.positionSpace,1);
     assert(Number.isFinite(ball.x) && Number.isFinite(ball.y));
-    assert.equal(ball.canMerge,true,'Non-merge mechanic must not be enabled before implementation');
+    assert.equal(typeof ball.canMerge,'boolean','Merge state must be explicit');
     const r=radius(ball.level);
     assert(Math.abs(ball.x)+r<=11.7,'Initial ball outside basket width');
     assert(ball.y-r>=-4.24 && ball.y+r<=32,'Initial ball outside basket height');

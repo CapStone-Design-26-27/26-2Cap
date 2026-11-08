@@ -14,6 +14,7 @@ public class SaveManager : Singleton<SaveManager>
         public string stageDataSignature;
         public List<int> nextBalls;
         public List<int> retryBalls;
+        public List<bool> retryCanMerge;
         public List<float> nodeAngles;
         public List<StageBallData> balls;
     }
@@ -61,6 +62,7 @@ public class SaveManager : Singleton<SaveManager>
             stage = stageManager == null ? 1 : stageManager.Stage + (cleared && stageManager.HasNextStage ? 1 : 0),
             nextBalls = new List<int>(SpawnManager.Inst.nextBallQueue),
             retryBalls = cleared ? new List<int>() : SpawnManager.Inst.GetRetryLevels(),
+            retryCanMerge = cleared ? new List<bool>() : SpawnManager.Inst.GetRetryMergeStates(),
             nodeAngles = cleared ? null : ScaleSystem.Inst.GetAngles(),
             balls = new List<StageBallData>()
         };
@@ -203,7 +205,7 @@ public class SaveManager : Singleton<SaveManager>
             StageManager.Inst.BeginStage();
             return;
         }
-        SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls);
+        SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls, data.retryCanMerge);
 
         // 공보다 저울 자세를 먼저 복원해야 공이 바구니 안의 제자리에 놓인다.
         if (!ScaleSystem.Inst.ApplyAngles(data.nodeAngles))

@@ -16,6 +16,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     // 바닥에 떨어진 공들의 레벨. 다음 공보다 먼저, 떨어진 순서대로 다시 던지게 한다.
     private readonly Queue<int> retryQueue = new Queue<int>();
+    private readonly Queue<bool> retryMergeStates = new Queue<bool>();
 
     // 공(콜라이더)별 소속 바구니. 소속이 다른 공끼리는 충돌과 합성을 하지 않는다.
     private readonly Dictionary<Collider2D, Basket> ballOwners = new Dictionary<Collider2D, Basket>();
@@ -165,13 +166,18 @@ public class SpawnManager : Singleton<SpawnManager>
         if (col != null)
             col.enabled = false;
 
+        BallMergeLock.SetMergeAllowed(previewBall, !previewFromRetry || retryMergeStates.Peek());
         OnAimStart?.Invoke(previewBall.transform);
     }
 
     private void DropPreviewBall()
     {
         if (previewBall == null) return;
-        if (previewFromRetry) retryQueue.Dequeue();
+        if (previewFromRetry)
+        {
+            retryQueue.Dequeue();
+            retryMergeStates.Dequeue();
+        }
         else nextBallQueue.Dequeue();
         canSpawn = false;
 
@@ -300,6 +306,7 @@ public class SpawnManager : Singleton<SpawnManager>
         CancelAim();
         nextBallQueue.Clear();
         retryQueue.Clear();
+        retryMergeStates.Clear();
         ballOwners.Clear();
         canSpawn = true;
         NotifyNextBallChanged();
@@ -316,6 +323,7 @@ public class SpawnManager : Singleton<SpawnManager>
     public void OnBallHitGroundAndRetry(int level, GameObject ball, bool wasPlayersBall)
     {
         retryQueue.Enqueue(level);
+        retryMergeStates.Enqueue(BallMergeLock.CanMerge(ball));
 
         if (wasPlayersBall)
             canSpawn = true;
@@ -347,12 +355,23 @@ public class SpawnManager : Singleton<SpawnManager>
         return new List<int>(retryQueue);
     }
 
-    public void RestoreQueues(List<int> nextBalls, List<int> retryBalls)
+    public List<bool> GetRetryMergeStates()
+    {
+        return new List<bool>(retryMergeStates);
+    }
+
+    public void RestoreQueues(List<int> nextBalls, List<int> retryBalls, List<bool> retryCanMerge = null)
     {
         nextBallQueue = new Queue<int>(nextBalls ?? new List<int>());
         retryQueue.Clear();
+        retryMergeStates.Clear();
         if (retryBalls != null)
-            foreach (int level in retryBalls) retryQueue.Enqueue(level);
+            for (int i = 0; i < retryBalls.Count; i++)
+            {
+                retryQueue.Enqueue(retryBalls[i]);
+                // 잠금 상태가 없던 기존 저장 파일은 일반 공으로 복원한다.
+                retryMergeStates.Enqueue(retryCanMerge == null || i >= retryCanMerge.Count || retryCanMerge[i]);
+            }
 
         NotifyNextBallChanged();
     }

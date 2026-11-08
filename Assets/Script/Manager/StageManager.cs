@@ -14,14 +14,6 @@ public class StageManager : MonoBehaviour
     public static event Action<int> OnStageStarted;
     public static event Action<int> OnStageCleared;
 
-    [Header("JSON 스테이지 데이터")]
-    [Tooltip("Assets/Resources 폴더 안 JSON 파일 이름. 확장자 .json은 쓰지 않는다.")]
-    [SerializeField] private string jsonResourceName = "StageData";
-
-    [Header("스테이지 맵")]
-    [Tooltip("빌드에서 자동 전환할 Map 1~3 프리팹. 비어 있으면 에디터에서 Assets/Aset/Map 경로를 사용한다.")]
-    [SerializeField] private List<GameObject> mapPrefabs = new List<GameObject>();
-
     [Header("클리어 조건")]
     [Tooltip("저울대가 이 각도 이내면 수평으로 본다.")]
     [SerializeField, Min(0f)] private float levelTolerance = 3f;
@@ -39,21 +31,35 @@ public class StageManager : MonoBehaviour
     [SerializeField] private bool drawDebugUI = true;
 
     private StageDatabase stageDatabase;
+    private readonly Dictionary<int, StageDefinition> definitionsByStage = new Dictionary<int, StageDefinition>();
+    [Header("시작 카운트다운")]
+    [SerializeField, Min(0f)] private float startCountdownSeconds = 3f;
+
     private float settleTimer;
     private float holdTimer;
     private bool stageReady;
     private Coroutine stageRoutine;
+    private float exhaustedTimer;
+    private float expectedMass;
     private static readonly Dictionary<BallBehaviour, StageBallData> ballDataByInstance =
         new Dictionary<BallBehaviour, StageBallData>();
 
     public int Stage { get; private set; } = 1;
     public bool IsCleared { get; private set; }
     public bool IsStageReady => stageReady;
+    public string DataSignature => GetStageSignature(Stage);
+    public float ExpectedMass => expectedMass;
     public int CurrentMapId => GetStageMapId(Stage);
     public bool HasNextStage => FindStageData(Stage + 1) != null;
+    public int TotalProvidedBalls => FindStageData(Stage)?.playerBallQueue?.Count ?? 0;
+    public bool IsAttemptFailed { get; private set; }
     public bool IsSettling => settleTimer > 0f;
-    public bool AcceptsInput => stageReady && !IsSettling && !IsCleared;
+    public int CountdownSeconds => Mathf.CeilToInt(Mathf.Max(0f, settleTimer));
+    public bool AcceptsInput => stageReady && !IsSettling && !IsCheckingClear && !IsCleared && !IsAttemptFailed &&
+        GameManager.Inst != null && !GameManager.Inst.gameOver && !GameManager.Inst.gamePaused;
     public float HoldProgress => holdTime > 0f ? Mathf.Clamp01(holdTimer / holdTime) : 1f;
+    public bool IsCheckingClear => stageReady && !IsSettling && !IsCleared && holdTimer > 0f;
+    public float ClearSecondsRemaining => Mathf.Max(0f, holdTime - holdTimer);
 
     private void Awake()
     {
@@ -67,15 +73,20 @@ public class StageManager : MonoBehaviour
         LoadStageDatabase();
     }
 
+    private void OnDestroy()
+    {
+        if (Inst == this) Inst = null;
+    }
+
     private void LoadStageDatabase()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>(jsonResourceName);
+        TextAsset jsonFile = GameManager.Inst != null && GameManager.Inst.Content != null
+            ? GameManager.Inst.Content.stageData : null;
 
         if (jsonFile == null)
         {
             Debug.LogError(
-                $"StageManager: JSON 파일을 찾을 수 없습니다. " +
-                $"Assets/Resources/{jsonResourceName}.json 경로를 확인하세요.");
+                "StageManager: Game Content에 Assets/Aset/Data/StageData.json을 연결하세요.");
             return;
         }
 
@@ -115,25 +126,51 @@ public class StageManager : MonoBehaviour
 
         if (stageDatabase == null || stageDatabase.stages == null || stageDatabase.stages.Count == 0)
         {
-            Debug.LogError($"StageManager: {jsonResourceName}.json에 스테이지 데이터가 없거나 형식이 잘못되었습니다.");
+            Debug.LogError("StageManager: StageData.json에 스테이지 데이터가 없거나 형식이 잘못되었습니다.");
             stageDatabase = null;
             return;
         }
 
+        definitionsByStage.Clear();
+        foreach (StageDefinition definition in stageDatabase.stages)
+        {
+            if (definitionsByStage.ContainsKey(definition.stage))
+            {
+                Debug.LogError($"StageManager: 중복 스테이지 번호 {definition.stage}");
+                definitionsByStage.Clear();
+                return;
+            }
+            definitionsByStage.Add(definition.stage, definition);
+        }
         Debug.Log($"StageManager: JSON 스테이지 {stageDatabase.stages.Count}개 로드 완료");
+    }
+
+    public string GetStageSignature(int stageNumber)
+    {
+        StageDefinition definition = FindStageData(stageNumber);
+        if (definition == null || GameManager.Inst == null) return null;
+        string weights = string.Join(",", GameManager.Inst.kgList.ConvertAll(w =>
+            w.ToString("R", System.Globalization.CultureInfo.InvariantCulture)));
+        using (var hash = System.Security.Cryptography.SHA256.Create())
+            return BitConverter.ToString(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(
+                JsonUtility.ToJson(definition) + "|" + weights)));
     }
 
     private void Update()
     {
+        if (GameManager.Inst == null || GameManager.Inst.gameOver || GameManager.Inst.gamePaused)
+            return;
         if (settleTimer > 0f)
-            settleTimer -= Time.deltaTime;
+            settleTimer = Mathf.Max(0f, settleTimer - Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
         if (GameManager.Inst == null ||
             GameManager.Inst.gameOver ||
+            GameManager.Inst.gamePaused ||
             IsCleared ||
+            IsAttemptFailed ||
             !stageReady ||
             IsSettling ||
             ScaleSystem.Inst == null ||
@@ -143,11 +180,65 @@ public class StageManager : MonoBehaviour
         }
 
         // 던진 공이 아직 떨어지는 중이면 판정하지 않는다.
-        bool stable = SpawnManager.Inst.canSpawn && IsLevel();
+        bool allUsed = SpawnManager.Inst.RemainingBallCount == 0 && !SpawnManager.Inst.HasPreview;
+        bool allInBaskets = HasAllMassInBaskets();
+        bool stopped = BallsHaveSettled();
+        bool stable = allUsed && allInBaskets && stopped && HasBalancedMasses() && IsLevel();
+        if (stable && holdTimer <= 0f)
+            SpawnManager.Inst.CancelAim();
         holdTimer = stable ? holdTimer + Time.fixedDeltaTime : 0f;
 
-        if (holdTimer >= holdTime)
+        if (stable && holdTimer >= holdTime)
             Clear();
+
+        // 마지막 공이 실제로 멈춘 뒤 기다린다. 낙하/합성 중에는 실패 판정하지 않는다.
+        exhaustedTimer = allUsed && allInBaskets && stopped && !stable
+            ? exhaustedTimer + Time.fixedDeltaTime : 0f;
+        if (!IsCleared && exhaustedTimer >= 2f) IsAttemptFailed = true;
+    }
+
+    private bool HasAllMassInBaskets()
+    {
+        HashSet<Rigidbody2D> counted = new HashSet<Rigidbody2D>();
+        float mass = 0f;
+        foreach (Basket basket in ScaleSystem.Inst.Baskets)
+        {
+            if (basket.Sensor == null) return false;
+            foreach (Rigidbody2D ball in basket.Sensor.Balls)
+                if (counted.Add(ball)) mass += ball.mass;
+        }
+        return Mathf.Abs(mass - expectedMass) < 0.01f;
+    }
+
+    private bool BallsHaveSettled()
+    {
+        foreach (Basket basket in ScaleSystem.Inst.Baskets)
+        {
+            if (basket.Sensor == null) return false;
+            foreach (Rigidbody2D ball in basket.Sensor.Balls)
+                if (ball.velocity.sqrMagnitude > 0.25f || Mathf.Abs(ball.angularVelocity) > 10f)
+                    return false;
+        }
+        return true;
+    }
+
+    private bool HasBalancedMasses()
+    {
+        StageMapDefinition map = stageDatabase.maps.Find(m => m.mapId == CurrentMapId);
+        if (map == null || map.targetWeightRatios == null ||
+            map.targetWeightRatios.Count != ScaleSystem.Inst.Baskets.Count) return false;
+        int ratioSum = 0;
+        foreach (int ratio in map.targetWeightRatios)
+        {
+            if (ratio <= 0) return false;
+            ratioSum += ratio;
+        }
+        if (ratioSum == 0) return false;
+        float unitMass = expectedMass / ratioSum;
+        for (int i = 0; i < map.targetWeightRatios.Count; i++)
+            if (Mathf.Abs(ScaleSystem.Inst.Baskets[i].Sensor.TotalWeight -
+                unitMass * map.targetWeightRatios[i]) > 0.01f) return false;
+        return true;
     }
 
     private bool IsLevel()
@@ -177,6 +268,7 @@ public class StageManager : MonoBehaviour
 
         Debug.Log($"Stage {Stage} Clear");
         OnStageCleared?.Invoke(Stage);
+        if (SaveManager.Inst != null) SaveManager.Inst.SaveGame();
     }
 
     // 스테이지 시작: 랜덤 배치 대신 JSON에 정의된 공과 월드 좌표를 사용한다.
@@ -199,6 +291,8 @@ public class StageManager : MonoBehaviour
             yield break;
         }
         IsCleared = false;
+        IsAttemptFailed = false;
+        exhaustedTimer = 0f;
         stageReady = false;
         holdTimer = 0f;
         settleTimer = 0f;
@@ -241,13 +335,25 @@ public class StageManager : MonoBehaviour
             }
         }
         ApplyStageSettings(stageData);
+        ConfigurePuzzle(stageData);
         SpawnJsonBalls(stageData);
 
         Physics2D.SyncTransforms();
         stageReady = true;
-        settleTimer = Mathf.Max(0f, stageData.settleTime);
+        settleTimer = Mathf.Max(startCountdownSeconds, stageData.settleTime, 0f);
         OnStageStarted?.Invoke(Stage);
         stageRoutine = null;
+        if (SaveManager.Inst != null) SaveManager.Inst.SaveGame();
+    }
+
+    private void ConfigurePuzzle(StageDefinition definition)
+    {
+        expectedMass = 0f;
+        foreach (StageBallData ball in definition.balls)
+            expectedMass += GameManager.Inst.kgList[ball.level];
+        foreach (int level in definition.playerBallQueue)
+            expectedMass += GameManager.Inst.kgList[level];
+        SpawnManager.Inst.RestoreQueues(definition.playerBallQueue, null);
     }
 
     private IEnumerator EnsureStageMap(int stageNumber)
@@ -286,32 +392,16 @@ public class StageManager : MonoBehaviour
     private GameObject GetMapPrefab(int mapId)
     {
         int index = mapId - 1;
-        if (index >= 0 && index < mapPrefabs.Count && mapPrefabs[index] != null)
-            return mapPrefabs[index];
-
-        GameObject resource = Resources.Load<GameObject>($"Map/Scale_{mapId}");
-        if (resource != null) return resource;
-#if UNITY_EDITOR
-        string path = mapId == 1 ? "Assets/Aset/Map/Scale.prefab" :
-            $"Assets/Aset/Map/Scale_{mapId}.prefab";
-        return AssetDatabase.LoadAssetAtPath<GameObject>(path);
-#else
+        GameContentCatalog content = GameManager.Inst != null ? GameManager.Inst.Content : null;
+        if (content != null && index >= 0 && index < content.maps.Count)
+            return content.maps[index];
         return null;
-#endif
     }
 
     private StageDefinition FindStageData(int stageNumber)
     {
-        if (stageDatabase == null || stageDatabase.stages == null)
-            return null;
-
-        for (int i = 0; i < stageDatabase.stages.Count; i++)
-        {
-            if (stageDatabase.stages[i].stage == stageNumber)
-                return stageDatabase.stages[i];
-        }
-
-        return null;
+        StageDefinition definition;
+        return definitionsByStage.TryGetValue(stageNumber, out definition) ? definition : null;
     }
 
     public int GetStageMapId(int stageNumber)
@@ -453,7 +543,7 @@ public class StageManager : MonoBehaviour
     // 저장된 게임을 불러오기 전에 해당 스테이지 맵을 준비한다. 공은 SaveManager가 배치한다.
     public void RestoreStage(int stage, Action<bool> completed)
     {
-        Stage = Mathf.Max(1, stage);
+        Stage = FindStageData(stage) != null ? stage : 1;
         StartStageRoutine(RestoreStageRoutine(completed));
     }
 
@@ -461,6 +551,8 @@ public class StageManager : MonoBehaviour
     {
         stageReady = false;
         IsCleared = false;
+        IsAttemptFailed = false;
+        exhaustedTimer = 0f;
         holdTimer = 0f;
         ClearBalls();
         ballDataByInstance.Clear();
@@ -469,18 +561,23 @@ public class StageManager : MonoBehaviour
         yield return EnsureStageMap(Stage);
         stageReady = IsStageCompatible(Stage);
         StageDefinition definition = FindStageData(Stage);
-        if (definition != null) ApplyStageSettings(definition);
-        settleTimer = definition != null ? Mathf.Max(0f, definition.settleTime) : 0f;
+        if (definition != null)
+        {
+            ApplyStageSettings(definition);
+            ConfigurePuzzle(definition);
+        }
+        settleTimer = definition != null ? Mathf.Max(startCountdownSeconds, definition.settleTime, 0f) : 0f;
         if (stageReady) OnStageStarted?.Invoke(Stage);
         stageRoutine = null;
         completed?.Invoke(stageReady);
     }
 
-    // 합성 제어 코드는 BallBehaviour에 추가할 때 이 메타데이터를 사용할 수 있다.
-    // 현재 canMerge는 배치/저장용이며 충돌 합성 동작을 바꾸지는 않는다.
+    // 초기 배치와 저장 복원 모두 같은 잠금 상태를 적용한다.
     public static void RegisterBallData(BallBehaviour ball, StageBallData data)
     {
-        if (ball != null && data != null) ballDataByInstance[ball] = data;
+        if (ball == null || data == null) return;
+        ballDataByInstance[ball] = data;
+        BallMergeLock.SetMergeAllowed(ball.gameObject, data.canMerge);
     }
 
     public static StageBallData CaptureBallData(BallBehaviour ball, int fallbackId)
@@ -501,7 +598,7 @@ public class StageManager : MonoBehaviour
             x = ball.transform.position.x,
             y = ball.transform.position.y,
             rotZ = ball.transform.eulerAngles.z,
-            canMerge = original == null || original.canMerge
+            canMerge = BallMergeLock.CanMerge(ball.gameObject)
         };
     }
 
@@ -539,7 +636,7 @@ public class StageManager : MonoBehaviour
         };
 
         string status = !stageReady ? "MAP / DATA REQUIRED" :
-            IsSettling ? "READY..." : $"LEVEL {HoldProgress * 100f:F0}%";
+            IsSettling ? $"READY {CountdownSeconds}" : $"LEVEL {HoldProgress * 100f:F0}%";
         GUI.Label(
             new Rect(Screen.width - 420 * s, 20 * s, 400 * s, 80 * s),
             $"STAGE {Stage}\n{status}",
@@ -559,13 +656,13 @@ public class StageManager : MonoBehaviour
 
         if (IsCleared)
         {
-            GUI.Label(center, "STAGE CLEAR", big);
-            if (GUI.Button(buttonRect, "NEXT", button))
+            GUI.Label(center, HasNextStage ? "STAGE CLEAR" : "CAMPAIGN COMPLETE", big);
+            if (HasNextStage && GUI.Button(buttonRect, "NEXT", button))
                 NextStage();
         }
-        else if (GameManager.Inst.gameOver)
+        else if (GameManager.Inst.gameOver || IsAttemptFailed)
         {
-            GUI.Label(center, "GAME OVER", big);
+            GUI.Label(center, IsAttemptFailed ? "TRY AGAIN" : "GAME OVER", big);
             if (GUI.Button(buttonRect, "RETRY", button))
                 RetryStage();
         }
@@ -592,6 +689,8 @@ public class StageMapDefinition
 [Serializable]
 public class StageDefinition
 {
+    public string title;
+    public List<int> playerBallQueue = new List<int>();
     public int mapId;
     public int difficulty;
     public string patternId;

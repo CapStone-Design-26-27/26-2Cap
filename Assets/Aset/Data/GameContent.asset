@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd332183cbc4b538ebcc3bd6b7c7ee5, type: 3}
+  m_Name: GameContent
+  m_EditorClassIdentifier:
+  stageData: {fileID: 4900000, guid: 502dc850aeda0c54ea658d4abe8af19f, type: 3}
+  maps:
+  - {fileID: 3115525703928295530, guid: 6581cbc08328e2b4ba730e36b0598c8e, type: 3}
+  - {fileID: 3556268705063096290, guid: 44d8bcb9cbce92e41abfc235a9644b90, type: 3}
+  - {fileID: 3364424319573520442, guid: ddb13276dc6ca4b46ab1423d17974870, type: 3}

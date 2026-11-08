@@ -99,7 +99,8 @@ public class CameraFocusController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Inst == null || GameManager.Inst.gameOver) return;
+        if (GameManager.Inst == null || GameManager.Inst.gameOver || GameManager.Inst.gamePaused) return;
+        if (StageManager.Inst != null && !StageManager.Inst.AcceptsInput) return;
 
         if (GameManager.Inst.FocusedBasket == null &&
             !inputLocked &&
@@ -135,7 +136,13 @@ public class CameraFocusController : MonoBehaviour
     }
 
     // 전체 보기 버튼의 OnClick에 연결
-    public void ShowOverview() => Focus(null);
+    public void ShowOverview()
+    {
+        if (inputLocked || GameManager.Inst == null || GameManager.Inst.gameOver || GameManager.Inst.gamePaused)
+            return;
+        if (StageManager.Inst != null && !StageManager.Inst.AcceptsInput) return;
+        Focus(null);
+    }
 
     private void TryFocusAtPointer()
     {

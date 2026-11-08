@@ -31,7 +31,8 @@ public class BallBehaviour : MonoBehaviour
 
         if (otherBall != null)
         {
-            if (!otherBall.isMerged && this.level == otherBall.level)
+            if (!otherBall.isMerged && this.level == otherBall.level &&
+                BallMergeLock.CanMerge(gameObject) && BallMergeLock.CanMerge(otherBall.gameObject))
             {
                 if (this.level < GameManager.Inst.ballList.Count - 1)
                 {

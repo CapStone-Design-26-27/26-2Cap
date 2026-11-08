@@ -7,12 +7,14 @@ public class SaveManager : Singleton<SaveManager>
     [System.Serializable]
     private class GameSaveData
     {
-        public int schemaVersion = 3;
+        public int schemaVersion = 5;
         public int stage;
         public int mapId;
         public int stageDataVersion;
+        public string stageDataSignature;
         public List<int> nextBalls;
         public List<int> retryBalls;
+        public List<bool> retryCanMerge;
         public List<float> nodeAngles;
         public List<StageBallData> balls;
     }
@@ -34,8 +36,8 @@ public class SaveManager : Singleton<SaveManager>
         public List<LegacyBallData> balls;
     }
 
-    public static string SaveFilePath => Path.Combine(Application.persistentDataPath, "savefile.json");
-    private string SavePath => SaveFilePath;
+    // 로컬 퍼즐 실험은 기존 게임 저장 파일과 분리한다.
+    public string SavePath => PuzzlePaths.SaveFile;
 
     // 저장 파일의 스테이지 번호만 읽는다. 파일이 없거나 읽을 수 없으면 1을 돌려준다.
     public static int PeekSavedStage()
@@ -75,6 +77,7 @@ public class SaveManager : Singleton<SaveManager>
             stage = stageManager == null ? 1 : stageManager.Stage + (cleared && stageManager.HasNextStage ? 1 : 0),
             nextBalls = new List<int>(SpawnManager.Inst.nextBallQueue),
             retryBalls = cleared ? new List<int>() : SpawnManager.Inst.GetRetryLevels(),
+            retryCanMerge = cleared ? new List<bool>() : SpawnManager.Inst.GetRetryMergeStates(),
             nodeAngles = cleared ? null : ScaleSystem.Inst.GetAngles(),
             balls = new List<StageBallData>()
         };
@@ -92,8 +95,10 @@ public class SaveManager : Singleton<SaveManager>
         }
 
         data.mapId = stageManager != null ? stageManager.GetStageMapId(data.stage) : 1;
-        data.stageDataVersion = 4;
+        data.stageDataVersion = 5;
+        data.stageDataSignature = stageManager != null ? stageManager.GetStageSignature(data.stage) : null;
         string json = JsonUtility.ToJson(data, true);
+        Directory.CreateDirectory(Path.GetDirectoryName(SavePath));
         File.WriteAllText(SavePath, json);
         Debug.Log("게임 저장 완료: " + SavePath);
     }
@@ -178,12 +183,36 @@ public class SaveManager : Singleton<SaveManager>
             return;
         }
         // 새 라운드 구성이 적용되면 이전 배치를 그대로 복원하지 않는다.
-        if (data.stageDataVersion != 4)
+        if (data.stageDataVersion != 5 || data.schemaVersion != 5 ||
+            data.stageDataSignature != StageManager.Inst.DataSignature)
         {
+            Debug.Log("저장 당시의 레벨 데이터/무게가 달라 새 배치로 시작합니다.");
             StageManager.Inst.BeginStage();
             return;
         }
-        SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls);
+
+        float restoredMass = 0f;
+        if (data.balls != null)
+            foreach (StageBallData ball in data.balls) restoredMass += GameManager.Inst.kgList[ball.level];
+        foreach (List<int> queue in new[] { data.nextBalls, data.retryBalls })
+        {
+            if (queue == null) continue;
+            foreach (int level in queue)
+            {
+                if (level < 0 || level >= GameManager.Inst.kgList.Count)
+                {
+                    StageManager.Inst.BeginStage();
+                    return;
+                }
+                restoredMass += GameManager.Inst.kgList[level];
+            }
+        }
+        if (Mathf.Abs(restoredMass - StageManager.Inst.ExpectedMass) > 0.01f)
+        {
+            Debug.LogWarning("저장된 공과 남은 큐의 무게가 레벨 구성과 다릅니다. 새 배치로 시작합니다.");
+            StageManager.Inst.BeginStage();
+            return;
+        }
 
         bool hasBalls = data.balls != null && data.balls.Count > 0;
         if (!hasBalls)
@@ -191,6 +220,7 @@ public class SaveManager : Singleton<SaveManager>
             StageManager.Inst.BeginStage();
             return;
         }
+        SpawnManager.Inst.RestoreQueues(data.nextBalls, data.retryBalls, data.retryCanMerge);
 
         // 공보다 저울 자세를 먼저 복원해야 공이 바구니 안의 제자리에 놓인다.
         if (!ScaleSystem.Inst.ApplyAngles(data.nodeAngles))

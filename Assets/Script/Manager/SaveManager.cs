@@ -39,6 +39,21 @@ public class SaveManager : Singleton<SaveManager>
     // 로컬 퍼즐 실험은 기존 게임 저장 파일과 분리한다.
     public string SavePath => PuzzlePaths.SaveFile;
 
+    // 저장 파일의 스테이지 번호만 읽는다. 파일이 없거나 읽을 수 없으면 1을 돌려준다.
+    public static int PeekSavedStage()
+    {
+        try
+        {
+            if (!File.Exists(PuzzlePaths.SaveFile)) return 1;
+            GameSaveData data = JsonUtility.FromJson<GameSaveData>(File.ReadAllText(PuzzlePaths.SaveFile));
+            return data != null && data.stage > 0 ? data.stage : 1;
+        }
+        catch (System.Exception)
+        {
+            return 1;
+        }
+    }
+
     public void SaveGame()
     {
         if (GameManager.Inst == null || GameManager.Inst.gameOver || SpawnManager.Inst == null) return;

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 // 튜토리얼 코드. 바구니 선택 → 공 떨어뜨리기 → 두 바구니 평형 순서로 진행한다.
 // 실패하면 게임오버 대신 처음 배치로 되돌린다.
@@ -32,12 +31,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private CameraFocusController cameraFocus;
     [Tooltip("Canvas/Btnpanel/Main (전체 보기 버튼)")]
     [SerializeField] private GameObject overviewButton;
-    [SerializeField] private string mainSceneName = "TestScene";
 
     [Header("공 배치")]
     [SerializeField] private List<BasketPreset> presets = new List<BasketPreset>();
-    [Tooltip("플레이어가 던지는 공의 레벨")]
-    [SerializeField] private int playerBallLevel = 3;
+    [Tooltip("플레이어가 던지는 공의 레벨 순서. 끝나면 처음부터 반복한다.")]
+    [SerializeField] private List<int> ballOrder = new List<int> { 3 };
     [SerializeField, Min(0f)] private float settleTime = 2.5f;
 
     [Header("평형 판정")]
@@ -62,12 +60,15 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private string msgPickTilted = "기울어진 바구니를 눌러보세요";
     [SerializeField] private string msgHold = "그대로 유지하세요...";
     [SerializeField] private string msgFailed = "앗! 다시 해볼까요?";
+    [SerializeField] private string msgStartGame = "게임 시작";
+    [SerializeField] private string msgBackToMain = "메인으로";
 
     private Step step;
     private float timer;
     private float holdTimer;
     private bool waitingLanding;
     private bool aiming;
+    private bool firstClear;
     private bool afterFail;
     private readonly List<Basket> unbalanced = new List<Basket>();
 
@@ -76,12 +77,17 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         Inst = this;
+        firstClear = !IsCompleted;
+        BallMergeLock.SetGlobalLocked(false);
         if (cameraFocus == null) cameraFocus = FindObjectOfType<CameraFocusController>();
     }
 
     private void OnDestroy()
     {
         if (Inst == this) Inst = null;
+
+        // 합성 잠금은 튜토리얼에서만 쓰므로 씬을 나갈 때 끈다.
+        BallMergeLock.SetGlobalLocked(false);
     }
 
     private void OnEnable()
@@ -106,6 +112,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
+        RefillBallOrder();
+
         switch (step)
         {
             case Step.Settle:
@@ -202,7 +210,7 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         ui.HideAll();
-        ui.ShowComplete(GoToMainScene);
+        ui.ShowComplete(ExitTutorial, firstClear ? msgStartGame : msgBackToMain);
     }
 
     // ─── 평형 맞추기 ───
@@ -308,6 +316,7 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(failMessageTime);
 
         // 공 소속이 잘못 잡히지 않도록 전체 보기로 돌린 뒤 배치한다.
+        cameraFocus.inputLocked = false;
         cameraFocus.ShowOverview();
         SetupBalls();
 
@@ -315,14 +324,17 @@ public class TutorialManager : MonoBehaviour
         EnterSettle();
     }
 
-    // 완료 패널의 시작 버튼
-    public void GoToMainScene()
+    // 완료 패널의 버튼. 처음 클리어면 본게임으로, 다시 한 경우면 메인 화면으로 간다.
+    public void ExitTutorial()
     {
-        // 매니저가 DontDestroyOnLoad라 지워야 본게임 씬의 매니저가 새로 시작한다.
-        if (GameManager.Inst != null)
-            Destroy(GameManager.Inst.gameObject);
+        if (firstClear) SceneFlow.LoadGame();
+        else SceneFlow.LoadMain();
+    }
 
-        SceneManager.LoadScene(mainSceneName);
+    // 완료하지 않고 메인 화면으로 나간다. (나가기 버튼용)
+    public void QuitToMain()
+    {
+        SceneFlow.LoadMain();
     }
 
     // ─── 공 배치 ───
@@ -335,13 +347,24 @@ public class TutorialManager : MonoBehaviour
         ScaleSystem.Inst.ResetPose();
         SpawnManager.Inst.ResetForStage();
 
-        // 플레이어에게는 정해진 레벨의 공만 준다.
-        List<int> queue = new List<int>();
-        for (int i = 0; i < 30; i++) queue.Add(playerBallLevel);
-        SpawnManager.Inst.RestoreQueues(queue, null);
+        // 플레이어에게는 정해진 순서의 공만 준다.
+        SpawnManager.Inst.RestoreQueues(new List<int>(), null);
+        RefillBallOrder();
 
         foreach (BasketPreset preset in presets)
             SpawnPreset(preset);
+    }
+
+    // 남은 공이 한 바퀴보다 적어지면 순서를 한 바퀴 더 넣어 공이 끝나지 않게 한다.
+    private void RefillBallOrder()
+    {
+        if (ballOrder.Count == 0 || SpawnManager.Inst == null) return;
+        if (SpawnManager.Inst.nextBallQueue.Count >= ballOrder.Count) return;
+
+        foreach (int level in ballOrder)
+            if (level >= 0 && level < GameManager.Inst.ballList.Count)
+                SpawnManager.Inst.nextBallQueue.Enqueue(level);
+        SpawnManager.Inst.NotifyNextBallChanged();
     }
 
     private void SpawnPreset(BasketPreset preset)

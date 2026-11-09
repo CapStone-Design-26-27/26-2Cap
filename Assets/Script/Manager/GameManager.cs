@@ -42,7 +42,7 @@ public class GameManager : Singleton<GameManager>
     [Tooltip("에디터에서 로컬 퍼즐 실험 시 튜토리얼을 건너뛴다.")]
     [SerializeField] private bool localPuzzleExperiment = true;
 
-    // 저장된 공이 있으면 이어서 하고, 없으면 새 스테이지를 만든다.
+    // 저장된 스테이지 번호가 있으면 그 스테이지를, 없으면 1스테이지를 StageData 배치로 새로 시작한다.
     private void Start()
     {
         // 튜토리얼 코드: 튜토리얼 씬에서는 TutorialManager가 진행한다.
@@ -101,8 +101,8 @@ public class GameManager : Singleton<GameManager>
             return;
         }
 
+        // 저장 파일에는 스테이지 번호만 있으므로 지우지 않는다. 지우면 진행이 1스테이지로 초기화된다.
         gameOver = true;
-        SaveManager.Inst.DeleteSave();
     }
 
     public void ResetGameOver()

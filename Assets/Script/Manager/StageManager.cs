@@ -26,6 +26,10 @@ public class StageManager : MonoBehaviour
 
     [SerializeField, Min(0f)] private float basketTolerance = 10f;
 
+    [Header("균형도 표시")]
+    [Tooltip("저울대가 이 각도만큼 기울면 균형도 0%. 바구니는 각자의 게임오버 각도를 기준으로 쓴다.")]
+    [SerializeField, Min(0.01f)] private float beamZeroPercentAngle = 45f;
+
     [Header("화면 표시")]
     [Tooltip("별도 UI를 만들기 전까지 쓰는 간단한 스테이지 정보, 클리어/게임오버 화면")]
     [SerializeField] private bool drawDebugUI = true;
@@ -240,6 +244,42 @@ public class StageManager : MonoBehaviour
                 unitMass * map.targetWeightRatios[i]) > 0.01f) return false;
         return true;
     }
+
+    private static int IndexOfBasket(Basket basket)
+    {
+        if (basket == null || ScaleSystem.Inst == null) return -1;
+        for (int i = 0; i < ScaleSystem.Inst.Baskets.Count; i++)
+            if (ScaleSystem.Inst.Baskets[i] == basket) return i;
+        return -1;
+    }
+
+    // 노드 하나의 균형도(0~1). 수평이면 1, 기준 각도만큼 기울면 0.
+    // 바구니는 안에 든 공의 위치에 따라 기울고, 게임오버 각도를 0% 기준으로 쓴다.
+    private float GetNodeBalance(HangingNode node)
+    {
+        if (node == null) return 0f;
+        float zeroAngle = node is Basket basket ? basket.GameOverAngle : beamZeroPercentAngle;
+        return Mathf.Clamp01(1f - Mathf.Abs(node.CurrentAngle) / Mathf.Max(zeroAngle, 0.01f));
+    }
+
+    // 집중 중인 바구니의 균형도
+    public float GetBasketBalance(Basket basket) => GetNodeBalance(basket);
+
+    // 전체 균형도(0~1). 모든 저울대와 바구니 균형도의 평균. 전부 수평이어야 100%가 된다.
+    public float OverallBalance
+    {
+        get
+        {
+            if (ScaleSystem.Inst == null || ScaleSystem.Inst.AllNodes.Count == 0) return 0f;
+            float sum = 0f;
+            foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
+                sum += GetNodeBalance(node);
+            return sum / ScaleSystem.Inst.AllNodes.Count;
+        }
+    }
+
+    // 반올림으로 살짝 기운 상태가 100%로 보이지 않도록 내림한다.
+    private static int ToPercent(float balance) => Mathf.FloorToInt(balance * 100f + 0.0001f);
 
     private bool IsLevel()
     {
@@ -552,66 +592,20 @@ public class StageManager : MonoBehaviour
         BeginStage();
     }
 
-    // 저장된 게임을 불러오기 전에 해당 스테이지 맵을 준비한다. 공은 SaveManager가 배치한다.
-    public void RestoreStage(int stage, Action<bool> completed)
+    // 메인 화면으로 돌아간다. 저장 파일에는 스테이지 번호만 남으므로 어느 상태에서 나가도
+    // 다음에 같은 스테이지를 StageData 배치로 새로 시작한다.
+    public void GoHome()
     {
-        Stage = FindStageData(stage) != null ? stage : 1;
-        StartStageRoutine(RestoreStageRoutine(completed));
+        if (SaveManager.Inst != null) SaveManager.Inst.SaveGame();
+        SceneFlow.LoadMain();
     }
 
-    private IEnumerator RestoreStageRoutine(Action<bool> completed)
-    {
-        stageReady = false;
-        IsCleared = false;
-        IsAttemptFailed = false;
-        exhaustedTimer = 0f;
-        holdTimer = 0f;
-        ClearBalls();
-        ballDataByInstance.Clear();
-        if (SpawnManager.Inst != null) SpawnManager.Inst.ResetForStage();
-
-        yield return EnsureStageMap(Stage);
-        stageReady = IsStageCompatible(Stage);
-        StageDefinition definition = FindStageData(Stage);
-        if (definition != null)
-        {
-            ApplyStageSettings(definition);
-            ConfigurePuzzle(definition);
-        }
-        settleTimer = definition != null ? Mathf.Max(startCountdownSeconds, definition.settleTime, 0f) : 0f;
-        if (stageReady) OnStageStarted?.Invoke(Stage);
-        stageRoutine = null;
-        completed?.Invoke(stageReady);
-    }
-
-    // 초기 배치와 저장 복원 모두 같은 잠금 상태를 적용한다.
+    // 스테이지 데이터의 공마다 합성 잠금 상태를 적용한다.
     public static void RegisterBallData(BallBehaviour ball, StageBallData data)
     {
         if (ball == null || data == null) return;
         ballDataByInstance[ball] = data;
         BallMergeLock.SetMergeAllowed(ball.gameObject, data.canMerge);
-    }
-
-    public static StageBallData CaptureBallData(BallBehaviour ball, int fallbackId)
-    {
-        StageBallData original;
-        ballDataByInstance.TryGetValue(ball, out original);
-        if (original == null)
-        {
-            int maxId = 0;
-            foreach (StageBallData data in ballDataByInstance.Values)
-                maxId = Mathf.Max(maxId, data.ballId);
-            fallbackId += maxId;
-        }
-        return new StageBallData
-        {
-            ballId = original != null ? original.ballId : fallbackId,
-            level = ball.level,
-            x = ball.transform.position.x,
-            y = ball.transform.position.y,
-            rotZ = ball.transform.eulerAngles.z,
-            canMerge = BallMergeLock.CanMerge(ball.gameObject)
-        };
     }
 
     private static void ClearBalls()
@@ -647,8 +641,20 @@ public class StageManager : MonoBehaviour
             fontSize = Mathf.RoundToInt(28 * s)
         };
 
-        string status = !stageReady ? "MAP / DATA REQUIRED" :
-            IsSettling ? $"READY {CountdownSeconds}" : $"LEVEL {HoldProgress * 100f:F0}%";
+        string status;
+        if (!stageReady) status = "MAP / DATA REQUIRED";
+        else if (IsSettling) status = $"READY {CountdownSeconds}";
+        else
+        {
+            // 바구니 집중 중이면 그 바구니, 전체 보기면 전체 균형도를 보여준다.
+            Basket focused = GameManager.Inst.FocusedBasket;
+            status = focused != null
+                ? $"BASKET {IndexOfBasket(focused) + 1}  {ToPercent(GetBasketBalance(focused))}%"
+                : $"TOTAL  {ToPercent(OverallBalance)}%";
+            // 균형을 유지하는 동안 클리어까지 남은 시간을 옆에 표시한다.
+            if (IsCheckingClear)
+                status += $"  ({ClearSecondsRemaining:F1}s)";
+        }
         GUI.Label(
             new Rect(Screen.width - 420 * s, 20 * s, 400 * s, 80 * s),
             $"STAGE {Stage}\n{status}",
@@ -677,6 +683,11 @@ public class StageManager : MonoBehaviour
             GUI.Label(center, IsAttemptFailed ? "TRY AGAIN" : "GAME OVER", big);
             if (GUI.Button(buttonRect, "RETRY", button))
                 RetryStage();
+
+            // RETRY 바로 아래에 같은 크기로 메인 화면 이동 버튼을 둔다.
+            Rect homeRect = new Rect(buttonRect.x, buttonRect.yMax + 15 * s, buttonRect.width, buttonRect.height);
+            if (GUI.Button(homeRect, "HOME", button))
+                GoHome();
         }
     }
 }

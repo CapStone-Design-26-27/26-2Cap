@@ -17,6 +17,7 @@ public class CameraFocusController : MonoBehaviour
     [Header("전체 보기")]
     [SerializeField] private float overviewPadding = 3f;
     [SerializeField] private float minOverviewSize = 20f;
+    [SerializeField] private PlaySafeArea playSafeArea;
 
     [Header("바구니 집중 (기울기에 따라 줌아웃)")]
     [SerializeField] private float focusSize = 35f;
@@ -166,12 +167,14 @@ public class CameraFocusController : MonoBehaviour
 
         if (focused != null)
         {
-            center = focused.GetVisualBounds().center;
+            Bounds focusedBounds = focused.GetVisualBounds();
+            center = focusedBounds.center;
 
             float tilt = Mathf.Abs(focused.CurrentAngle);
             if (tilt >= tiltThreshold2) size = maxSize;
             else if (tilt >= tiltThreshold1) size = midSize;
             else size = focusSize;
+            if (playSafeArea != null) playSafeArea.FitVertically(focusedBounds, 0f, ref center, ref size);
             return;
         }
 
@@ -187,6 +190,7 @@ public class CameraFocusController : MonoBehaviour
         center = b.center;
         float fitHeight = Mathf.Max(b.extents.y, b.extents.x / cam.aspect);
         size = Mathf.Max(fitHeight + overviewPadding, minOverviewSize);
+        if (playSafeArea != null && !first) playSafeArea.FitVertically(b, overviewPadding, ref center, ref size);
     }
 
     // 전체 보기이거나 집중 중인 바구니(의 하위 스프라이트)는 선명하게, 그 외에는 서서히 어둡게 한다.

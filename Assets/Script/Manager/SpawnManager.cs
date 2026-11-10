@@ -40,6 +40,21 @@ public class SpawnManager : Singleton<SpawnManager>
     private int currentLevel;
     private bool previewFromRetry;
     public bool HasPreview => previewBall != null;
+    internal bool IsDropSettled
+    {
+        get
+        {
+            if (!canSpawn || HasPreview) return false;
+            foreach (var collider in ballOwners.Keys)
+            {
+                if (collider == null || !collider.gameObject.activeInHierarchy) continue;
+                var body = collider.attachedRigidbody;
+                if (body != null && (body.velocity.sqrMagnitude > .25f || Mathf.Abs(body.angularVelocity) > 10f))
+                    return false;
+            }
+            return true;
+        }
+    }
     public int RemainingBallCount => nextBallQueue.Count + retryQueue.Count;
     public int RetryBallCount => retryQueue.Count;
 
@@ -173,6 +188,7 @@ public class SpawnManager : Singleton<SpawnManager>
     private void DropPreviewBall()
     {
         if (previewBall == null) return;
+        StageManager.Inst?.CaptureUndo(previewBall);
         if (previewFromRetry)
         {
             retryQueue.Dequeue();

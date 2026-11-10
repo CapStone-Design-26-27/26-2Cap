@@ -57,6 +57,12 @@ public class StageManager : MonoBehaviour
     public bool HasNextStage => FindStageData(Stage + 1) != null;
     public int TotalProvidedBalls => FindStageData(Stage)?.playerBallQueue?.Count ?? 0;
     public bool IsAttemptFailed { get; private set; }
+    private readonly StageTurnUndo turnUndo = new StageTurnUndo();
+    public int FreeUndoCount => turnUndo.FreeUses;
+    public bool HasDroppedBall { get; private set; }
+    public bool CanUndo => stageReady && !IsSettling && !IsCleared && turnUndo.CanRestore &&
+        GameManager.Inst != null && !GameManager.Inst.gamePaused &&
+        SpawnManager.Inst != null && SpawnManager.Inst.IsDropSettled;
     public bool IsSettling => settleTimer > 0f;
     public int CountdownSeconds => Mathf.CeilToInt(Mathf.Max(0f, settleTimer));
     public bool AcceptsInput => stageReady && !IsSettling && !IsCheckingClear && !IsCleared && !IsAttemptFailed &&
@@ -332,6 +338,8 @@ public class StageManager : MonoBehaviour
         }
         IsCleared = false;
         IsAttemptFailed = false;
+        turnUndo.Reset();
+        HasDroppedBall = false;
         exhaustedTimer = 0f;
         stageReady = false;
         holdTimer = 0f;
@@ -592,6 +600,32 @@ public class StageManager : MonoBehaviour
         BeginStage();
     }
 
+    internal void CaptureUndo(GameObject preview)
+    {
+        if (AcceptsInput && ScaleSystem.Inst != null)
+        {
+            HasDroppedBall = true;
+            turnUndo.Capture(preview, SpawnManager.Inst, ScaleSystem.Inst);
+        }
+    }
+
+    public void UndoLastDrop()
+    {
+        var scale = ScaleSystem.Inst;
+        var spawn = SpawnManager.Inst;
+        var game = GameManager.Inst;
+        if (!CanUndo || scale == null || spawn == null || game == null || !turnUndo.Matches(scale)) return;
+
+        spawn.ResetForStage();
+        ClearBalls();
+        ballDataByInstance.Clear();
+        holdTimer = 0f;
+        exhaustedTimer = 0f;
+        IsAttemptFailed = false;
+        game.ResetGameOver();
+        turnUndo.Restore(spawn, scale, game);
+    }
+
     // 메인 화면으로 돌아간다. 저장 파일에는 스테이지 번호만 남으므로 어느 상태에서 나가도
     // 다음에 같은 스테이지를 StageData 배치로 새로 시작한다.
     public void GoHome()
@@ -619,7 +653,7 @@ public class StageManager : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!drawDebugUI || GameManager.Inst == null)
+        if (!drawDebugUI || GameManager.Inst == null || StagePresentationUI.IsActive)
             return;
 
         float s = Screen.height / 720f;

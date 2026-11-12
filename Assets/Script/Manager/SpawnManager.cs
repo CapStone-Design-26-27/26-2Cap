@@ -15,8 +15,6 @@ public class SpawnManager : Singleton<SpawnManager>
     public Queue<int> nextBallQueue = new Queue<int>();
 
     // 바닥에 떨어진 공들의 레벨. 다음 공보다 먼저, 떨어진 순서대로 다시 던지게 한다.
-    private readonly Queue<int> retryQueue = new Queue<int>();
-    private readonly Queue<bool> retryMergeStates = new Queue<bool>();
 
     // 공(콜라이더)별 소속 바구니. 소속이 다른 공끼리는 충돌과 합성을 하지 않는다.
     private readonly Dictionary<Collider2D, Basket> ballOwners = new Dictionary<Collider2D, Basket>();
@@ -38,16 +36,27 @@ public class SpawnManager : Singleton<SpawnManager>
     private int lastMergeFrame = -1;
     private GameObject previewBall;
     private int currentLevel;
-    private bool previewFromRetry;
     public bool HasPreview => previewBall != null;
-    public int RemainingBallCount => nextBallQueue.Count + retryQueue.Count;
-    public int RetryBallCount => retryQueue.Count;
+    internal bool IsDropSettled
+    {
+        get
+        {
+            if (!canSpawn || HasPreview) return false;
+            foreach (var collider in ballOwners.Keys)
+            {
+                if (collider == null || !collider.gameObject.activeInHierarchy) continue;
+                var body = collider.attachedRigidbody;
+                if (body != null && (body.velocity.sqrMagnitude > .25f || Mathf.Abs(body.angularVelocity) > 10f))
+                    return false;
+            }
+            return true;
+        }
+    }
+    public int RemainingBallCount => nextBallQueue.Count;
 
     public List<int> GetRemainingLevels()
     {
-        List<int> result = new List<int>(retryQueue);
-        result.AddRange(nextBallQueue);
-        return result;
+        return new List<int>(nextBallQueue);
     }
 
     private void Start()
@@ -149,9 +158,8 @@ public class SpawnManager : Singleton<SpawnManager>
     private void CreatePreviewBall(Vector2 spawnPos)
     {
         if (HasPreview || RemainingBallCount == 0) return;
-        previewFromRetry = retryQueue.Count > 0;
         // 조준에서는 소비하지 않는다. 취소/저장 시에도 수량과 순서가 유지된다.
-        currentLevel = previewFromRetry ? retryQueue.Peek() : nextBallQueue.Peek();
+        currentLevel = nextBallQueue.Peek();
 
         previewBall = Instantiate(
             GameManager.Inst.ballList[currentLevel],
@@ -166,19 +174,14 @@ public class SpawnManager : Singleton<SpawnManager>
         if (col != null)
             col.enabled = false;
 
-        BallMergeLock.SetMergeAllowed(previewBall, !previewFromRetry || retryMergeStates.Peek());
         OnAimStart?.Invoke(previewBall.transform);
     }
 
     private void DropPreviewBall()
     {
         if (previewBall == null) return;
-        if (previewFromRetry)
-        {
-            retryQueue.Dequeue();
-            retryMergeStates.Dequeue();
-        }
-        else nextBallQueue.Dequeue();
+        StageManager.Inst?.CaptureUndo(previewBall);
+        nextBallQueue.Dequeue();
         canSpawn = false;
 
         OnAimEnd?.Invoke();
@@ -300,13 +303,11 @@ public class SpawnManager : Singleton<SpawnManager>
         }
     }
 
-    // 새 스테이지에서는 이전 스테이지의 지급/재투척 대기열을 모두 비운다.
+    // 새 스테이지에서는 이전 스테이지의 지급 대기열을 비운다.
     public void ResetForStage()
     {
         CancelAim();
         nextBallQueue.Clear();
-        retryQueue.Clear();
-        retryMergeStates.Clear();
         ballOwners.Clear();
         canSpawn = true;
         NotifyNextBallChanged();
@@ -317,28 +318,9 @@ public class SpawnManager : Singleton<SpawnManager>
         canSpawn = true;
     }
 
-    // 바닥에 닿은 공을 같은 레벨로 다시 던지도록 대기열에 넣는다.
-    // 방금 던진 공이 바로 떨어진 경우에만 다음 투척을 허용하고,
-    // 쌓여 있던 공이 쏟아진 경우에는 지금 떨어지는 공의 착지를 계속 기다린다.
-    public void OnBallHitGroundAndRetry(int level, GameObject ball, bool wasPlayersBall)
-    {
-        retryQueue.Enqueue(level);
-        retryMergeStates.Enqueue(BallMergeLock.CanMerge(ball));
-
-        if (wasPlayersBall)
-            canSpawn = true;
-
-        Destroy(ball);
-
-        NotifyNextBallChanged();
-    }
-
     // UIManager에서 사용하는 함수
     public int getNextBall()
     {
-        if (retryQueue.Count > 0)
-            return retryQueue.Peek();
-
         if (nextBallQueue.Count > 0)
             return nextBallQueue.Peek();
 
@@ -350,29 +332,9 @@ public class SpawnManager : Singleton<SpawnManager>
         OnNextBallChanged?.Invoke(getNextBall());
     }
 
-    public List<int> GetRetryLevels()
+    public void RestoreQueue(List<int> nextBalls)
     {
-        return new List<int>(retryQueue);
-    }
-
-    public List<bool> GetRetryMergeStates()
-    {
-        return new List<bool>(retryMergeStates);
-    }
-
-    public void RestoreQueues(List<int> nextBalls, List<int> retryBalls, List<bool> retryCanMerge = null)
-    {
-        nextBallQueue = new Queue<int>(nextBalls ?? new List<int>());
-        retryQueue.Clear();
-        retryMergeStates.Clear();
-        if (retryBalls != null)
-            for (int i = 0; i < retryBalls.Count; i++)
-            {
-                retryQueue.Enqueue(retryBalls[i]);
-                // 잠금 상태가 없던 기존 저장 파일은 일반 공으로 복원한다.
-                retryMergeStates.Enqueue(retryCanMerge == null || i >= retryCanMerge.Count || retryCanMerge[i]);
-            }
-
+        nextBallQueue = new Queue<int>(nextBalls);
         NotifyNextBallChanged();
     }
 }

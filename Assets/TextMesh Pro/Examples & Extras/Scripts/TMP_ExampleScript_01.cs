@@ -32,7 +32,7 @@ namespace TMPro.Examples
                 m_text = GetComponent<TextMeshProUGUI>() ?? gameObject.AddComponent<TextMeshProUGUI>();
 
             // Load a new font asset and assign it to the text object.
-            m_text.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/Anton SDF");
+            m_text.font = TMP_Settings.defaultFontAsset;
 
             // Load a new material preset which was created with the context menu duplicate.
             m_text.fontSharedMaterial = Resources.Load<Material>("Fonts & Materials/Anton SDF - Drop Shadow");

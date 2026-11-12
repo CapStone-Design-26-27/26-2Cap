@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 28584486757587946, guid: 125cb55b44b24c4393181402bc6200e6,
+        m_Texture: {fileID: -1116990900120012833, guid: 1e5cee932ac51f14d9c4bf07437c1336,
           type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -58,7 +58,7 @@ Material:
     - _GlowOffset: 0.354
     - _GlowOuter: 0.336
     - _GlowPower: 0.75
-    - _GradientScale: 11
+    - _GradientScale: 10
     - _LightAngle: 3.142
     - _MaskID: 0
     - _MaskSoftnessX: 0

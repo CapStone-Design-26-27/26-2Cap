@@ -10,6 +10,7 @@ public class BallQueueUI : MonoBehaviour
     [SerializeField] private Button nextButton;
     [SerializeField] private Image nextIcon;
     [SerializeField] private TextMeshProUGUI remainingText;
+    [SerializeField] private TextMeshProUGUI totalText;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private RectTransform orderRoot;
     [SerializeField] private GameObject iconTemplate;
@@ -68,9 +69,9 @@ public class BallQueueUI : MonoBehaviour
         List<int> levels = SpawnManager.Inst.GetRemainingLevels();
         int total = StageManager.Inst != null ? StageManager.Inst.TotalProvidedBalls : levels.Count;
         // 튜토리얼 코드: 튜토리얼은 정해진 순서가 계속 반복되므로 수량 대신 반복 표시를 한다.
-        remainingText.text = TutorialManager.Inst != null
-            ? "TUTORIAL  /  REPEAT"
-            : $"TOTAL {total}  /  LEFT {levels.Count}";
+        bool tutorial = TutorialManager.Inst != null;
+        remainingText.text = tutorial ? "REPEAT" : $"LEFT <b><size=48>{levels.Count}</size></b>";
+        totalText.text = tutorial ? "TUTORIAL" : $"TOTAL {total}";
         nextIcon.sprite = GetSprite(SpawnManager.Inst.getNextBall());
         nextIcon.enabled = nextIcon.sprite != null;
         foreach (GameObject entry in entries)
@@ -81,9 +82,8 @@ public class BallQueueUI : MonoBehaviour
         entries.Clear();
         if (!expanded) return;
 
-        // 순서 번호는 재투입 큐부터 시작한다. R은 떨어져서 돌아온 공이다.
         for (int i = 0; i < levels.Count; i++)
-            AddIcon(levels[i], i < SpawnManager.Inst.RetryBallCount ? $"R{i + 1}" : $"{i + 1}");
+            AddIcon(levels[i], $"{i + 1}");
     }
 
     private Sprite GetSprite(int level)

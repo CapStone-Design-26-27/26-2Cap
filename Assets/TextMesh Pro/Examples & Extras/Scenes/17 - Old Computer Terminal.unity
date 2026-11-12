@@ -595,8 +595,8 @@ MonoBehaviour:
     free. It also works with word wrapping to avoid cutting off words as they are
     revealed. This also supports the numerous rich text tags available in <#ffffff>TextMesh<#40a0ff>Pro</color></color>.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1e5cee932ac51f14d9c4bf07437c1336, type: 2}
+  m_sharedMaterial: {fileID: -4149437976581684025, guid: 1e5cee932ac51f14d9c4bf07437c1336, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

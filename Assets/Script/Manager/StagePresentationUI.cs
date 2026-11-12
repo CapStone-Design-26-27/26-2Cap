@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,13 +17,7 @@ public sealed class StagePresentationUI : MonoBehaviour
     [SerializeField] private Button action;
     [SerializeField] private TMP_Text actionLabel;
     [SerializeField] private Button home;
-    [SerializeField] private GameObject confirm;
-    [SerializeField] private TMP_Text confirmText;
-    [SerializeField] private Button yes;
-    [SerializeField] private Button no;
     public static bool IsActive { get; private set; }
-    private Action pending;
-    private float previousTimeScale;
     private Canvas canvas;
     private RectTransform progressTrack;
     private Image progressTrackImage;
@@ -34,11 +27,7 @@ public sealed class StagePresentationUI : MonoBehaviour
     private bool wasShowingClear;
 
     private void OnEnable() => IsActive = true;
-    private void OnDisable()
-    {
-        IsActive = false;
-        CloseConfirmation();
-    }
+    private void OnDisable() => IsActive = false;
 
     private void Awake()
     {
@@ -56,43 +45,12 @@ public sealed class StagePresentationUI : MonoBehaviour
         home.onClick.AddListener(() => StageManager.Inst?.GoHome());
         undo.onClick.AddListener(() => StageManager.Inst?.UndoLastDrop());
         retry.onClick.AddListener(RequestRestart);
-        yes.onClick.AddListener(() =>
-        {
-            var confirmed = pending;
-            CloseConfirmation();
-            confirmed?.Invoke();
-        });
-        no.onClick.AddListener(CloseConfirmation);
     }
 
     private void RequestRestart()
     {
         var stage = StageManager.Inst;
-        if (stage == null || !stage.IsStageReady || stage.IsCleared) return;
-        if (!stage.HasDroppedBall) { stage.RetryStage(); return; }
-        Ask("Restart this stage?", stage.RetryStage);
-    }
-
-    private void Ask(string message, Action confirmed)
-    {
-        var game = GameManager.Inst;
-        if (pending != null || game == null || game.gamePaused) return;
-        SpawnManager.Inst?.CancelAim();
-        pending = confirmed;
-        previousTimeScale = Time.timeScale;
-        game.gamePaused = true;
-        Time.timeScale = 0f;
-        confirmText.text = message;
-        confirm.SetActive(true);
-    }
-
-    private void CloseConfirmation()
-    {
-        if (pending == null) return;
-        pending = null;
-        if (GameManager.Inst != null) GameManager.Inst.gamePaused = false;
-        Time.timeScale = previousTimeScale;
-        confirm.SetActive(false);
+        if (stage != null && stage.IsStageReady && !stage.IsCleared) stage.RetryStage();
     }
 
     private void UpdateMeter(bool visible, bool clearMode, float target, bool reset)
@@ -148,7 +106,7 @@ public sealed class StagePresentationUI : MonoBehaviour
         undoIcon.color = undo.interactable ? Color.white : new Color32(224, 230, 238, 209);
         undoCount.text = stage.FreeUndoCount.ToString();
         retry.interactable = stage.IsStageReady && !stage.IsCleared;
-        if (retry.interactable && pending == null && Input.GetKeyDown(KeyCode.R))
+        if (retry.interactable && Input.GetKeyDown(KeyCode.R))
         {
             RequestRestart();
             return;

@@ -348,7 +348,7 @@ public class TutorialManager : MonoBehaviour
         SpawnManager.Inst.ResetForStage();
 
         // 플레이어에게는 정해진 순서의 공만 준다.
-        SpawnManager.Inst.RestoreQueues(new List<int>(), null);
+        SpawnManager.Inst.RestoreQueue(new List<int>());
         RefillBallOrder();
 
         foreach (BasketPreset preset in presets)

@@ -202,7 +202,7 @@ public class StageManager : MonoBehaviour
             Clear();
 
         // 마지막 공이 실제로 멈춘 뒤 기다린다. 낙하/합성 중에는 실패 판정하지 않는다.
-        exhaustedTimer = allUsed && allInBaskets && stopped && !stable
+        exhaustedTimer = allUsed && stopped && !stable
             ? exhaustedTimer + Time.fixedDeltaTime : 0f;
         if (!IsCleared && exhaustedTimer >= 2f) IsAttemptFailed = true;
     }
@@ -320,7 +320,7 @@ public class StageManager : MonoBehaviour
     // 스테이지 시작: 랜덤 배치 대신 JSON에 정의된 공과 월드 좌표를 사용한다.
     public void BeginStage()
     {
-        StartStageRoutine(BeginStageRoutine());
+        StartStageRoutine(BeginStageRoutine(showCountdown: true));
     }
 
     private void StartStageRoutine(IEnumerator routine)
@@ -329,7 +329,7 @@ public class StageManager : MonoBehaviour
         stageRoutine = StartCoroutine(routine);
     }
 
-    private IEnumerator BeginStageRoutine()
+    private IEnumerator BeginStageRoutine(bool showCountdown)
     {
         if (GameManager.Inst == null || SpawnManager.Inst == null)
         {
@@ -388,7 +388,7 @@ public class StageManager : MonoBehaviour
 
         Physics2D.SyncTransforms();
         stageReady = true;
-        settleTimer = Mathf.Max(startCountdownSeconds, stageData.settleTime, 0f);
+        settleTimer = showCountdown ? Mathf.Max(startCountdownSeconds, stageData.settleTime, 0f) : 0f;
         OnStageStarted?.Invoke(Stage);
         stageRoutine = null;
         if (SaveManager.Inst != null) SaveManager.Inst.SaveGame();
@@ -401,7 +401,7 @@ public class StageManager : MonoBehaviour
             expectedMass += GameManager.Inst.kgList[ball.level];
         foreach (int level in definition.playerBallQueue)
             expectedMass += GameManager.Inst.kgList[level];
-        SpawnManager.Inst.RestoreQueues(definition.playerBallQueue, null);
+        SpawnManager.Inst.RestoreQueue(definition.playerBallQueue);
     }
 
     private IEnumerator EnsureStageMap(int stageNumber)
@@ -597,7 +597,7 @@ public class StageManager : MonoBehaviour
             return;
 
         GameManager.Inst.ResetGameOver();
-        BeginStage();
+        StartStageRoutine(BeginStageRoutine(showCountdown: false));
     }
 
     internal void CaptureUndo(GameObject preview)

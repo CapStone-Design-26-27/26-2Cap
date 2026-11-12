@@ -82,9 +82,8 @@ public class BallQueueUI : MonoBehaviour
         entries.Clear();
         if (!expanded) return;
 
-        // 순서 번호는 재투입 큐부터 시작한다. R은 떨어져서 돌아온 공이다.
         for (int i = 0; i < levels.Count; i++)
-            AddIcon(levels[i], i < SpawnManager.Inst.RetryBallCount ? $"R{i + 1}" : $"{i + 1}");
+            AddIcon(levels[i], $"{i + 1}");
     }
 
     private Sprite GetSprite(int level)

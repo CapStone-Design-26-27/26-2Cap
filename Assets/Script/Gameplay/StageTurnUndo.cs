@@ -14,8 +14,7 @@ internal sealed class StageTurnUndo
     }
 
     private readonly List<BallState> balls = new List<BallState>();
-    private List<int> nextLevels, retryLevels;
-    private List<bool> retryMergeStates;
+    private List<int> nextLevels;
     private List<float> angles;
 
     public int FreeUses { get; private set; } = 1;
@@ -43,8 +42,6 @@ internal sealed class StageTurnUndo
             });
         }
         nextLevels = new List<int>(spawn.nextBallQueue);
-        retryLevels = spawn.GetRetryLevels();
-        retryMergeStates = spawn.GetRetryMergeStates();
         angles = scale.GetAngles();
     }
 
@@ -64,7 +61,7 @@ internal sealed class StageTurnUndo
                 body.angularVelocity = state.AngularVelocity;
             }
         }
-        spawn.RestoreQueues(nextLevels, retryLevels, retryMergeStates);
+        spawn.RestoreQueue(nextLevels);
         Physics2D.SyncTransforms();
         FreeUses--;
         angles = null;

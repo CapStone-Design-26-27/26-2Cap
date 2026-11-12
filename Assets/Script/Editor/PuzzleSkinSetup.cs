@@ -189,6 +189,7 @@ public static class PuzzleSkinSetup
             var label = main.GetComponentInChildren<TMP_Text>(true);
             label.text = "MAIN";
             label.font = font;
+            label.fontSharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(Root + "PlayText.mat");
             label.color = Color.white;
             label.enableAutoSizing = true;
             label.fontSizeMin = 20;
@@ -273,25 +274,6 @@ public static class PuzzleSkinSetup
         home.GetComponentInChildren<TMP_Text>(true).text = "HOME";
         var back = canvas.Find("BackToBaskets");
         if (back != null) UnityEngine.Object.DestroyImmediate(back.gameObject);
-        var modal = ChildImage(canvas, "StageConfirmation");
-        modal.transform.SetAsLastSibling();
-        modal.rectTransform.anchorMin = Vector2.zero;
-        modal.rectTransform.anchorMax = Vector2.one;
-        modal.rectTransform.offsetMin = modal.rectTransform.offsetMax = Vector2.zero;
-        modal.color = new Color32(20, 38, 74, 175);
-        modal.raycastTarget = true;
-        var dialog = ChildImage(modal.transform, "Panel");
-        Place(dialog.rectTransform, new Vector2(.5f, .5f), Vector2.zero, new Vector2(520, 250));
-        ApplyImage(dialog, "panel_small");
-        var prompt = Text(dialog.transform, "Prompt", font, 31);
-        Place(prompt.rectTransform, new Vector2(.5f, 1), new Vector2(0, -80), new Vector2(470, 120));
-        var yes = ResultButton(dialog.transform, "Yes", font, -61);
-        var no = ResultButton(dialog.transform, "No", font, -61);
-        Place((RectTransform)yes.transform, new Vector2(.5f, .5f), new Vector2(-107, -61), new Vector2(188, 74));
-        Place((RectTransform)no.transform, new Vector2(.5f, .5f), new Vector2(107, -61), new Vector2(188, 74));
-        yes.GetComponentInChildren<TMP_Text>(true).text = "YES";
-        no.GetComponentInChildren<TMP_Text>(true).text = "NO";
-        modal.gameObject.SetActive(false);
         var view = header.GetComponent<StagePresentationUI>() ?? header.gameObject.AddComponent<StagePresentationUI>();
         var fields = new SerializedObject(view);
         fields.FindProperty("status").objectReferenceValue = status;
@@ -307,10 +289,6 @@ public static class PuzzleSkinSetup
         fields.FindProperty("action").objectReferenceValue = action;
         fields.FindProperty("actionLabel").objectReferenceValue = action.GetComponentInChildren<TMP_Text>(true);
         fields.FindProperty("home").objectReferenceValue = home;
-        fields.FindProperty("confirm").objectReferenceValue = modal.gameObject;
-        fields.FindProperty("confirmText").objectReferenceValue = prompt;
-        fields.FindProperty("yes").objectReferenceValue = yes;
-        fields.FindProperty("no").objectReferenceValue = no;
         fields.ApplyModifiedPropertiesWithoutUndo();
         result.gameObject.SetActive(false);
     }
@@ -360,6 +338,7 @@ public static class PuzzleSkinSetup
         text.rectTransform.offsetMin = new Vector2(12, 8);
         text.rectTransform.offsetMax = new Vector2(-12, -8);
         text.font = font;
+        text.fontSharedMaterial = AssetDatabase.LoadAssetAtPath<Material>(Root + "PlayText.mat");
         text.color = Color.white;
         text.fontSize = size;
         text.alignment = TextAlignmentOptions.Center;

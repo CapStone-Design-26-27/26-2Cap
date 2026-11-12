@@ -13,6 +13,9 @@ public class ScaleSystem : SingletonDestroy<ScaleSystem>
     private readonly List<HangingNode> allNodes = new List<HangingNode>();
     private readonly List<Basket> baskets = new List<Basket>();
 
+    [SerializeField] private bool reserveOverviewHudSpace;
+
+    public bool ReserveOverviewHudSpace => reserveOverviewHudSpace;
     public HangingNode Root => root;
     public IReadOnlyList<HangingNode> AllNodes => allNodes;
     public IReadOnlyList<Basket> Baskets => baskets;

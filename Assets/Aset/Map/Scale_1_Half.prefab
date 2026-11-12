@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 6309445719972937}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.5, y: -3.5, z: 0}
+  m_LocalPosition: {x: 11, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 29, y: 0.5}
+  m_Size: {x: 22, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
   hangerLength: 3
   hangerWidth: 0.4
   rod: {fileID: 2668455293279634632}
-  length: 29
+  length: 22
   thickness: 0.5
   autoLength: 0
   gap: 4
@@ -317,7 +317,7 @@ Transform:
   m_GameObject: {fileID: 2052669185826377418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.5, y: -3.5, z: 0}
+  m_LocalPosition: {x: -11, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 5415637899032409944}
   - component: {fileID: 2061491234939387202}
   m_Layer: 0
-  m_Name: Scale_BasketHalf
+  m_Name: Scale_1_Half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 1358808095508732727}
+  reserveOverviewHudSpace: 1
 --- !u!1 &3130184704883460948
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,7 +481,7 @@ Transform:
   m_GameObject: {fileID: 5984959235308795907}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.833333, y: -3.5, z: 0}
+  m_LocalPosition: {x: -3.6666665, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -504,11 +505,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576914688102563662, guid: a9de1a55eabacd1e034444eb9f3e856c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.93
+      value: 8.43
       objectReference: {fileID: 0}
     - target: {fileID: 5576914688102563662, guid: a9de1a55eabacd1e034444eb9f3e856c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5700002
+      value: -3.57
       objectReference: {fileID: 0}
     - target: {fileID: 5576914688102563662, guid: a9de1a55eabacd1e034444eb9f3e856c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -581,11 +582,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576914688102563662, guid: a9de1a55eabacd1e034444eb9f3e856c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.070002
+      value: -13.57
       objectReference: {fileID: 0}
     - target: {fileID: 5576914688102563662, guid: a9de1a55eabacd1e034444eb9f3e856c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5700002
+      value: -3.57
       objectReference: {fileID: 0}
     - target: {fileID: 5576914688102563662, guid: a9de1a55eabacd1e034444eb9f3e856c, type: 3}
       propertyPath: m_LocalPosition.z

@@ -190,7 +190,9 @@ public class CameraFocusController : MonoBehaviour
         center = b.center;
         float fitHeight = Mathf.Max(b.extents.y, b.extents.x / cam.aspect);
         size = Mathf.Max(fitHeight + overviewPadding, minOverviewSize);
-        if (playSafeArea != null && !first) playSafeArea.FitVertically(b, overviewPadding, ref center, ref size);
+        if (playSafeArea != null && !first)
+            playSafeArea.FitVertically(b, overviewPadding, ref center, ref size,
+                ScaleSystem.Inst != null && ScaleSystem.Inst.ReserveOverviewHudSpace);
     }
 
     // 전체 보기이거나 집중 중인 바구니(의 하위 스프라이트)는 선명하게, 그 외에는 서서히 어둡게 한다.

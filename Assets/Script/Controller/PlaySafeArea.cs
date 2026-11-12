@@ -31,12 +31,20 @@ public sealed class PlaySafeArea : MonoBehaviour
         content.offsetMin = content.offsetMax = Vector2.zero;
     }
 
-    public void FitVertically(Bounds bounds, float padding, ref Vector2 center, ref float size)
+    public void FitVertically(Bounds bounds, float padding, ref Vector2 center, ref float size,
+        bool reserveOverviewHudSpace = false)
     {
         if (canvas == null || Screen.height <= 0) return;
         Rect safe = Screen.safeArea;
         float top = safe.yMax / Screen.height;
         float bottom = (safe.yMin + (bottomReservedHeight + ExtraBottomPadding) * canvas.scaleFactor) / Screen.height;
+        if (reserveOverviewHudSpace)
+        {
+            const float topHudHeight = 212f;
+            const float gapPixels = 24f;
+            top -= (topHudHeight * canvas.scaleFactor + gapPixels) / Screen.height;
+            bottom += gapPixels / Screen.height;
+        }
         float available = top - bottom;
         if (available < .25f) return;
         size = Mathf.Max(size, (bounds.extents.y + padding) / available);

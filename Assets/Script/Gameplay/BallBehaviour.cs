@@ -15,13 +15,6 @@ public class BallBehaviour : MonoBehaviour
     {
         if (isMerged) return;
 
-        if (collision.gameObject.CompareTag("DeadZone"))
-        {
-            // 방금 던진 공인지 함께 넘겨, 쌓여 있다 쏟아진 공과 구분한다.
-            SpawnManager.Inst.OnBallHitGroundAndRetry(level, this.gameObject, isDroppedByPlayer);
-            return;
-        }
-
         if (isDroppedByPlayer)
         {
             isDroppedByPlayer = false;

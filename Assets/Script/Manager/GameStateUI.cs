@@ -6,17 +6,28 @@ public class GameStateUI : MonoBehaviour
 {
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI stateText;
+    private int shownSeconds;
+    private float popStarted;
 
     private void Update()
     {
         StageManager stage = StageManager.Inst;
         GameManager game = GameManager.Inst;
         bool visible = stage != null && game != null && !game.gameOver &&
-            stage.IsStageReady && !stage.IsCleared && (stage.IsSettling || stage.IsCheckingClear);
+            stage.IsStageReady && !stage.IsCleared && stage.IsSettling;
         panel.SetActive(visible);
-        if (!visible) return;
-        stateText.text = stage.IsSettling
-            ? $"READY\n<size=120>{stage.CountdownSeconds}</size>"
-            : $"BALANCE\n<size=96>{stage.HoldProgress * 100f:F0}%</size>\n<size=32>{stage.ClearSecondsRemaining:F1}s</size>";
+        if (!visible)
+        {
+            shownSeconds = 0;
+            return;
+        }
+        if (shownSeconds != stage.CountdownSeconds)
+        {
+            shownSeconds = stage.CountdownSeconds;
+            stateText.SetText("{0}", shownSeconds);
+            popStarted = Time.unscaledTime;
+        }
+        float progress = Mathf.Clamp01((Time.unscaledTime - popStarted) / .22f);
+        stateText.rectTransform.localScale = Vector3.one * Mathf.Lerp(1.24f, 1f, Mathf.SmoothStep(0f, 1f, progress));
     }
 }

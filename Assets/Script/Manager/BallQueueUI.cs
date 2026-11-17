@@ -17,6 +17,8 @@ public class BallQueueUI : MonoBehaviour
     private readonly List<GameObject> entries = new List<GameObject>();
     private bool expanded;
 
+    internal RectTransform NextButtonRect => (RectTransform)nextButton.transform;
+
     private void Awake()
     {
         Inst = this;
@@ -61,19 +63,30 @@ public class BallQueueUI : MonoBehaviour
         expanded = !expanded;
         inventoryPanel.SetActive(expanded);
         Refresh(-1);
+        if (expanded) TutorialManager.Inst?.OnDropOrderOpened();
+    }
+
+    internal void CollapseInventory()
+    {
+        if (!expanded) return;
+        expanded = false;
+        inventoryPanel.SetActive(false);
     }
 
     private void Refresh(int unused)
     {
         if (SpawnManager.Inst == null || GameManager.Inst == null) return;
         List<int> levels = SpawnManager.Inst.GetRemainingLevels();
-        int total = StageManager.Inst != null ? StageManager.Inst.TotalProvidedBalls : levels.Count;
-        // 튜토리얼 코드: 튜토리얼은 정해진 순서가 계속 반복되므로 수량 대신 반복 표시를 한다.
-        bool tutorial = TutorialManager.Inst != null;
-        remainingText.text = tutorial ? "REPEAT" : $"LEFT <b><size=48>{levels.Count}</size></b>";
-        totalText.text = tutorial ? "TUTORIAL" : $"TOTAL {total}";
+        int total = StageManager.Inst?.TotalProvidedBalls ?? TutorialManager.Inst?.TotalProvidedBalls ?? levels.Count;
+        remainingText.text = $"LEFT <b><size=48>{levels.Count}</size></b>";
+        totalText.text = $"TOTAL {total}";
         nextIcon.sprite = GetSprite(SpawnManager.Inst.getNextBall());
         nextIcon.enabled = nextIcon.sprite != null;
+        if (TutorialManager.Inst != null && levels.Count == 0 && expanded)
+        {
+            expanded = false;
+            inventoryPanel.SetActive(false);
+        }
         foreach (GameObject entry in entries)
         {
             entry.SetActive(false);

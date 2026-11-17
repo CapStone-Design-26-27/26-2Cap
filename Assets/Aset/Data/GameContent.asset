@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd332183cbc4b538ebcc3bd6b7c7ee5, type: 3}
   m_Name: GameContent
   m_EditorClassIdentifier: 
-  stageData: {fileID: 4900000, guid: 502dc850aeda0c54ea658d4abe8af19f, type: 3}
+  stageChunks:
+  - {fileID: 4900000, guid: 502dc850aeda0c54ea658d4abe8af19f, type: 3}
   maps:
   - {fileID: 3115525703928295530, guid: 29cf15c81d7c314632a5da126b96cfce, type: 3}
   - {fileID: 3556268705063096290, guid: fd5c69ceb4d8588667e9c35b46e83be7, type: 3}

@@ -1,0 +1,2651 @@
+{
+  "schemaVersion": 5,
+  "maps": [
+    {
+      "mapId": 1,
+      "name": "TwoBasket",
+      "basketCount": 2,
+      "targetWeightRatios": [
+        1,
+        1
+      ]
+    },
+    {
+      "mapId": 2,
+      "name": "ThreeBasket",
+      "basketCount": 3,
+      "targetWeightRatios": [
+        1,
+        1,
+        2
+      ]
+    },
+    {
+      "mapId": 3,
+      "name": "FourBasket",
+      "basketCount": 4,
+      "targetWeightRatios": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "mapId": 4,
+      "name": "TwoBasketFull",
+      "basketCount": 2,
+      "targetWeightRatios": [
+        1,
+        1
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "mapId": 1,
+      "title": "같은 동물 균형 1",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          1,
+          1
+        ]
+      }
+    },
+    {
+      "stage": 2,
+      "mapId": 1,
+      "title": "같은 동물 균형 2",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 3,
+      "mapId": 1,
+      "title": "같은 동물 균형 3",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 4,
+      "mapId": 1,
+      "title": "같은 동물 균형 4",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        3
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 5,
+      "mapId": 1,
+      "title": "같은 동물 균형 5",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 4,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        4
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "stage": 6,
+      "mapId": 1,
+      "title": "같은 동물 균형 6",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 5,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        5
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          32,
+          32
+        ]
+      }
+    },
+    {
+      "stage": 7,
+      "mapId": 4,
+      "title": "같은 동물 균형 7",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 6,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": 0,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        6
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          64,
+          64
+        ]
+      }
+    },
+    {
+      "stage": 8,
+      "mapId": 4,
+      "title": "같은 동물 균형 8",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 7,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": 0,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        7
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          128,
+          128
+        ]
+      }
+    },
+    {
+      "stage": 9,
+      "mapId": 4,
+      "title": "같은 동물 균형 9",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 8,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": 0,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        8
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          256,
+          256
+        ]
+      }
+    },
+    {
+      "stage": 10,
+      "mapId": 4,
+      "title": "같은 동물 균형 10",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 9,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": 0,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        9
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          512,
+          512
+        ]
+      }
+    },
+    {
+      "stage": 11,
+      "mapId": 1,
+      "title": "합성 연습 11",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 12,
+      "mapId": 1,
+      "title": "합성 연습 12",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 13,
+      "mapId": 1,
+      "title": "합성 연습 13",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 14,
+      "mapId": 1,
+      "title": "합성 연습 14",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 15,
+      "mapId": 1,
+      "title": "합성 연습 15",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 16,
+      "mapId": 1,
+      "title": "합성 연습 16",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "stage": 17,
+      "mapId": 1,
+      "title": "합성 연습 17",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2.4,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2.4,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "stage": 18,
+      "mapId": 1,
+      "title": "합성 연습 18",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          10,
+          10
+        ]
+      }
+    },
+    {
+      "stage": 19,
+      "mapId": 1,
+      "title": "합성 연습 19",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 20,
+      "mapId": 1,
+      "title": "합성 연습 20",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 21,
+      "mapId": 2,
+      "title": "세 바구니 균형 21",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          2
+        ],
+        "finalMassUnits": [
+          2,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 22,
+      "mapId": 2,
+      "title": "세 바구니 균형 22",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          2
+        ],
+        "finalMassUnits": [
+          2,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 23,
+      "mapId": 2,
+      "title": "세 바구니 균형 23",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          2
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 24,
+      "mapId": 2,
+      "title": "세 바구니 균형 24",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          2,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 25,
+      "mapId": 2,
+      "title": "세 바구니 균형 25",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 26,
+      "mapId": 2,
+      "title": "세 바구니 균형 26",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 27,
+      "mapId": 2,
+      "title": "세 바구니 균형 27",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 28,
+      "mapId": 2,
+      "title": "세 바구니 균형 28",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 29,
+      "mapId": 2,
+      "title": "세 바구니 균형 29",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 30,
+      "mapId": 3,
+      "title": "네 바구니 체험",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          3
+        ],
+        "finalMassUnits": [
+          2,
+          2,
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 31,
+      "mapId": 1,
+      "title": "같은 동물 나누기 31",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 32,
+      "mapId": 1,
+      "title": "같은 동물 나누기 32",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "stage": 33,
+      "mapId": 1,
+      "title": "같은 동물 나누기 33",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 34,
+      "mapId": 1,
+      "title": "같은 동물 나누기 34",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "stage": 35,
+      "mapId": 1,
+      "title": "같은 동물 나누기 35",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "stage": 36,
+      "mapId": 1,
+      "title": "같은 동물 나누기 36",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "stage": 37,
+      "mapId": 1,
+      "title": "같은 동물 나누기 37",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "stage": 38,
+      "mapId": 1,
+      "title": "같은 동물 나누기 38",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "stage": 39,
+      "mapId": 2,
+      "title": "같은 동물 나누기 39",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 40,
+      "mapId": 2,
+      "title": "같은 동물 나누기 40",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          2,
+          2,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 41,
+      "mapId": 2,
+      "title": "같은 동물 나누기 41",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          2,
+          2,
+          2
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 42,
+      "mapId": 2,
+      "title": "같은 동물 나누기 42",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -2.6,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 2.6,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          2,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 43,
+      "mapId": 1,
+      "title": "같은 동물 나누기 43",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 44,
+      "mapId": 1,
+      "title": "같은 동물 나누기 44",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "stage": 45,
+      "mapId": 2,
+      "title": "같은 동물 나누기 45",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -2.6,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 2.6,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          2,
+          0,
+          2
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 46,
+      "mapId": 2,
+      "title": "같은 동물 나누기 46",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 47,
+      "mapId": 1,
+      "title": "같은 동물 나누기 47",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          12,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 48,
+      "mapId": 1,
+      "title": "같은 동물 나누기 48",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          12,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 49,
+      "mapId": 2,
+      "title": "같은 동물 나누기 49",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          2,
+          1,
+          2
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 50,
+      "mapId": 2,
+      "title": "같은 동물 나누기 50",
+      "levelTolerance": 3.5,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": -1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 1.3,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          2,
+          0,
+          1,
+          2,
+          2
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          12
+        ]
+      }
+    }
+  ]
+}

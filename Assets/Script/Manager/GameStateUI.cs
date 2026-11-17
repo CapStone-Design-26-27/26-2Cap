@@ -7,7 +7,6 @@ public class GameStateUI : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI stateText;
     private int shownSeconds;
-    private float popStarted;
 
     private void Update()
     {
@@ -25,9 +24,6 @@ public class GameStateUI : MonoBehaviour
         {
             shownSeconds = stage.CountdownSeconds;
             stateText.SetText("{0}", shownSeconds);
-            popStarted = Time.unscaledTime;
         }
-        float progress = Mathf.Clamp01((Time.unscaledTime - popStarted) / .22f);
-        stateText.rectTransform.localScale = Vector3.one * Mathf.Lerp(1.24f, 1f, Mathf.SmoothStep(0f, 1f, progress));
     }
 }

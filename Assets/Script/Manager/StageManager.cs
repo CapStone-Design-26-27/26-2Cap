@@ -32,10 +32,9 @@ public class StageManager : MonoBehaviour
 
     [Header("화면 표시")]
     [Tooltip("별도 UI를 만들기 전까지 쓰는 간단한 스테이지 정보, 클리어/게임오버 화면")]
-    [SerializeField] private bool drawDebugUI = true;
 
-    private StageDatabase stageDatabase;
-    private readonly Dictionary<int, StageDefinition> definitionsByStage = new Dictionary<int, StageDefinition>();
+    private readonly Dictionary<TextAsset, StageDatabase> loadedChunks = new Dictionary<TextAsset, StageDatabase>();
+    private int activeMapId;
     [Header("시작 카운트다운")]
     [SerializeField, Min(0f)] private float startCountdownSeconds = 3f;
 
@@ -58,8 +57,8 @@ public class StageManager : MonoBehaviour
     public int TotalProvidedBalls => FindStageData(Stage)?.playerBallQueue?.Count ?? 0;
     public bool IsAttemptFailed { get; private set; }
     private readonly StageTurnUndo turnUndo = new StageTurnUndo();
+    [SerializeField, Min(-1)] private int maxUndoCount = -1;
     public int FreeUndoCount => turnUndo.FreeUses;
-    public bool HasDroppedBall { get; private set; }
     public bool CanUndo => stageReady && !IsSettling && !IsCleared && turnUndo.CanRestore &&
         GameManager.Inst != null && !GameManager.Inst.gamePaused &&
         SpawnManager.Inst != null && SpawnManager.Inst.IsDropSettled;
@@ -69,7 +68,6 @@ public class StageManager : MonoBehaviour
         GameManager.Inst != null && !GameManager.Inst.gameOver && !GameManager.Inst.gamePaused;
     public float HoldProgress => holdTime > 0f ? Mathf.Clamp01(holdTimer / holdTime) : 1f;
     public bool IsCheckingClear => stageReady && !IsSettling && !IsCleared && holdTimer > 0f;
-    public float ClearSecondsRemaining => Mathf.Max(0f, holdTime - holdTimer);
 
     private void Awake()
     {
@@ -80,7 +78,6 @@ public class StageManager : MonoBehaviour
         }
 
         Inst = this;
-        LoadStageDatabase();
     }
 
     private void OnDestroy()
@@ -88,17 +85,12 @@ public class StageManager : MonoBehaviour
         if (Inst == this) Inst = null;
     }
 
-    private void LoadStageDatabase()
+    private StageDatabase LoadStageChunk(int stageNumber)
     {
-        TextAsset jsonFile = GameManager.Inst != null && GameManager.Inst.Content != null
-            ? GameManager.Inst.Content.stageData : null;
-
-        if (jsonFile == null)
-        {
-            Debug.LogError(
-                "StageManager: Game Content에 Assets/Aset/Data/StageData.json을 연결하세요.");
-            return;
-        }
+        TextAsset jsonFile = GameManager.Inst?.Content?.GetStageChunk(stageNumber);
+        if (jsonFile == null) return null;
+        if (loadedChunks.TryGetValue(jsonFile, out StageDatabase stageDatabase)) return stageDatabase;
+        loadedChunks.Add(jsonFile, null);
 
         try
         {
@@ -107,8 +99,7 @@ public class StageManager : MonoBehaviour
         catch (ArgumentException exception)
         {
             Debug.LogError("StageManager: 스테이지 JSON을 읽을 수 없습니다: " + exception.Message);
-            stageDatabase = null;
-            return;
+            return null;
         }
 
         // JsonUtility는 누락된 float를 0으로 읽을 수 있어 원본 JSON에서 좌표 존재를 확인한다.
@@ -119,11 +110,12 @@ public class StageManager : MonoBehaviour
         {
             foreach (StageDefinition stage in stageDatabase.stages)
             {
-                if (stage.balls == null) continue;
+                if (stage == null || stage.balls == null) continue;
                 foreach (StageBallData ball in stage.balls)
                 {
                     string record = recordIndex < records.Count ? records[recordIndex].Value : "";
                     recordIndex++;
+                    if (ball == null) continue;
                     if (!System.Text.RegularExpressions.Regex.IsMatch(record, @"""x""\s*:") ||
                         !System.Text.RegularExpressions.Regex.IsMatch(record, @"""y""\s*:"))
                     {
@@ -137,22 +129,24 @@ public class StageManager : MonoBehaviour
         if (stageDatabase == null || stageDatabase.stages == null || stageDatabase.stages.Count == 0)
         {
             Debug.LogError("StageManager: StageData.json에 스테이지 데이터가 없거나 형식이 잘못되었습니다.");
-            stageDatabase = null;
-            return;
+            return null;
         }
 
-        definitionsByStage.Clear();
+        var stageNumbers = new HashSet<int>();
+        int chunkIndex = (stageNumber - 1) / GameContentCatalog.StagesPerChunk;
         foreach (StageDefinition definition in stageDatabase.stages)
         {
-            if (definitionsByStage.ContainsKey(definition.stage))
+            if (definition == null || definition.stage <= 0 ||
+                (definition.stage - 1) / GameContentCatalog.StagesPerChunk != chunkIndex ||
+                !stageNumbers.Add(definition.stage))
             {
-                Debug.LogError($"StageManager: 중복 스테이지 번호 {definition.stage}");
-                definitionsByStage.Clear();
-                return;
+                Debug.LogError($"StageManager: {jsonFile.name}의 스테이지 번호를 확인하세요.");
+                return null;
             }
-            definitionsByStage.Add(definition.stage, definition);
         }
-        Debug.Log($"StageManager: JSON 스테이지 {stageDatabase.stages.Count}개 로드 완료");
+
+        loadedChunks[jsonFile] = stageDatabase;
+        return stageDatabase;
     }
 
     public string GetStageSignature(int stageNumber)
@@ -234,7 +228,7 @@ public class StageManager : MonoBehaviour
 
     private bool HasBalancedMasses()
     {
-        StageMapDefinition map = stageDatabase.maps.Find(m => m.mapId == CurrentMapId);
+        StageMapDefinition map = FindMap(Stage, CurrentMapId);
         if (map == null || map.targetWeightRatios == null ||
             map.targetWeightRatios.Count != ScaleSystem.Inst.Baskets.Count) return false;
         int ratioSum = 0;
@@ -285,7 +279,6 @@ public class StageManager : MonoBehaviour
     }
 
     // 반올림으로 살짝 기운 상태가 100%로 보이지 않도록 내림한다.
-    private static int ToPercent(float balance) => Mathf.FloorToInt(balance * 100f + 0.0001f);
 
     private bool IsLevel()
     {
@@ -338,8 +331,7 @@ public class StageManager : MonoBehaviour
         }
         IsCleared = false;
         IsAttemptFailed = false;
-        turnUndo.Reset();
-        HasDroppedBall = false;
+        turnUndo.Reset(maxUndoCount);
         exhaustedTimer = 0f;
         stageReady = false;
         holdTimer = 0f;
@@ -426,15 +418,14 @@ public class StageManager : MonoBehaviour
         }
 
         Instantiate(prefab);
+        activeMapId = mapId;
         yield return null;
         if (cameraFocus != null) cameraFocus.RefreshMapView();
     }
 
     private bool IsCurrentMap(int mapId)
     {
-        if (ScaleSystem.Inst == null) return false;
-        int count = ScaleSystem.Inst.Baskets.Count;
-        return (mapId == 1 && count == 2) || (mapId == 2 && count == 3) || (mapId == 3 && count == 4);
+        return ScaleSystem.Inst != null && activeMapId == mapId;
     }
 
     private GameObject GetMapPrefab(int mapId)
@@ -448,8 +439,12 @@ public class StageManager : MonoBehaviour
 
     private StageDefinition FindStageData(int stageNumber)
     {
-        StageDefinition definition;
-        return definitionsByStage.TryGetValue(stageNumber, out definition) ? definition : null;
+        return LoadStageChunk(stageNumber)?.stages.Find(stage => stage.stage == stageNumber);
+    }
+
+    private StageMapDefinition FindMap(int stage, int mapId)
+    {
+        return LoadStageChunk(stage)?.maps?.Find(map => map != null && map.mapId == mapId);
     }
 
     public int GetStageMapId(int stageNumber)
@@ -466,7 +461,7 @@ public class StageManager : MonoBehaviour
             return false;
 
         int mapId = GetStageMapId(stageNumber);
-        int basketCount = mapId == 1 ? 2 : mapId == 2 ? 3 : mapId == 3 ? 4 : 0;
+        int basketCount = FindMap(stageNumber, mapId)?.basketCount ?? 0;
         if (basketCount == 0 || ScaleSystem.Inst.Baskets.Count != basketCount)
         {
             Debug.LogError($"Stage {stageNumber}: Map {mapId}의 {basketCount}바구니 맵이 필요합니다. " +
@@ -479,9 +474,9 @@ public class StageManager : MonoBehaviour
         if (root == null || !HasEqualArms(root)) return false;
         HangingNode left = root.Attachments[0].node;
         HangingNode right = root.Attachments[1].node;
-        bool valid = mapId == 1
+        bool valid = basketCount == 2
             ? left is Basket && right is Basket
-            : mapId == 2
+            : basketCount == 3
                 ? IsBasketPair(left) && right is Basket
                 : IsBasketPair(left) && IsBasketPair(right);
         if (!valid)
@@ -604,7 +599,6 @@ public class StageManager : MonoBehaviour
     {
         if (AcceptsInput && ScaleSystem.Inst != null)
         {
-            HasDroppedBall = true;
             turnUndo.Capture(preview, SpawnManager.Inst, ScaleSystem.Inst);
         }
     }
@@ -626,14 +620,6 @@ public class StageManager : MonoBehaviour
         turnUndo.Restore(spawn, scale, game);
     }
 
-    // 메인 화면으로 돌아간다. 저장 파일에는 스테이지 번호만 남으므로 어느 상태에서 나가도
-    // 다음에 같은 스테이지를 StageData 배치로 새로 시작한다.
-    public void GoHome()
-    {
-        if (SaveManager.Inst != null) SaveManager.Inst.SaveGame();
-        SceneFlow.LoadMain();
-    }
-
     // 스테이지 데이터의 공마다 합성 잠금 상태를 적용한다.
     public static void RegisterBallData(BallBehaviour ball, StageBallData data)
     {
@@ -651,79 +637,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        if (!drawDebugUI || GameManager.Inst == null || StagePresentationUI.IsActive)
-            return;
 
-        float s = Screen.height / 720f;
-        GUIStyle label = new GUIStyle(GUI.skin.label)
-        {
-            fontSize = Mathf.RoundToInt(22 * s),
-            alignment = TextAnchor.UpperRight
-        };
-
-        GUIStyle big = new GUIStyle(GUI.skin.label)
-        {
-            fontSize = Mathf.RoundToInt(56 * s),
-            alignment = TextAnchor.MiddleCenter,
-            fontStyle = FontStyle.Bold
-        };
-
-        GUIStyle button = new GUIStyle(GUI.skin.button)
-        {
-            fontSize = Mathf.RoundToInt(28 * s)
-        };
-
-        string status;
-        if (!stageReady) status = "MAP / DATA REQUIRED";
-        else if (IsSettling) status = $"READY {CountdownSeconds}";
-        else
-        {
-            // 바구니 집중 중이면 그 바구니, 전체 보기면 전체 균형도를 보여준다.
-            Basket focused = GameManager.Inst.FocusedBasket;
-            status = focused != null
-                ? $"BASKET {IndexOfBasket(focused) + 1}  {ToPercent(GetBasketBalance(focused))}%"
-                : $"TOTAL  {ToPercent(OverallBalance)}%";
-            // 균형을 유지하는 동안 클리어까지 남은 시간을 옆에 표시한다.
-            if (IsCheckingClear)
-                status += $"  ({ClearSecondsRemaining:F1}s)";
-        }
-        GUI.Label(
-            new Rect(Screen.width - 420 * s, 20 * s, 400 * s, 80 * s),
-            $"STAGE {Stage}\n{status}",
-            label);
-
-        Rect center = new Rect(
-            Screen.width * 0.5f - 300 * s,
-            Screen.height * 0.5f - 120 * s,
-            600 * s,
-            100 * s);
-
-        Rect buttonRect = new Rect(
-            Screen.width * 0.5f - 120 * s,
-            Screen.height * 0.5f + 10 * s,
-            240 * s,
-            70 * s);
-
-        if (IsCleared)
-        {
-            GUI.Label(center, HasNextStage ? "STAGE CLEAR" : "CAMPAIGN COMPLETE", big);
-            if (HasNextStage && GUI.Button(buttonRect, "NEXT", button))
-                NextStage();
-        }
-        else if (GameManager.Inst.gameOver || IsAttemptFailed)
-        {
-            GUI.Label(center, IsAttemptFailed ? "TRY AGAIN" : "GAME OVER", big);
-            if (GUI.Button(buttonRect, "RETRY", button))
-                RetryStage();
-
-            // RETRY 바로 아래에 같은 크기로 메인 화면 이동 버튼을 둔다.
-            Rect homeRect = new Rect(buttonRect.x, buttonRect.yMax + 15 * s, buttonRect.width, buttonRect.height);
-            if (GUI.Button(homeRect, "HOME", button))
-                GoHome();
-        }
-    }
 }
 
 [Serializable]

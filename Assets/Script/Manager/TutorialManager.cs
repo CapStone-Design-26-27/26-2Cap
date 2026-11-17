@@ -1,9 +1,7 @@
-﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 튜토리얼 코드. 바구니 선택 → 공 떨어뜨리기 → 두 바구니 평형 순서로 진행한다.
-// 실패하면 게임오버 대신 처음 배치로 되돌린다.
+// 정해진 공을 모두 바구니에 넣으면 튜토리얼을 완료한다.
 public class TutorialManager : MonoBehaviour
 {
     public const string CompletedKey = "TutorialCompleted";
@@ -12,7 +10,7 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager Inst { get; private set; }
     public static bool IsCompleted => PlayerPrefs.GetInt(CompletedKey, 0) == 1;
 
-    public enum Step { Settle, SelectBasket, DropBall, Balance, Failed, Complete }
+    public enum Step { Settle, InspectNext, SelectBasket, DropBall, ReturnOverview, Balance, Failed, Complete }
 
     [System.Serializable]
     public class BasketPreset
@@ -34,30 +32,24 @@ public class TutorialManager : MonoBehaviour
 
     [Header("공 배치")]
     [SerializeField] private List<BasketPreset> presets = new List<BasketPreset>();
-    [Tooltip("플레이어가 던지는 공의 레벨 순서. 끝나면 처음부터 반복한다.")]
+    [Tooltip("플레이어에게 한 번만 지급할 공의 레벨 순서.")]
     [SerializeField] private List<int> ballOrder = new List<int> { 3 };
     [SerializeField, Min(0f)] private float settleTime = 2.5f;
 
     [Header("평형 판정")]
-    [Tooltip("바구니가 이 각도 이내면 평형으로 본다.")]
-    [SerializeField, Min(0f)] private float basketTolerance = 3f;
-    [Tooltip("켜면 저울대(막대)도 수평이어야 완료")]
-    [SerializeField] private bool requireBeamLevel = false;
-    [SerializeField, Min(0f)] private float beamTolerance = 3f;
-    [Tooltip("평형을 이 시간 동안 유지하면 완료")]
-    [SerializeField, Min(0f)] private float holdTime = 1f;
+    [SerializeField, Min(0f)] private float beamTolerance = 4f;
+    [SerializeField, Min(0f)] private float basketTolerance = 4f;
+    [Tooltip("모든 공이 이 시간 동안 바구니에 안착하면 완료")]
+    [SerializeField, Min(0f)] private float holdTime = 1.5f;
 
     [Header("연출")]
     [Tooltip("줌인이 끝날 때까지 기다리는 시간")]
     [SerializeField, Min(0f)] private float zoomWait = 0.6f;
-    [SerializeField, Min(0f)] private float failMessageTime = 1.5f;
 
     [Header("문구")]
     [SerializeField] private string msgSelectBasket = "바구니를 눌러보세요!";
+    [SerializeField] private string msgBackToBasket = "균형을 맞춰보세요!";
     [SerializeField] private string msgDropBall = "화면을 눌러 공을 떨어뜨리세요!";
-    [SerializeField] private string msgBalance = "바구니의 평형을 이루세요!";
-    [SerializeField] private string msgOtherBasket = "좋아요! 다른 바구니도 평형을 맞춰보세요";
-    [SerializeField] private string msgPickTilted = "기울어진 바구니를 눌러보세요";
     [SerializeField] private string msgHold = "그대로 유지하세요...";
     [SerializeField] private string msgFailed = "앗! 다시 해볼까요?";
     [SerializeField] private string msgStartGame = "게임 시작";
@@ -67,12 +59,15 @@ public class TutorialManager : MonoBehaviour
     private float timer;
     private float holdTimer;
     private bool waitingLanding;
+    private float expectedWeight;
+    private float finishTimer;
+    private float imbalanceTimer;
+    private readonly HashSet<Rigidbody2D> countedBalls = new HashSet<Rigidbody2D>();
     private bool aiming;
     private bool firstClear;
-    private bool afterFail;
-    private readonly List<Basket> unbalanced = new List<Basket>();
 
     public Step CurrentStep => step;
+    public int TotalProvidedBalls { get; private set; }
 
     private void Awake()
     {
@@ -112,18 +107,11 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        RefillBallOrder();
-
         switch (step)
         {
             case Step.Settle:
                 timer -= Time.deltaTime;
-                if (timer <= 0f)
-                {
-                    WarnIfAlreadyLevel();
-                    if (afterFail) EnterBalance();
-                    else EnterSelectBasket();
-                }
+                if (timer <= 0f) EnterInspectNext();
                 break;
 
             case Step.DropBall:
@@ -135,7 +123,7 @@ public class TutorialManager : MonoBehaviour
 
                 // 던진 공이 착지하면 canSpawn이 다시 true가 된다.
                 if (waitingLanding && SpawnManager.Inst.canSpawn)
-                    EnterBalance();
+                    EnterReturnOverview();
                 break;
 
             case Step.Balance:
@@ -149,7 +137,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (overviewButton == null) return;
 
-        bool hide = step == Step.Settle || step == Step.SelectBasket || step == Step.DropBall
+        bool hide = step == Step.Settle || step == Step.InspectNext || step == Step.SelectBasket || step == Step.DropBall
                  || step == Step.Failed || step == Step.Complete;
         if (hide && overviewButton.activeSelf) overviewButton.SetActive(false);
     }
@@ -164,9 +152,30 @@ public class TutorialManager : MonoBehaviour
         ui.HideAll();
     }
 
+    private void EnterInspectNext()
+    {
+        var queue = BallQueueUI.Inst;
+        if (queue == null)
+        {
+            EnterSelectBasket();
+            return;
+        }
+
+        step = Step.InspectNext;
+        queue.CollapseInventory();
+        ui.SetNextHint(queue.NextButtonRect);
+        ui.SetMessage("NEXT를 눌러보세요!");
+    }
+
+    internal void OnDropOrderOpened()
+    {
+        if (step == Step.InspectNext) EnterSelectBasket();
+    }
+
     private void EnterSelectBasket()
     {
         step = Step.SelectBasket;
+        ui.SetNextHint(null);
         SetInput(cameraInput: true, spawnInput: false);
 
         List<Basket> all = new List<Basket>(ScaleSystem.Inst.Baskets);
@@ -177,6 +186,7 @@ public class TutorialManager : MonoBehaviour
     private void EnterDropBall()
     {
         step = Step.DropBall;
+        BallQueueUI.Inst?.CollapseInventory();
         timer = zoomWait;
         waitingLanding = false;
         SetInput(cameraInput: false, spawnInput: true);
@@ -185,15 +195,32 @@ public class TutorialManager : MonoBehaviour
         ui.SetMessage(msgDropBall);
     }
 
+    private void EnterReturnOverview()
+    {
+        if (overviewButton == null || GameManager.Inst.FocusedBasket == null)
+        {
+            EnterBalance();
+            return;
+        }
+
+        step = Step.ReturnOverview;
+        SetInput(cameraInput: true, spawnInput: false);
+        overviewButton.SetActive(true);
+        ui.HideTap();
+        ui.SetOverviewHint(true);
+        ui.SetMessage("MAIN을 눌러보세요!");
+    }
+
     private void EnterBalance()
     {
         step = Step.Balance;
+        ui.SetOverviewHint(false);
         holdTimer = 0f;
         waitingLanding = false;
         SetInput(cameraInput: true, spawnInput: true);
 
         ui.HideTap();
-        ui.SetMessage(msgBalance);
+        ui.SetMessage(GameManager.Inst.FocusedBasket == null ? msgBackToBasket : msgDropBall);
 
         // 숨겨 둔 전체 보기 버튼을 다시 켠다.
         if (overviewButton != null)
@@ -210,57 +237,73 @@ public class TutorialManager : MonoBehaviour
         PlayerPrefs.Save();
 
         ui.HideAll();
-        ui.ShowComplete(ExitTutorial, firstClear ? msgStartGame : msgBackToMain);
+        ui.ShowResult("튜토리얼 완료!", firstClear ? msgStartGame : msgBackToMain, ExitTutorial);
     }
 
     // ─── 평형 맞추기 ───
 
     private void UpdateBalance()
     {
-        unbalanced.Clear();
-        foreach (Basket b in ScaleSystem.Inst.Baskets)
-            if (Mathf.Abs(b.CurrentAngle) > basketTolerance) unbalanced.Add(b);
-
-        bool beamOk = !requireBeamLevel || IsBeamLevel();
-        bool ballSettled = SpawnManager.Inst.canSpawn;
+        var spawn = SpawnManager.Inst;
         Basket focused = GameManager.Inst.FocusedBasket;
-
-        if (unbalanced.Count == 0 && beamOk && ballSettled)
+        if (spawn.RemainingBallCount > 0 || spawn.HasPreview)
         {
-            holdTimer += Time.deltaTime;
-            ui.SetBasketArrows(null);
-            ui.SetOverviewHint(false);
-            ui.SetMessage(msgHold);
+            if (!aiming) ui.ShowTap(spawn.canSpawn ? focused : null);
+            ui.SetMessage(focused == null ? msgBackToBasket : msgDropBall);
+            return;
+        }
 
+        ui.HideTap();
+        finishTimer += Time.deltaTime;
+        bool settled = CheckBasketBalance(out bool balanced) && spawn.canSpawn;
+        if (settled && balanced && IsScaleLevel())
+        {
+            ui.SetMessage(msgHold);
+            imbalanceTimer = 0f;
+            holdTimer += Time.deltaTime;
             if (holdTimer >= holdTime) EnterComplete();
             return;
         }
 
         holdTimer = 0f;
-
-        if (focused == null)
-        {
-            // 전체 보기에서는 기울어진 바구니를 가리킨다.
-            ui.SetOverviewHint(false);
-            ui.SetBasketArrows(unbalanced);
-            ui.SetMessage(unbalanced.Count > 0 ? msgPickTilted : msgBalance);
-        }
-        else
-        {
-            ui.SetBasketArrows(null);
-
-            // 이 바구니를 맞췄으면 전체 보기 버튼을 가리킨다.
-            bool focusedDone = !unbalanced.Contains(focused);
-            bool goOther = focusedDone && unbalanced.Count > 0 && ballSettled;
-            ui.SetOverviewHint(goOther);
-            ui.SetMessage(goOther ? msgOtherBasket : msgBalance);
-        }
+        ui.SetMessage(settled ? "바구니의 평형을 맞춰보세요!" : "잠시 기다리세요");
+        imbalanceTimer = settled && !balanced ? imbalanceTimer + Time.deltaTime : 0f;
+        if (imbalanceTimer >= 2f || finishTimer >= 8f) OnGameOverRequested();
     }
 
-    private bool IsBeamLevel()
+    private bool CheckBasketBalance(out bool balanced)
+    {
+        var baskets = ScaleSystem.Inst.Baskets;
+        balanced = baskets.Count == 2;
+        float totalWeight = 0f;
+        float targetWeight = expectedWeight * 0.5f;
+        countedBalls.Clear();
+        foreach (Basket basket in baskets)
+        {
+            if (basket.Sensor == null) return false;
+            float basketWeight = 0f;
+            foreach (Rigidbody2D ball in basket.Sensor.Balls)
+            {
+                if (ball.velocity.sqrMagnitude > 0.25f || Mathf.Abs(ball.angularVelocity) > 10f)
+                    return false;
+                basketWeight += ball.mass;
+                if (countedBalls.Add(ball)) totalWeight += ball.mass;
+            }
+            balanced &= Mathf.Abs(basketWeight - targetWeight) <= 0.01f;
+        }
+
+        balanced &= Mathf.Abs(totalWeight - expectedWeight) < 0.01f;
+        return true;
+    }
+
+    private bool IsScaleLevel()
     {
         foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
-            if (node is ScaleBeam && Mathf.Abs(node.CurrentAngle) > beamTolerance) return false;
+        {
+            float tolerance = node is Basket ? basketTolerance : beamTolerance;
+            if (Mathf.Abs(node.CurrentAngle) > tolerance) return false;
+        }
+
         return true;
     }
 
@@ -268,7 +311,9 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleFocusChanged(Basket basket)
     {
-        if (step == Step.SelectBasket && basket != null)
+        if (step == Step.ReturnOverview && basket == null)
+            EnterBalance();
+        else if (step == Step.SelectBasket && basket != null)
             EnterDropBall();
         else if (step == Step.DropBall && basket == null && !waitingLanding)
             EnterSelectBasket();
@@ -277,7 +322,7 @@ public class TutorialManager : MonoBehaviour
     private void HandleAimStart(Transform ball)
     {
         aiming = true;
-        if (step == Step.DropBall) ui.HideTap();
+        ui.HideTap();
     }
 
     private void HandleAimEnd()
@@ -289,7 +334,7 @@ public class TutorialManager : MonoBehaviour
         if (!SpawnManager.Inst.canSpawn)
         {
             waitingLanding = true;
-            ui.SetMessage(msgBalance);
+            ui.SetMessage("잠시 기다리세요");
         }
         else
         {
@@ -301,26 +346,17 @@ public class TutorialManager : MonoBehaviour
     public void OnGameOverRequested()
     {
         if (step == Step.Failed || step == Step.Complete || step == Step.Settle) return;
-        StartCoroutine(FailRoutine());
-    }
-
-    private IEnumerator FailRoutine()
-    {
         step = Step.Failed;
         SetInput(cameraInput: false, spawnInput: false);
-        SpawnManager.Inst.CancelAim();
-
         ui.HideAll();
-        ui.SetMessage(msgFailed);
+        ui.ShowResult(msgFailed, "다시 시작", Retry);
+    }
 
-        yield return new WaitForSeconds(failMessageTime);
-
-        // 공 소속이 잘못 잡히지 않도록 전체 보기로 돌린 뒤 배치한다.
-        cameraFocus.inputLocked = false;
-        cameraFocus.ShowOverview();
+    private void Retry()
+    {
+        ui.HideResult();
+        cameraFocus.Focus(null);
         SetupBalls();
-
-        afterFail = true;
         EnterSettle();
     }
 
@@ -341,6 +377,10 @@ public class TutorialManager : MonoBehaviour
 
     private void SetupBalls()
     {
+        expectedWeight = 0f;
+        finishTimer = 0f;
+        imbalanceTimer = 0f;
+
         foreach (BallBehaviour ball in FindObjectsOfType<BallBehaviour>())
             Destroy(ball.gameObject);
 
@@ -348,23 +388,18 @@ public class TutorialManager : MonoBehaviour
         SpawnManager.Inst.ResetForStage();
 
         // 플레이어에게는 정해진 순서의 공만 준다.
-        SpawnManager.Inst.RestoreQueue(new List<int>());
-        RefillBallOrder();
+        var queue = new List<int>();
+        foreach (int level in ballOrder)
+        {
+            if (level < 0 || level >= GameManager.Inst.ballList.Count) continue;
+            queue.Add(level);
+            expectedWeight += GameManager.Inst.kgList[level];
+        }
+        TotalProvidedBalls = queue.Count;
+        SpawnManager.Inst.RestoreQueue(queue);
 
         foreach (BasketPreset preset in presets)
             SpawnPreset(preset);
-    }
-
-    // 남은 공이 한 바퀴보다 적어지면 순서를 한 바퀴 더 넣어 공이 끝나지 않게 한다.
-    private void RefillBallOrder()
-    {
-        if (ballOrder.Count == 0 || SpawnManager.Inst == null) return;
-        if (SpawnManager.Inst.nextBallQueue.Count >= ballOrder.Count) return;
-
-        foreach (int level in ballOrder)
-            if (level >= 0 && level < GameManager.Inst.ballList.Count)
-                SpawnManager.Inst.nextBallQueue.Enqueue(level);
-        SpawnManager.Inst.NotifyNextBallChanged();
     }
 
     private void SpawnPreset(BasketPreset preset)
@@ -391,6 +426,7 @@ public class TutorialManager : MonoBehaviour
 
             GameObject ball = Instantiate(prefab, pos, Quaternion.identity);
             SpawnManager.Inst.SetupBallProperties(ball, level, false, basket);
+            expectedWeight += GameManager.Inst.kgList[level];
 
             y += radius * 2f + 0.5f;
         }
@@ -402,20 +438,6 @@ public class TutorialManager : MonoBehaviour
         if (circle == null) return 1f;
         Vector3 s = prefab.transform.localScale;
         return circle.radius * Mathf.Max(Mathf.Abs(s.x), Mathf.Abs(s.y));
-    }
-
-    private void WarnIfAlreadyLevel()
-    {
-        foreach (BasketPreset preset in presets)
-        {
-            if (preset.basket == null) continue;
-            float angle = preset.basket.CurrentAngle;
-            Debug.Log($"[Tutorial] {preset.basket.name} 시작 기울기 {angle:F1}도");
-
-            if (Mathf.Abs(angle) <= basketTolerance)
-                Debug.LogWarning($"[Tutorial] {preset.basket.name}이(가) 이미 평형({angle:F1}도)입니다. " +
-                                 "공 레벨을 올리거나 side를 벽 쪽으로, basketTolerance를 작게 조정하세요.");
-        }
     }
 
     private void SetInput(bool cameraInput, bool spawnInput)

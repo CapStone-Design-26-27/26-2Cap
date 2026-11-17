@@ -30,8 +30,6 @@ public class TutorialUI : MonoBehaviour
     [SerializeField] private RectTransform tapMarker;
     [Tooltip("공 생성 높이에서 아래로 내려 표시할 거리 (월드 단위)")]
     [SerializeField] private float tapWorldDrop = 4f;
-    [SerializeField] private float tapPulseScale = 0.25f;
-    [SerializeField] private float tapPulseSpeed = 6f;
     [Tooltip("좌우로 오가는 범위 (0 = 가운데 고정)")]
     [SerializeField, Range(0f, 1f)] private float tapSweepRange = 0.6f;
     [SerializeField] private float tapSweepSpeed = 1.2f;
@@ -46,6 +44,7 @@ public class TutorialUI : MonoBehaviour
 
     [Header("완료")]
     [SerializeField] private GameObject completePanel;
+    [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private Button startButton;
     [SerializeField] private TextMeshProUGUI startButtonText;
 
@@ -53,7 +52,9 @@ public class TutorialUI : MonoBehaviour
     private readonly List<RectTransform> arrows = new List<RectTransform>();
     private readonly List<Basket> arrowTargets = new List<Basket>();
     private Basket tapBasket;
-    private bool overviewHint;
+    private RectTransform hintButton;
+    private Vector2 hintOffset;
+    private bool hintAtRightEdge;
     private string currentMessage;
 
     private void Awake()
@@ -113,12 +114,28 @@ public class TutorialUI : MonoBehaviour
 
     public void SetOverviewHint(bool show)
     {
-        overviewHint = show;
-        if (overviewArrow != null) overviewArrow.gameObject.SetActive(show);
+        SetButtonHint(show ? overviewButton : null, overviewArrowOffset, 0f);
     }
 
-    public void ShowComplete(UnityAction onStart, string buttonLabel = null)
+    public void SetNextHint(RectTransform button)
     {
+        float arrowHalfWidth = overviewArrow != null ? overviewArrow.rect.height * 0.5f : 0f;
+        SetButtonHint(button, new Vector2(arrowHalfWidth + 8f, 0f), -90f, atRightEdge: true);
+    }
+
+    private void SetButtonHint(RectTransform button, Vector2 offset, float rotation, bool atRightEdge = false)
+    {
+        hintButton = button;
+        hintOffset = offset;
+        hintAtRightEdge = atRightEdge;
+        if (overviewArrow == null) return;
+        overviewArrow.localRotation = Quaternion.Euler(0f, 0f, rotation);
+        overviewArrow.gameObject.SetActive(button != null);
+    }
+
+    public void ShowResult(string title, string buttonLabel, UnityAction onStart)
+    {
+        if (resultText != null) resultText.text = title;
         if (completePanel != null) completePanel.SetActive(true);
         if (startButtonText != null && !string.IsNullOrEmpty(buttonLabel)) startButtonText.text = buttonLabel;
         if (startButton == null) return;
@@ -130,6 +147,11 @@ public class TutorialUI : MonoBehaviour
             startButton.interactable = false;
             onStart?.Invoke();
         });
+    }
+
+    public void HideResult()
+    {
+        if (completePanel != null) completePanel.SetActive(false);
     }
 
     public void HideAll()
@@ -165,22 +187,21 @@ public class TutorialUI : MonoBehaviour
 
             if (WorldToCanvas(world, out Vector2 local))
                 SetCanvasPosition(tapMarker, local);
-
-            float pulse = 1f + tapPulseScale * (0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * tapPulseSpeed));
-            tapMarker.localScale = Vector3.one * pulse;
         }
 
-        if (overviewHint && overviewArrow != null && overviewButton != null)
+        if (hintButton != null && overviewArrow != null)
         {
-            Canvas buttonCanvas = overviewButton.GetComponentInParent<Canvas>().rootCanvas;
+            Canvas buttonCanvas = hintButton.GetComponentInParent<Canvas>().rootCanvas;
             Camera buttonCam = buttonCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : buttonCanvas.worldCamera;
-            Vector2 screen = RectTransformUtility.WorldToScreenPoint(buttonCam, overviewButton.position);
+            Rect buttonRect = hintButton.rect;
+            var buttonPoint = new Vector3(hintAtRightEdge ? buttonRect.xMax : buttonRect.center.x, buttonRect.center.y);
+            Vector2 screen = RectTransformUtility.WorldToScreenPoint(buttonCam, hintButton.TransformPoint(buttonPoint));
 
             if (ScreenToCanvas(screen, out Vector2 local))
             {
                 // 화살표가 가리키는 방향으로 오르내린다.
                 Vector2 dir = overviewArrow.rotation * Vector3.down;
-                SetCanvasPosition(overviewArrow, local + overviewArrowOffset - dir * Mathf.Abs(bob));
+                SetCanvasPosition(overviewArrow, local + hintOffset - dir * Mathf.Abs(bob));
             }
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed class PlaySafeArea : MonoBehaviour
 {
     [SerializeField, Min(0)] private float bottomReservedHeight = 196f;
-    [SerializeField] private RectTransform bottomControls;
+    [SerializeField] private bool fitDeviceSafeArea = true;
     private RectTransform content;
     private Canvas canvas;
 
@@ -19,16 +19,13 @@ public sealed class PlaySafeArea : MonoBehaviour
 
     private void Apply()
     {
-        if (Screen.width <= 0 || Screen.height <= 0) return;
-        if (bottomControls != null)
-            bottomControls.anchoredPosition = new Vector2(0f, ExtraBottomPadding);
+        if (!fitDeviceSafeArea || Screen.width <= 0 || Screen.height <= 0) return;
         Rect safe = Screen.safeArea;
         Vector2 min = new Vector2(safe.xMin / Screen.width, safe.yMin / Screen.height);
         Vector2 max = new Vector2(safe.xMax / Screen.width, safe.yMax / Screen.height);
         if (content.anchorMin == min && content.anchorMax == max) return;
         content.anchorMin = min;
         content.anchorMax = max;
-        content.offsetMin = content.offsetMax = Vector2.zero;
     }
 
     public void FitVertically(Bounds bounds, float padding, ref Vector2 center, ref float size,
@@ -37,7 +34,7 @@ public sealed class PlaySafeArea : MonoBehaviour
         if (canvas == null || Screen.height <= 0) return;
         Rect safe = Screen.safeArea;
         float top = safe.yMax / Screen.height;
-        float bottom = (safe.yMin + (bottomReservedHeight + ExtraBottomPadding) * canvas.scaleFactor) / Screen.height;
+        float bottom = (safe.yMin + bottomReservedHeight * canvas.scaleFactor) / Screen.height;
         if (reserveOverviewHudSpace)
         {
             const float topHudHeight = 212f;
@@ -51,6 +48,4 @@ public sealed class PlaySafeArea : MonoBehaviour
         center.y -= (bottom + top - 1f) * size;
     }
 
-    // The authored button edge is 32 canvas units above the bottom. Small screens still get 24 pixels.
-    private float ExtraBottomPadding => canvas == null ? 0f : Mathf.Max(0f, 24f / Mathf.Max(canvas.scaleFactor, .01f) - 32f);
 }

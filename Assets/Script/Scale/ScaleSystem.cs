@@ -92,7 +92,7 @@ public class ScaleSystem : SingletonDestroy<ScaleSystem>
 
     private void FixedUpdate()
     {
-        if (root == null || GameManager.Inst.gameOver) return;
+        if (root == null || GameManager.Inst.gameOver || GameManager.Inst.gamePaused) return;
 
         root.RecalculateMass();
         root.Step(rootHook, Time.fixedDeltaTime);

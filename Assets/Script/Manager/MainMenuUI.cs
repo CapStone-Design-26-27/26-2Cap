@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +49,6 @@ public class MainMenuUI : MonoBehaviour
     [Tooltip("켜면 개발 빌드와 에디터에서만 설정 버튼을 보여준다.")]
     [SerializeField] private bool devToolsOnlyInDebug = true;
 
-    private HashSet<int> stageNumbers;
 
     private void Awake()
     {
@@ -188,35 +186,20 @@ public class MainMenuUI : MonoBehaviour
         devPanel.SetActive(false);
     }
 
-    // StageData.json에 있는 스테이지 번호인지. 데이터를 읽을 수 없으면 확인하지 않고 true를 돌려준다.
     private bool StageExists(int stage)
     {
-        if (stageNumbers == null)
+        TextAsset json = gameContent?.GetStageChunk(stage);
+        if (json == null) return false;
+        try
         {
-            TextAsset json = gameContent != null ? gameContent.stageData : null;
-            if (json == null)
-            {
-                Debug.LogError("[MainMenu] Game Content가 연결되지 않아 스테이지 번호를 확인할 수 없습니다.");
-                return true;
-            }
-
-            try
-            {
-                StageDatabase database = JsonUtility.FromJson<StageDatabase>(json.text);
-                var numbers = new HashSet<int>();
-                if (database != null && database.stages != null)
-                    foreach (StageDefinition definition in database.stages)
-                        numbers.Add(definition.stage);
-                stageNumbers = numbers;
-            }
-            catch (System.ArgumentException exception)
-            {
-                Debug.LogError("[MainMenu] 스테이지 JSON을 읽을 수 없습니다: " + exception.Message);
-                return true;
-            }
+            var database = JsonUtility.FromJson<StageDatabase>(json.text);
+            return database?.stages?.Exists(definition => definition != null && definition.stage == stage) == true;
         }
-
-        return stageNumbers.Contains(stage);
+        catch (System.ArgumentException exception)
+        {
+            Debug.LogError("[MainMenu] 스테이지 JSON을 읽을 수 없습니다: " + exception.Message);
+            return false;
+        }
     }
 
     // 튜토리얼 코드: 완료 기록을 지워 다음 시작 때 튜토리얼부터 하게 한다.

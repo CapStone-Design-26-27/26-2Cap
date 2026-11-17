@@ -200,9 +200,10 @@ public class SpawnManager : Singleton<SpawnManager>
             Quaternion.identity);
 
         SetupBallProperties(newCircle, level, false, owner);
+        if (Application.isMobilePlatform && PlaySettings.VibrationEnabled) Handheld.Vibrate();
         OnBallMerged?.Invoke(newCircle, level);
 
-        if (mergeClip != null && lastMergeFrame != Time.frameCount)
+        if (PlaySettings.EffectsEnabled && mergeClip != null && lastMergeFrame != Time.frameCount)
         {
             AudioSource.PlayClipAtPoint(mergeClip, currentCamera.transform.position);
             lastMergeFrame = Time.frameCount;

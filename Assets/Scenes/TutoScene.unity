@@ -1092,6 +1092,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 365114148}
     m_Modifications:
+    - target: {fileID: 1101, guid: 54a73ed9194e49e7bd81297318e98cb3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 230
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101, guid: 54a73ed9194e49e7bd81297318e98cb3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301, guid: 54a73ed9194e49e7bd81297318e98cb3, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301, guid: 54a73ed9194e49e7bd81297318e98cb3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301, guid: 54a73ed9194e49e7bd81297318e98cb3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 72
+      objectReference: {fileID: 0}
     - target: {fileID: 1000, guid: 54a73ed9194e49e7bd81297318e98cb3, type: 3}
       propertyPath: m_Name
       value: BallQueueUI
@@ -2929,8 +2949,6 @@ MonoBehaviour:
   bobSpeed: 5
   tapMarker: {fileID: 249167918}
   tapWorldDrop: 10
-  tapPulseScale: 0.25
-  tapPulseSpeed: 6
   tapSweepRange: 0
   tapSweepSpeed: 1.2
   overviewButton: {fileID: 802114314}

@@ -30,8 +30,6 @@ public class TutorialUI : MonoBehaviour
     [SerializeField] private RectTransform tapMarker;
     [Tooltip("공 생성 높이에서 아래로 내려 표시할 거리 (월드 단위)")]
     [SerializeField] private float tapWorldDrop = 4f;
-    [SerializeField] private float tapPulseScale = 0.25f;
-    [SerializeField] private float tapPulseSpeed = 6f;
     [Tooltip("좌우로 오가는 범위 (0 = 가운데 고정)")]
     [SerializeField, Range(0f, 1f)] private float tapSweepRange = 0.6f;
     [SerializeField] private float tapSweepSpeed = 1.2f;
@@ -189,9 +187,6 @@ public class TutorialUI : MonoBehaviour
 
             if (WorldToCanvas(world, out Vector2 local))
                 SetCanvasPosition(tapMarker, local);
-
-            float pulse = 1f + tapPulseScale * (0.5f + 0.5f * Mathf.Sin(Time.unscaledTime * tapPulseSpeed));
-            tapMarker.localScale = Vector3.one * pulse;
         }
 
         if (hintButton != null && overviewArrow != null)

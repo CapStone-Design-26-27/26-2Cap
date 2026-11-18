@@ -20,6 +20,9 @@ public class GameManager : Singleton<GameManager>
     [field: SerializeField]
     public List<float> kgList { get; private set; } = CreateBallWeights();
 
+    // 기본 무게 목록 (인스턴스 없이 읽기용)
+    public static IReadOnlyList<float> DefaultBallWeights => CreateBallWeights();
+
     // 무게를 실험할 때 이 목록만 수정한다. JSON은 공 level과 순서만 관리한다.
     private static List<float> CreateBallWeights()
     {

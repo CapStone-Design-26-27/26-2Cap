@@ -14,4 +14,6 @@ public class GameContentCatalog : ScriptableObject
     }
     // mapId 1, 2, 3 순서. 씬에서 이 카탈로그를 참조하므로 빌드에도 포함된다.
     public List<GameObject> maps = new List<GameObject>();
+    // 동물(공) 프리팹. 레벨 0부터 합성 순서
+    public List<GameObject> balls = new List<GameObject>();
 }

@@ -1089,8 +1089,9 @@ RectTransform:
   - {fileID: 988375238}
   - {fileID: 1536213435}
   - {fileID: 1329117482}
-  - {fileID: 1465398960}
   - {fileID: 1859284135}
+  - {fileID: 2093100002}
+  - {fileID: 1465398960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1591,9 +1592,9 @@ MonoBehaviour:
   m_fontSize: 64
   m_fontSizeBase: 64
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 28
+  m_fontSizeMax: 64
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -1604,7 +1605,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1624,7 +1625,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 36, y: 24, z: 36, w: 24}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2934,9 +2935,9 @@ MonoBehaviour:
   m_fontSize: 40
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 20
+  m_fontSizeMax: 40
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -2947,7 +2948,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2967,7 +2968,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 26, y: 0, z: 26, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4227,6 +4228,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145053034}
   m_CullTransparentMesh: 1
+--- !u!1 &2093100001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2093100002}
+  - component: {fileID: 2093100003}
+  m_Layer: 5
+  m_Name: AnimalDex
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2093100002
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093100001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 479575322}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2093100003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093100001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26226902a70d479a96d8a4414709d4bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameContent: {fileID: 11400000, guid: 31cf0c1a9bbd48cfae5d7715d4fd1fd4, type: 2}
+  font: {fileID: 11400000, guid: 1e5cee932ac51f14d9c4bf07437c1336, type: 2}
+  buttonAnchor: {x: 0, y: 1}
+  buttonPosition: {x: 110, y: -110}
+  buttonSize: {x: 140, y: 140}
+  buttonStyleSource: {fileID: 362520112}
+  buttonLabelColor: {r: 0.23529412, g: 0.25882354, b: 0.30588236, a: 1}
+  buttonLabelSize: 40
+  buttonLabel: "\uB3C4\uAC10"
+  title: "\uB3D9\uBB3C \uB3C4\uAC10"
+  subtitle: "\uAC19\uC740 \uB3D9\uBB3C \uB458\uC774 \uB9CC\uB098\uBA74 \uB2E4\uC74C \uB3D9\uBB3C\uC774 \uB3FC\uC694"
+  dimColor: {r: 0, g: 0, b: 0, a: 0.45}
+  panelSprite: {fileID: 21300000, guid: 452aa2d7ddec456f8d8d306644e162d5, type: 3}
+  panelColor: {r: 1, g: 1, b: 1, a: 0.92}
+  contentSprite: {fileID: 21300000, guid: 6e1782737e7b4f3abaf8f64252bb9778, type: 3}
+  closeSprite: {fileID: 21300000, guid: b0c1b6c6df1b4567b2b1a1a9fb3bb3f4, type: 3}
+  badgeSprite: {fileID: 21300000, guid: 515b64c149224c4a838ee86a53ba035d, type: 3}
+  textColor: {r: 0.4, g: 0.25, b: 0.1, a: 1}
+  labelColor: {r: 0.4, g: 0.25, b: 0.1, a: 1}
+  closeLabelColor: {r: 0.81960785, g: 0.5568628, b: 0.32941177, a: 1}
+  panelAnchors: {x: 0.05, y: 0.1, z: 0.95, w: 0.88}
+  largestAnimalSize: 328
+  minCellWidth: 110
+  rowBreaks: 0600000009000000
+  cellGap: 24
+  rowGap: 36
+  labelHeight: 70
+  badgeSize: 60
+  showWeight: 0
+  pauseGame: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

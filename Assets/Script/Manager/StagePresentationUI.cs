@@ -261,9 +261,8 @@ public sealed class StagePresentationUI : MonoBehaviour
         }
         if (float.IsNaN(textCenter)) return;
 
-        // 기호 높이는 다음 프레임 글자에 반영된다
         if (!float.IsNaN(signCenter))
-            signOffsetEm = Mathf.Clamp(signOffsetEm + (textCenter - signCenter) / Mathf.Max(status.fontSize * signScale, 1f), -1f, 1f);
+            signOffsetEm = Mathf.Clamp(signOffsetEm + .5f * (textCenter - signCenter) / Mathf.Max(status.fontSize * signScale, 1f), -1f, 1f);
 
         Vector4 margin = status.margin;
         margin.y = statusBaseMargin.y + Mathf.Max(0f, textCenter * 2f);

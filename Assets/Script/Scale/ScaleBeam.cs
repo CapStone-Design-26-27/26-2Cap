@@ -77,6 +77,32 @@ public class ScaleBeam : HangingNode
         weightedSum.x += tareMoment;
     }
 
+    // 저울대의 좌우 돌림힘. 0이면 균형
+    public float NetMoment
+    {
+        get
+        {
+            float moment = selfComOffset.x * selfMass + (tared ? tareMoment : 0f);
+            foreach (Attachment a in attachments)
+                if (a.node != null) moment += a.offset.x * a.node.TotalMass;
+            return moment;
+        }
+    }
+
+    // child가 균형 무게보다 무거우면 +, 가벼우면 -
+    public bool TryGetExcessMass(HangingNode child, out float excess)
+    {
+        excess = 0f;
+        foreach (Attachment a in attachments)
+        {
+            if (a.node != child) continue;
+            if (Mathf.Abs(a.offset.x) < 0.0001f) return false;
+            excess = NetMoment / a.offset.x;
+            return true;
+        }
+        return false;
+    }
+
     protected override void OnStep(Vector2 hookPos, float angle, float dt)
     {
         foreach (Attachment a in attachments)

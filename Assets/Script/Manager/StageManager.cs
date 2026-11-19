@@ -265,16 +265,32 @@ public class StageManager : MonoBehaviour
     // 집중 중인 바구니의 균형도
     public float GetBasketBalance(Basket basket) => GetNodeBalance(basket);
 
-    // 전체 균형도(0~1). 모든 저울대와 바구니 균형도의 평균. 전부 수평이어야 100%가 된다.
+    // 같은 도르래 반대편 대비 바구니 무게 차이 (+ 무거움, - 가벼움)
+    public bool TryGetBasketWeightGap(Basket basket, out float gap)
+    {
+        gap = 0f;
+        if (basket == null || ScaleSystem.Inst == null) return false;
+        foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
+            if (node is ScaleBeam beam && beam.TryGetExcessMass(basket, out gap))
+                return true;
+        return false;
+    }
+
+    // 전체 균형도(0~1). 모든 저울대 균형도의 평균
     public float OverallBalance
     {
         get
         {
             if (ScaleSystem.Inst == null || ScaleSystem.Inst.AllNodes.Count == 0) return 0f;
             float sum = 0f;
+            int count = 0;
             foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
+            {
+                if (!(node is ScaleBeam)) continue;
                 sum += GetNodeBalance(node);
-            return sum / ScaleSystem.Inst.AllNodes.Count;
+                count++;
+            }
+            return count > 0 ? sum / count : 0f;
         }
     }
 

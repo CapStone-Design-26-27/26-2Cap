@@ -14,6 +14,7 @@ public sealed class StagePresentationUI : MonoBehaviour
     [SerializeField] private Image undoIcon;
     [SerializeField] private Button retry;
     [SerializeField] private Button action;
+    [SerializeField] private TMP_Text actionLabel;
 
     [Header("바구니 무게 차이 표시")]
     [Tooltip("무게 차이가 이 값보다 작으면 EVEN으로 표시")]
@@ -69,6 +70,7 @@ public sealed class StagePresentationUI : MonoBehaviour
         {
             var stage = StageManager.Inst;
             if (stage != null && stage.IsCleared && stage.HasNextStage) stage.NextStage();
+            else if (stage != null && (stage.IsAttemptFailed || GameManager.Inst?.gameOver == true)) RequestRestart();
         });
         if (undo != null) undo.onClick.AddListener(() => StageManager.Inst?.UndoLastDrop());
         if (retry != null) retry.onClick.AddListener(RequestRestart);
@@ -114,7 +116,7 @@ public sealed class StagePresentationUI : MonoBehaviour
         if (status != null) status.text = !stage.IsStageReady ? "LOADING" :
             stage.IsSettling ? "CLEAR 0%" :
             stage.IsCleared ? (stage.HasNextStage ? "CLEAR 100%" : "CAMPAIGN COMPLETE") :
-            failed ? (stage.IsAttemptFailed ? "TRY AGAIN" : "GAME OVER") :
+            failed ? (stage.IsAttemptFailed ? "FAILED" : "GAME OVER") :
             checking ? $"CLEAR {Mathf.FloorToInt(progress * 100f)}%" :
             basket != null && idle ? GetBasketWeightText(stage, basket, out iconLevel) :
             $"BALANCE {Mathf.FloorToInt(balance * 100f + .0001f)}%";
@@ -134,7 +136,8 @@ public sealed class StagePresentationUI : MonoBehaviour
             RequestRestart();
             return;
         }
-        if (action != null) action.gameObject.SetActive(stage.IsCleared && stage.HasNextStage);
+        if (actionLabel != null) actionLabel.text = failed ? "TRY AGAIN" : "NEXT";
+        if (action != null) action.gameObject.SetActive(failed || (stage.IsCleared && stage.HasNextStage));
     }
 
     // 무게 차이를 +/- 와 동물 아이콘으로 표시

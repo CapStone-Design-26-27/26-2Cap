@@ -260,6 +260,7 @@ MonoBehaviour:
   undoIcon: {fileID: 2050506571}
   retry: {fileID: 1155086751}
   action: {fileID: 1054976020}
+  actionLabel: {fileID: 1473200059}
   balancedWeightThreshold: 0.5
   zoomMaxFontSize: 72
   zoomIconScale: 1.3

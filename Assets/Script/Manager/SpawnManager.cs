@@ -13,6 +13,9 @@ public class SpawnManager : Singleton<SpawnManager>
     public static event Action<GameObject, int> OnBallMerged;
 
     public Queue<int> nextBallQueue = new Queue<int>();
+    private readonly Queue<bool> nextBallLocks = new Queue<bool>();
+
+    public List<bool> GetRemainingLocks() => new List<bool>(nextBallLocks);
 
     // 바닥에 떨어진 공들의 레벨. 다음 공보다 먼저, 떨어진 순서대로 다시 던지게 한다.
 
@@ -165,6 +168,7 @@ public class SpawnManager : Singleton<SpawnManager>
             GameManager.Inst.ballList[currentLevel],
             spawnPos,
             Quaternion.identity);
+        BallMergeLock.SetMergeAllowed(previewBall, nextBallLocks.Count == 0 || !nextBallLocks.Peek());
 
         Rigidbody2D rb = previewBall.GetComponent<Rigidbody2D>();
         if (rb != null)
@@ -182,11 +186,13 @@ public class SpawnManager : Singleton<SpawnManager>
         if (previewBall == null) return;
         StageManager.Inst?.CaptureUndo(previewBall);
         nextBallQueue.Dequeue();
+        bool locked = nextBallLocks.Count > 0 && nextBallLocks.Dequeue();
         canSpawn = false;
 
         OnAimEnd?.Invoke();
 
         SetupBallProperties(previewBall, currentLevel, true);
+        BallMergeLock.SetMergeAllowed(previewBall, !locked);
 
         previewBall = null;
         NotifyNextBallChanged();
@@ -309,6 +315,7 @@ public class SpawnManager : Singleton<SpawnManager>
     {
         CancelAim();
         nextBallQueue.Clear();
+        nextBallLocks.Clear();
         ballOwners.Clear();
         canSpawn = true;
         NotifyNextBallChanged();
@@ -333,9 +340,12 @@ public class SpawnManager : Singleton<SpawnManager>
         OnNextBallChanged?.Invoke(getNextBall());
     }
 
-    public void RestoreQueue(List<int> nextBalls)
+    public void RestoreQueue(List<int> nextBalls, List<bool> locks = null)
     {
         nextBallQueue = new Queue<int>(nextBalls);
+        nextBallLocks.Clear();
+        for (int i = 0; i < nextBalls.Count; i++)
+            nextBallLocks.Enqueue(locks != null && i < locks.Count && locks[i]);
         NotifyNextBallChanged();
     }
 }

@@ -7,6 +7,7 @@ public class BallMergeLock : MonoBehaviour
     [SerializeField] private GameObject lockIcon;
 
     public bool IsLocked => isLocked;
+    public Sprite IconSprite => lockIcon != null ? lockIcon.GetComponent<SpriteRenderer>()?.sprite : null;
 
     // 튜토리얼 코드: 켜져 있는 동안 모든 공의 합성을 막는다. 공별 잠금 상태는 바꾸지 않는다.
     public static bool GlobalLocked { get; private set; }

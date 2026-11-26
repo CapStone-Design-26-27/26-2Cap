@@ -99,7 +99,7 @@ public class BallQueueUI : MonoBehaviour
         if (!expanded) return;
 
         for (int i = 0; i < levels.Count; i++)
-            AddIcon(levels[i], $"{i + 1}", GetLockSprite(i, levels, locks));
+            AddIcon(levels[i], $"{i + 1}", i < locks.Count && locks[i]);
     }
 
     private Sprite GetSprite(int level)
@@ -135,14 +135,13 @@ public class BallQueueUI : MonoBehaviour
         badge.enabled = sprite != null;
     }
 
-    private void AddIcon(int level, string caption, Sprite lockSprite)
+    private void AddIcon(int level, string caption, bool locked)
     {
         GameObject entry = Instantiate(iconTemplate, orderRoot);
         entry.SetActive(true);
         Image icon = entry.GetComponentInChildren<Image>();
         icon.sprite = GetSprite(level);
-        Image badge = null;
-        SetLockBadge(icon, ref badge, lockSprite);
+        icon.transform.Find("MergeLockIcon").gameObject.SetActive(locked);
         entry.GetComponentInChildren<TextMeshProUGUI>().text = caption;
         entries.Add(entry);
     }

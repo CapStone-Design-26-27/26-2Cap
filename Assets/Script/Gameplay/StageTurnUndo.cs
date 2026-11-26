@@ -17,6 +17,7 @@ internal sealed class StageTurnUndo
     {
         public readonly List<BallState> Balls = new List<BallState>();
         public List<int> Queue;
+        public List<bool> QueueLocks;
         public List<float> Angles;
     }
 
@@ -45,6 +46,7 @@ internal sealed class StageTurnUndo
             });
         }
         turn.Queue = new List<int>(spawn.nextBallQueue);
+        turn.QueueLocks = spawn.GetRemainingLocks();
         turn.Angles = scale.GetAngles();
         history.Push(turn);
     }
@@ -66,7 +68,7 @@ internal sealed class StageTurnUndo
                 body.angularVelocity = state.AngularVelocity;
             }
         }
-        spawn.RestoreQueue(turn.Queue);
+        spawn.RestoreQueue(turn.Queue, turn.QueueLocks);
         Physics2D.SyncTransforms();
         if (FreeUses > 0) FreeUses--;
     }

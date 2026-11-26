@@ -411,7 +411,7 @@ public class StageManager : MonoBehaviour
             expectedMass += GameManager.Inst.kgList[ball.level];
         foreach (int level in definition.playerBallQueue)
             expectedMass += GameManager.Inst.kgList[level];
-        SpawnManager.Inst.RestoreQueue(definition.playerBallQueue);
+        SpawnManager.Inst.RestoreQueue(definition.playerBallQueue, definition.playerBallLocks);
     }
 
     private IEnumerator EnsureStageMap(int stageNumber)
@@ -680,6 +680,7 @@ public class StageDefinition
 {
     public string title;
     public List<int> playerBallQueue = new List<int>();
+    public List<bool> playerBallLocks = new List<bool>();
     public int mapId;
     public int difficulty;
     public string patternId;

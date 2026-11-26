@@ -1,0 +1,2967 @@
+{
+  "schemaVersion": 5,
+  "maps": [
+    {
+      "mapId": 1,
+      "name": "TwoBasket",
+      "basketCount": 2,
+      "targetWeightRatios": [
+        1,
+        1
+      ]
+    },
+    {
+      "mapId": 2,
+      "name": "ThreeBasket",
+      "basketCount": 3,
+      "targetWeightRatios": [
+        1,
+        1,
+        2
+      ]
+    },
+    {
+      "mapId": 3,
+      "name": "FourBasket",
+      "basketCount": 4,
+      "targetWeightRatios": [
+        1,
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "stage": 51,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 52,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 53,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 54,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 55,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 56,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 57,
+      "mapId": 1,
+      "title": "같은 동물 보너스",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0
+      ],
+      "playerBallLocks": [
+        false,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 58,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 59,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 60,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 61,
+      "mapId": 1,
+      "title": "초기 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2
+      ],
+      "playerBallLocks": [
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 62,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "playerBallLocks": [
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 63,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "playerBallLocks": [
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 64,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "playerBallLocks": [
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 65,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "playerBallLocks": [
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 66,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 67,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "playerBallLocks": [
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 68,
+      "mapId": 1,
+      "title": "같은 동물 보너스",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        true,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 69,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0
+      ],
+      "playerBallLocks": [
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 70,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 71,
+      "mapId": 1,
+      "title": "지급 공 잠금",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1
+      ],
+      "playerBallLocks": [
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 72,
+      "mapId": 1,
+      "title": "같은 동물 보너스",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        true,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 73,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0
+      ],
+      "playerBallLocks": [
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          2,
+          2
+        ]
+      }
+    },
+    {
+      "stage": 74,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0
+      ],
+      "playerBallLocks": [
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "stage": 75,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0
+      ],
+      "playerBallLocks": [
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "stage": 76,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0
+      ],
+      "playerBallLocks": [
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          5,
+          5
+        ]
+      }
+    },
+    {
+      "stage": 77,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          5,
+          5
+        ]
+      }
+    },
+    {
+      "stage": 78,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "stage": 79,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "stage": 80,
+      "mapId": 2,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1,
+          2,
+          2
+        ],
+        "finalMassUnits": [
+          4,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 81,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "stage": 82,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 83,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": 1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 5,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "stage": 84,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          9,
+          9
+        ]
+      }
+    },
+    {
+      "stage": 85,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "finalMassUnits": [
+          9,
+          9
+        ]
+      }
+    },
+    {
+      "stage": 86,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          10,
+          10
+        ]
+      }
+    },
+    {
+      "stage": 87,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          9,
+          9
+        ]
+      }
+    },
+    {
+      "stage": 88,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          12,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 89,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 4,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          14,
+          14
+        ]
+      }
+    },
+    {
+      "stage": 90,
+      "mapId": 2,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1,
+          2,
+          2
+        ],
+        "finalMassUnits": [
+          5,
+          5,
+          10
+        ]
+      }
+    },
+    {
+      "stage": 91,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          12,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 92,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": 1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": 1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          12,
+          12
+        ]
+      }
+    },
+    {
+      "stage": 93,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          13,
+          13
+        ]
+      }
+    },
+    {
+      "stage": 94,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "finalMassUnits": [
+          15,
+          15
+        ]
+      }
+    },
+    {
+      "stage": 95,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "stage": 96,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          14,
+          14
+        ]
+      }
+    },
+    {
+      "stage": 97,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          17,
+          17
+        ]
+      }
+    },
+    {
+      "stage": 98,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 1,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": 1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          20,
+          20
+        ]
+      }
+    },
+    {
+      "stage": 99,
+      "mapId": 1,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 3,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 3,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          0,
+          0,
+          1,
+          1
+        ],
+        "finalMassUnits": [
+          20,
+          20
+        ]
+      }
+    },
+    {
+      "stage": 100,
+      "mapId": 3,
+      "title": "잠금 조합",
+      "levelTolerance": 4,
+      "holdTime": 1.5,
+      "settleTime": 3,
+      "balls": [
+        {
+          "ballId": 1,
+          "level": 2,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": false
+        },
+        {
+          "ballId": 2,
+          "level": 0,
+          "basketIndex": 0,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 3,
+          "level": 2,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": -2,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 4,
+          "level": 0,
+          "basketIndex": 1,
+          "positionSpace": 1,
+          "x": 2,
+          "y": -1,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 5,
+          "level": 1,
+          "basketIndex": 2,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        },
+        {
+          "ballId": 6,
+          "level": 1,
+          "basketIndex": 3,
+          "positionSpace": 1,
+          "x": 0,
+          "y": -3,
+          "rotZ": 0,
+          "canMerge": true
+        }
+      ],
+      "playerBallQueue": [
+        0,
+        0,
+        1,
+        1,
+        2
+      ],
+      "playerBallLocks": [
+        false,
+        true,
+        false,
+        true,
+        false
+      ],
+      "referenceSolution": {
+        "basketIndices": [
+          0,
+          1,
+          2,
+          2,
+          3
+        ],
+        "finalMassUnits": [
+          6,
+          6,
+          6,
+          6
+        ]
+      }
+    }
+  ]
+}

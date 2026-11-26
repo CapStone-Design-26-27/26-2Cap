@@ -15,6 +15,7 @@ public class BallQueueUI : MonoBehaviour
     [SerializeField] private RectTransform orderRoot;
     [SerializeField] private GameObject iconTemplate;
     private readonly List<GameObject> entries = new List<GameObject>();
+    private Image nextLockBadge;
     private bool expanded;
 
     internal RectTransform NextButtonRect => (RectTransform)nextButton.transform;
@@ -77,11 +78,13 @@ public class BallQueueUI : MonoBehaviour
     {
         if (SpawnManager.Inst == null || GameManager.Inst == null) return;
         List<int> levels = SpawnManager.Inst.GetRemainingLevels();
+        List<bool> locks = SpawnManager.Inst.GetRemainingLocks();
         int total = StageManager.Inst?.TotalProvidedBalls ?? TutorialManager.Inst?.TotalProvidedBalls ?? levels.Count;
         remainingText.text = $"LEFT <b><size=48>{levels.Count}</size></b>";
         totalText.text = $"TOTAL {total}";
         nextIcon.sprite = GetSprite(SpawnManager.Inst.getNextBall());
         nextIcon.enabled = nextIcon.sprite != null;
+        SetLockBadge(nextIcon, ref nextLockBadge, GetLockSprite(0, levels, locks));
         if (TutorialManager.Inst != null && levels.Count == 0 && expanded)
         {
             expanded = false;
@@ -96,7 +99,7 @@ public class BallQueueUI : MonoBehaviour
         if (!expanded) return;
 
         for (int i = 0; i < levels.Count; i++)
-            AddIcon(levels[i], $"{i + 1}");
+            AddIcon(levels[i], $"{i + 1}", i < locks.Count && locks[i]);
     }
 
     private Sprite GetSprite(int level)
@@ -105,11 +108,40 @@ public class BallQueueUI : MonoBehaviour
         return GameManager.Inst.ballList[level].GetComponent<SpriteRenderer>().sprite;
     }
 
-    private void AddIcon(int level, string caption)
+    private Sprite GetLockSprite(int index, List<int> levels, List<bool> locks)
+    {
+        if (index >= levels.Count || index >= locks.Count || !locks[index]) return null;
+        int level = levels[index];
+        if (level < 0 || level >= GameManager.Inst.ballList.Count) return null;
+        return GameManager.Inst.ballList[level].GetComponent<BallMergeLock>()?.IconSprite;
+    }
+
+    private static void SetLockBadge(Image icon, ref Image badge, Sprite sprite)
+    {
+        if (badge == null && sprite != null)
+        {
+            badge = new GameObject("Merge Lock Badge", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+            RectTransform rect = badge.rectTransform;
+            rect.SetParent(icon.rectTransform, false);
+            rect.anchorMin = new Vector2(0.52f, 0f);
+            rect.anchorMax = new Vector2(1.04f, 0.52f);
+            rect.offsetMin = rect.offsetMax = Vector2.zero;
+            badge.preserveAspect = true;
+            badge.raycastTarget = false;
+        }
+
+        if (badge == null) return;
+        badge.sprite = sprite;
+        badge.enabled = sprite != null;
+    }
+
+    private void AddIcon(int level, string caption, bool locked)
     {
         GameObject entry = Instantiate(iconTemplate, orderRoot);
         entry.SetActive(true);
-        entry.GetComponentInChildren<Image>().sprite = GetSprite(level);
+        Image icon = entry.GetComponentInChildren<Image>();
+        icon.sprite = GetSprite(level);
+        icon.transform.Find("MergeLockIcon").gameObject.SetActive(locked);
         entry.GetComponentInChildren<TextMeshProUGUI>().text = caption;
         entries.Add(entry);
     }

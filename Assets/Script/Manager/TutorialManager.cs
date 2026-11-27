@@ -72,6 +72,7 @@ public class TutorialManager : MonoBehaviour
     public Step CurrentStep => step;
     public int TotalProvidedBalls { get; private set; }
     public bool IsCheckingClear => step == Step.Balance && holdTimer > 0f;
+    public float HoldProgress => holdTime > 0f ? Mathf.Clamp01(holdTimer / holdTime) : 1f;
     public bool IsCleared => step == Step.Complete;
     public bool IsFailed => step == Step.Failed;
     public float BeamTolerance => beamTolerance;

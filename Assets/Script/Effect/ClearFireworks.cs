@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 스테이지나 튜토리얼 클리어 시 화면 왼쪽 아래와 오른쪽 아래에서 폭죽을 쏘아 올려 터뜨린다.
+// 다음 스테이지로 넘어가기 전까지 계속 반복한다.
 // 카메라 줌 상태와 상관없이 항상 같은 화면 위치와 크기로 보인다.
 public class ClearFireworks : MonoBehaviour
 {
@@ -12,8 +13,10 @@ public class ClearFireworks : MonoBehaviour
     [SerializeField] private Sprite starSprite;
 
     [Header("발사")]
-    [Tooltip("한쪽에서 쏘는 폭죽 개수")]
+    [Tooltip("한 번에 한쪽에서 쏘는 폭죽 개수")]
     [SerializeField, Min(1)] private int shotsPerSide = 3;
+    [Tooltip("한 차례 발사가 끝나고 다음 차례까지 쉬는 시간(초)")]
+    [SerializeField] private float roundInterval = 0.8f;
     [Tooltip("폭죽 사이 간격(초). 왼쪽, 오른쪽이 번갈아 발사된다.")]
     [SerializeField] private float shotInterval = 0.35f;
     [Tooltip("올라가는 시간 범위(초)")]
@@ -102,13 +105,19 @@ public class ClearFireworks : MonoBehaviour
         for (int i = active.Count - 1; i >= 0; i--) Release(i);
     }
 
+    // 클리어 상태가 이어지는 동안 좌우 번갈아 발사를 반복한다.
     private IEnumerator Show()
     {
-        for (int i = 0; i < shotsPerSide * 2; i++)
+        do
         {
-            Launch(i % 2 == 0 ? -1f : 1f);
-            yield return new WaitForSeconds(shotInterval);
+            for (int i = 0; i < shotsPerSide * 2; i++)
+            {
+                Launch(i % 2 == 0 ? -1f : 1f);
+                yield return new WaitForSeconds(shotInterval);
+            }
+            yield return new WaitForSeconds(roundInterval);
         }
+        while (ClearFxState.IsCleared && !ClearFxState.IsFailed);
         showRoutine = null;
     }
 

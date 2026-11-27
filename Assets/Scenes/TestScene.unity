@@ -5767,6 +5767,7 @@ GameObject:
   - component: {fileID: 1773001102}
   - component: {fileID: 1773001103}
   - component: {fileID: 1773001104}
+  - component: {fileID: 1773001105}
   m_Layer: 0
   m_Name: StageClearEffect
   m_TagString: Untagged
@@ -5822,6 +5823,18 @@ MonoBehaviour:
   sparkSprite: {fileID: 21300000, guid: 77b97c59bd0844f598ba8a65b952e1da, type: 3}
   ringSprite: {fileID: 21300000, guid: 64008841fcff420cb845f5b688cd4f5d, type: 3}
   starSprite: {fileID: 21300000, guid: 3b6fce8aeff8433ca82f01f93c085001, type: 3}
+--- !u!114 &1773001105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773001101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de677984268f44179d6c7f6a87d88d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

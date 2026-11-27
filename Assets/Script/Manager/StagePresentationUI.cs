@@ -41,6 +41,15 @@ public sealed class StagePresentationUI : MonoBehaviour
     [Tooltip("CLEAR % 글자 크기 배율")]
     [SerializeField, Min(0.1f)] private float clearFontScale = 1.1f;
 
+    [Header("남은 공 표시")]
+    [Tooltip("균형은 100%지만 넣을 공이 남았을 때 게이지 색")]
+    [SerializeField] private Color ballsLeftFillColor = new Color32(176, 184, 196, 255);
+
+    [Header("튜토리얼")]
+    [SerializeField] private string tutorialTitle = "TUTORIAL";
+    [Tooltip("저울대가 이 각도만큼 기울면 BALANCE 0%")]
+    [SerializeField, Min(0.01f)] private float tutorialBeamZeroAngle = 45f;
+
     private Image weightIcon;
     private int weightIconLevel = -1;
     private Vector4 statusBaseMargin;
@@ -53,11 +62,18 @@ public sealed class StagePresentationUI : MonoBehaviour
     private RectTransform progressTrack;
     private float displayedProgress;
     private bool wasShowingClear;
+    private Image progressFillImage;
+    private Color progressFillBaseColor = Color.white;
 
 
     private void Awake()
     {
-        if (progressFill != null) progressTrack = progressFill.parent as RectTransform;
+        if (progressFill != null)
+        {
+            progressTrack = progressFill.parent as RectTransform;
+            progressFillImage = progressFill.GetComponent<Image>();
+            if (progressFillImage != null) progressFillBaseColor = progressFillImage.color;
+        }
         if (status != null)
         {
             statusBaseMargin = status.margin;
@@ -98,33 +114,30 @@ public sealed class StagePresentationUI : MonoBehaviour
         progressFill.anchorMax = new Vector2(displayedProgress, progressFill.anchorMax.y);
     }
 
+    // 스테이지나 튜토리얼의 진행 상태
+    private struct HeaderState
+    {
+        public string title;
+        public bool ready;
+        public bool settling;
+        public bool cleared;
+        public bool hasNext;
+        public bool attemptFailed;
+        public bool checking;
+        public float hold;
+        public float balance;
+    }
+
     private void Update()
     {
         var stage = StageManager.Inst;
         var game = GameManager.Inst;
-        if (stage == null || game == null) return;
-        var basket = game.FocusedBasket;
-        float balance = stage.OverallBalance;
-        bool failed = stage.IsAttemptFailed || game.gameOver;
-        bool checking = stage.IsCheckingClear && !failed;
-        float progress = checking ? stage.HoldProgress : balance;
-        bool idle = stage.IsStageReady && !stage.IsSettling && !stage.IsCleared && !failed && !checking;
-        // 바구니 줌인 중에는 게이지 없이 무게 차이만 표시
-        bool showMeter = stage.IsStageReady && !failed && !(basket != null && idle);
-        int iconLevel = -1;
-        if (stageTitle != null) stageTitle.text = $"STAGE {stage.Stage}";
-        if (status != null) status.text = !stage.IsStageReady ? "LOADING" :
-            stage.IsSettling ? "CLEAR 0%" :
-            stage.IsCleared ? (stage.HasNextStage ? "CLEAR 100%" : "CAMPAIGN COMPLETE") :
-            failed ? (stage.IsAttemptFailed ? "FAILED" : "GAME OVER") :
-            checking ? $"CLEAR {Mathf.FloorToInt(progress * 100f)}%" :
-            basket != null && idle ? GetBasketWeightText(stage, basket, out iconLevel) :
-            $"BALANCE {Mathf.FloorToInt(balance * 100f + .0001f)}%";
-        bool clearText = stage.IsStageReady && !failed && (stage.IsSettling || checking || (stage.IsCleared && stage.HasNextStage));
-        ApplyStatusLayout(basket != null && idle, iconLevel, clearText);
-        UpdateMeter(showMeter, stage.IsSettling || checking || stage.IsCleared,
-            stage.IsSettling ? 0f : stage.IsCleared ? 1f : progress, stage.IsSettling);
+        if (game == null) return;
+        if (stage != null) ShowHeader(GetStageState(stage), game);
+        else if (TutorialManager.Inst != null) ShowHeader(GetTutorialState(TutorialManager.Inst), game);
+        if (stage == null) return;
 
+        bool failed = stage.IsAttemptFailed || game.gameOver;
         if (undo != null) undo.interactable = stage.CanUndo;
         if (undoBadge != null) undoBadge.color = stage.CanUndo ? new Color32(255, 216, 77, 255) : new Color32(164, 174, 187, 255);
         if (undoIcon != null) undoIcon.color = stage.CanUndo ? Color.white : new Color32(224, 230, 238, 209);
@@ -140,11 +153,107 @@ public sealed class StagePresentationUI : MonoBehaviour
         if (action != null) action.gameObject.SetActive(failed || (stage.IsCleared && stage.HasNextStage));
     }
 
+    private static HeaderState GetStageState(StageManager stage)
+    {
+        return new HeaderState
+        {
+            title = $"STAGE {stage.Stage}",
+            ready = stage.IsStageReady,
+            settling = stage.IsSettling,
+            cleared = stage.IsCleared,
+            hasNext = stage.HasNextStage,
+            attemptFailed = stage.IsAttemptFailed,
+            checking = stage.IsCheckingClear,
+            hold = stage.HoldProgress,
+            balance = stage.OverallBalance,
+        };
+    }
+
+    private HeaderState GetTutorialState(TutorialManager tutorial)
+    {
+        return new HeaderState
+        {
+            title = tutorialTitle,
+            ready = ScaleSystem.Inst != null,
+            settling = tutorial.CurrentStep == TutorialManager.Step.Settle,
+            cleared = tutorial.IsCleared,
+            hasNext = true,
+            attemptFailed = tutorial.IsFailed,
+            checking = tutorial.IsCheckingClear,
+            hold = tutorial.HoldProgress,
+            balance = GetBeamBalance(tutorialBeamZeroAngle),
+        };
+    }
+
+    // 모든 저울대의 평균 수평 정도 (0~1)
+    private static float GetBeamBalance(float zeroAngle)
+    {
+        if (ScaleSystem.Inst == null) return 0f;
+        float sum = 0f;
+        int count = 0;
+        foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
+        {
+            if (!(node is ScaleBeam)) continue;
+            sum += Mathf.Clamp01(1f - Mathf.Abs(node.CurrentAngle) / Mathf.Max(zeroAngle, 0.01f));
+            count++;
+        }
+        return count > 0 ? sum / count : 0f;
+    }
+
+    // 스테이지 번호, 상태 글자, 게이지를 갱신한다.
+    private void ShowHeader(HeaderState s, GameManager game)
+    {
+        var basket = game.FocusedBasket;
+        bool failed = s.attemptFailed || game.gameOver;
+        bool checking = s.checking && !failed;
+        float progress = checking ? s.hold : s.balance;
+        bool idle = s.ready && !s.settling && !s.cleared && !failed && !checking;
+        // 바구니 줌인 중에는 게이지 없이 무게 차이만 표시
+        bool showMeter = s.ready && !failed && !(basket != null && idle);
+        int ballsLeft = GetBallsLeft();
+        // 균형은 100%지만 아직 넣을 공이 남은 상태
+        bool waitingBalls = idle && basket == null && ballsLeft > 0 && Mathf.FloorToInt(s.balance * 100f + .0001f) >= 100;
+        int iconLevel = -1;
+        if (stageTitle != null) stageTitle.text = s.title;
+        if (status != null) status.text = !s.ready ? "LOADING" :
+            s.settling ? "CLEAR 0%" :
+            s.cleared ? (s.hasNext ? "CLEAR 100%" : "CAMPAIGN COMPLETE") :
+            failed ? (s.attemptFailed ? "FAILED" : "GAME OVER") :
+            checking ? $"CLEAR {Mathf.FloorToInt(progress * 100f)}%" :
+            basket != null && idle ? GetBasketWeightText(basket, out iconLevel) :
+            waitingBalls ? $"BALLS LEFT {ballsLeft}" :
+            $"BALANCE {Mathf.FloorToInt(s.balance * 100f + .0001f)}%";
+        bool clearText = s.ready && !failed && (s.settling || checking || (s.cleared && s.hasNext));
+        ApplyStatusLayout(basket != null && idle, iconLevel, clearText);
+        UpdateMeter(showMeter, s.settling || checking || s.cleared,
+            s.settling ? 0f : s.cleared ? 1f : progress, s.settling);
+        if (progressFillImage != null) progressFillImage.color = waitingBalls ? ballsLeftFillColor : progressFillBaseColor;
+    }
+
+    // 아직 떨어뜨리지 않은 공 수 (조준 중인 공 포함)
+    private static int GetBallsLeft()
+    {
+        var spawn = SpawnManager.Inst;
+        if (spawn == null) return 0;
+        return spawn.RemainingBallCount + (spawn.HasPreview ? 1 : 0);
+    }
+
+    // 바구니가 매달린 저울대에서 반대편 대비 무게 차이를 구한다.
+    private static bool TryGetBasketWeightGap(Basket basket, out float gap)
+    {
+        gap = 0f;
+        if (basket == null || ScaleSystem.Inst == null) return false;
+        foreach (HangingNode node in ScaleSystem.Inst.AllNodes)
+            if (node is ScaleBeam beam && beam.TryGetExcessMass(basket, out gap))
+                return true;
+        return false;
+    }
+
     // 무게 차이를 +/- 와 동물 아이콘으로 표시
-    private string GetBasketWeightText(StageManager stage, Basket basket, out int iconLevel)
+    private string GetBasketWeightText(Basket basket, out int iconLevel)
     {
         iconLevel = -1;
-        if (!stage.TryGetBasketWeightGap(basket, out float gap)) return "BASKET";
+        if (!TryGetBasketWeightGap(basket, out float gap)) return "BASKET";
         if (Mathf.Abs(gap) < balancedWeightThreshold) return $"BASKET <color=#{ColorUtility.ToHtmlStringRGB(evenColor)}>EVEN</color>";
         iconLevel = NearestAnimalLevel(Mathf.Abs(gap));
         int signSize = Mathf.RoundToInt(signScale * 100f);

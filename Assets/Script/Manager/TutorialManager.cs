@@ -10,6 +10,9 @@ public class TutorialManager : MonoBehaviour
     public static TutorialManager Inst { get; private set; }
     public static bool IsCompleted => PlayerPrefs.GetInt(CompletedKey, 0) == 1;
 
+    // 튜토리얼을 완료한 순간 알린다.
+    public static event System.Action OnTutorialCompleted;
+
     public enum Step { Settle, InspectNext, SelectBasket, DropBall, ReturnOverview, Balance, Failed, Complete }
 
     [System.Serializable]
@@ -68,6 +71,11 @@ public class TutorialManager : MonoBehaviour
 
     public Step CurrentStep => step;
     public int TotalProvidedBalls { get; private set; }
+    public bool IsCheckingClear => step == Step.Balance && holdTimer > 0f;
+    public float HoldProgress => holdTime > 0f ? Mathf.Clamp01(holdTimer / holdTime) : 1f;
+    public bool IsCleared => step == Step.Complete;
+    public bool IsFailed => step == Step.Failed;
+    public float BeamTolerance => beamTolerance;
 
     private void Awake()
     {
@@ -238,6 +246,7 @@ public class TutorialManager : MonoBehaviour
 
         ui.HideAll();
         ui.ShowResult("튜토리얼 완료!", firstClear ? msgStartGame : msgBackToMain, ExitTutorial);
+        OnTutorialCompleted?.Invoke();
     }
 
     // ─── 평형 맞추기 ───

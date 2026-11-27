@@ -49,6 +49,8 @@ public class StageManager : MonoBehaviour
 
     public int Stage { get; private set; } = 1;
     public bool IsCleared { get; private set; }
+    // 저울대가 수평으로 인정되는 최대 기울기 (도)
+    public float LevelTolerance => levelTolerance;
     public bool IsStageReady => stageReady;
     public string DataSignature => GetStageSignature(Stage);
     public float ExpectedMass => expectedMass;

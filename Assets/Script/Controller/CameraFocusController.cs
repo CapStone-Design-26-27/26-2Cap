@@ -30,6 +30,10 @@ public class CameraFocusController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float zoomSpeed = 3f;
 
+    [Header("클리어 판정 시 이동 속도 (전체 보기로 빠르게 돌아감)")]
+    [SerializeField] private float clearMoveSpeed = 12f;
+    [SerializeField] private float clearZoomSpeed = 10f;
+
     [Header("비활성 연출 (집중 중이 아닌 바구니, 저울대, 그 안의 공)")]
     [Range(0f, 1f)]
     [SerializeField] private float dimAlpha = 0.25f;
@@ -101,6 +105,14 @@ public class CameraFocusController : MonoBehaviour
     private void Update()
     {
         if (GameManager.Inst == null || GameManager.Inst.gameOver || GameManager.Inst.gamePaused) return;
+
+        // 클리어 판정이 시작되거나 클리어되면 저울 전체가 보이도록 전체 보기로 돌아간다.
+        if (GameManager.Inst.FocusedBasket != null && ClearFxState.IsClearing)
+        {
+            Focus(null);
+            return;
+        }
+
         if (StageManager.Inst != null && !StageManager.Inst.AcceptsInput) return;
 
         if (GameManager.Inst.FocusedBasket == null &&
@@ -117,8 +129,9 @@ public class CameraFocusController : MonoBehaviour
         if (GameManager.Inst == null || ScaleSystem.Inst == null) return;
         GetTarget(out Vector2 center, out float size);
 
-        float moveT = 1f - Mathf.Exp(-moveSpeed * Time.deltaTime);
-        float zoomT = 1f - Mathf.Exp(-zoomSpeed * Time.deltaTime);
+        bool clearing = ClearFxState.IsClearing;
+        float moveT = 1f - Mathf.Exp(-(clearing ? clearMoveSpeed : moveSpeed) * Time.deltaTime);
+        float zoomT = 1f - Mathf.Exp(-(clearing ? clearZoomSpeed : zoomSpeed) * Time.deltaTime);
 
         Vector3 targetPos = new Vector3(center.x, center.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPos, moveT);
